@@ -42,7 +42,7 @@ a{
 }
 
 .bg-img-one{
-	background: url('../images/background_001.jpg') 50% no-repeat;
+	background: url('../images/background2.jpg') 50% no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 	display: block;
@@ -52,12 +52,12 @@ a{
 }
 
 .bg-img-two{
-	background: url('../images/week7.jpg') 50% no-repeat;
+	background: url('../images/background3.jpg') 50% no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 	display: block;
 	width: 100%;
-	min-height: 100%;
+	min-height: 92%;
 }
 
 .bg-img-three{
@@ -72,23 +72,21 @@ a{
 
 .login-container{
 	padding:20px;
-	box-shadow: 0px 0px 47px 26px #fff;
-	margin:10px auto;
+	box-shadow: 0px 0px 10px 0px #000;
+	margin:50px auto;
 	display: block;
 	width: 40%;
 	border-radius: 10px;
-	/*background-color:#4DAFD6; */
-	background-color:#00709A;
-	
+	background-color:; 
 }
 .registration-container{
 	padding:20px;
-	box-shadow: 0px 0px 47px 26px #fff;
-	margin:10px auto ;
+	box-shadow: 0px 0px 10px 0px #000;
+	margin:50px auto 0;
 	display: block;
-	width: 40%;
+	width: 38%;
 	border-radius: 10px;
-	background-color:#00709A;
+	background-color:; 
 }
 .cloudName-container{
     padding:20px;
@@ -237,8 +235,8 @@ header {
 
 }
 .header-logo{
-	text-align: center;
-	/*margin-top: 30px;*/
+	text-align: left;
+	margin-top: 30px;
 
 }
 .space{
@@ -321,7 +319,7 @@ nav ul li:hover{
 	box-shadow:none;
 }
 nav ul li a{
-	color:#fff;
+	color:#000;
 	font-weight: bold;
 	text-decoration: none;
 	cursor: pointer;
@@ -395,10 +393,10 @@ footer{
 }
 
 .step2{
-	/*padding: 10px 33px 10px 24px;*/
+	padding: 10px 33px 10px 24px;
 }
 .checkbox{
-	margin-bottom: 20px;
+	margin-bottom: 16px;
     width: 20px;
     padding-left:11px;
 }
@@ -421,7 +419,7 @@ footer{
 }
 
 .para{
-	 margin: -14px 66px 30px 28px;
+	 margin: -14px 116px 30px 28px;
 	display: block;
     padding-left: 15px;
     text-indent: -15px;
@@ -454,10 +452,10 @@ footer{
 }
 
 #para1 {
-		font-size:x-large;
+		font-size:180%;
 	
-	 padding:94px 0 0;
-	 text-align:center;
+	 padding:190px 135px 0px 150px;
+	 text-align:justify;
 }
 
 #para2 {
@@ -786,7 +784,4 @@ footer{
 .head-padding{
 		padding: 8px 11px;
 }
-.font-white{
-	font-weight: bold;
-	color : #fff;
-}
+

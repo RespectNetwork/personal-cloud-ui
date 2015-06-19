@@ -746,51 +746,6 @@ $scope.changepass.show = false;
 			});
 	
 	}
-	$scope.submitDepPayCloudNew = function(isValid,posturl,event,serviceName)
-	{
-		if(isValid){
-				if($scope.addDepedent.depCloudpass!=undefined && !($scope.addDepedent.depCloudpass===$scope.addDepedent.depCloudconfPass)){
-				
-					$scope.errorMessageContainerAddDep = true;
-					$scope.successMessageContainerAddDep = false;				 
-					$scope.errorMessageAddDep = "Password don't match";
-					return false;
-				
-				}
-			
-		//Updating paramters accordingly
-			var dataObject= {
-				paymentType : "CREDIT_CARD",
-				paymentReferenceId : "abcde0123456789",
-				paymentResponseCode:"OK",
-				amount:"15",
-				currency:"USD"
-			};
-			var apiUrl = {postUrl : 'products/DCN/payments'};
-			commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	
-			if(responseData.paymentId != null){
-					$scope.pageLoaded = true;					
-					$scope.loading_contactsInfo=false;								  
-					$scope.userDetailContainer = false;
-					$scope.validUserContainer = false;		
-					$scope.paymentContainer = true;
-					$scope.registerDepCloudName(responseData.paymentId,'csp/'+globalInfo.cspName+'/clouds/personalClouds');
-				}
-				else
-				{
-					$scope.errorPaymentContainer = true;
-					$scope.errorPaymentMessage = "Error: Invalid request";
-				}
-			});
-		}
-		else
-		{
-			$scope.user.hasErrorCond = true;
-			
-		}
-	
-	}
-	
 	$scope.getPaymentID = function(isValid,posturl,event,serviceName)
 	{ 
 		
