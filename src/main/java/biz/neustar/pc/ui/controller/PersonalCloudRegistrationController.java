@@ -24,7 +24,6 @@ THE SOFTWARE.
 package biz.neustar.pc.ui.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import biz.neustar.pc.ui.constants.UIRestPathConstants;
+import biz.neustar.pc.ui.exception.PCloudErrorsUIException;
 import biz.neustar.pc.ui.exception.PCloudUIException;
 import biz.neustar.pc.ui.manager.impl.PCloudResponse;
 import biz.neustar.pc.ui.manager.impl.PersonalCloudManager;
@@ -164,14 +164,30 @@ public class PersonalCloudRegistrationController {
         return personalCloudManagerImpl.changePassword(cspCloudName, cloudName, cloudValidation);
 
     }
+
     @SuppressWarnings("unchecked")
     @ExceptionHandler(PCloudUIException.class)
-    public @ResponseBody String handleUltraException(PCloudUIException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody
+    String handleUltraException(PCloudUIException exception, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         response.setStatus(exception.getStatusCode());
-   
+
         JSONObject error = new JSONObject();
-        error.put("errorCode", exception.getErrorCode()); 
-        error.put("errorMessage", exception.getErrorMessage()); 
+        error.put("errorCode", exception.getErrorCode());
+        error.put("errorMessage", exception.getErrorMessage());
+        LOGGER.error("Error : {}", exception.getLocalizedMessage(), exception);
+        return error.toJSONString();
+    }
+
+    @SuppressWarnings("unchecked")
+    @ExceptionHandler(PCloudErrorsUIException.class)
+    public @ResponseBody
+    String handleUltraException(PCloudErrorsUIException exception, HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+        response.setStatus(exception.getStatusCode());
+
+        JSONObject error = new JSONObject();
+        error.put("errors", exception.getErrors());
         LOGGER.error("Error : {}", exception.getLocalizedMessage(), exception);
         return error.toJSONString();
     }
