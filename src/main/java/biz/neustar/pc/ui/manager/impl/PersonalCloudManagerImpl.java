@@ -25,12 +25,15 @@ package biz.neustar.pc.ui.manager.impl;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import biz.neustar.pc.ui.constants.UIRestPathConstants;
+import biz.neustar.pc.ui.exception.PCloudErrorsUIException;
 import biz.neustar.pc.ui.exception.PCloudUIException;
 import biz.neustar.pcloud.PCRestClient;
 import biz.neustar.pcloud.ResponseData;
@@ -212,23 +215,22 @@ public class PersonalCloudManagerImpl implements PersonalCloudManager {
                 error = new ObjectMapper().readValue(responsedata.getBody(), PCloudError.class);
                 throw new PCloudUIException(error.getErrorCode(), error.getErrorMessage(), responsedata.getStatus());
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                LOGGER.error("Might be list of errors :");
+                List<PCloudError> errors;
+                try {
+                    errors = new ObjectMapper().readValue(responsedata.getBody(), ArrayList.class);
+                    throw new PCloudErrorsUIException(errors, responsedata.getStatus());
+                } catch (IOException e1) {
+                    LOGGER.error("Error while parsing response data for error condition", e1);
+                }
             }
-
         } else {
-
             try {
-
                 entity = entityType.cast(new ObjectMapper().readValue(responsedata.getBody(), entityType));
-
             } catch (Exception e) {
-                LOGGER.info("inside exception");
-                e.printStackTrace();
+                LOGGER.error("Error while parsing response data for success", e);
             }
-
         }
         return entity;
-
     }
 }
