@@ -169,7 +169,7 @@ public class PersonalCloudRegistrationController {
     @SuppressWarnings("unchecked")
     @ExceptionHandler(PCloudUIException.class)
     public @ResponseBody
-    String handleUltraException(PCloudUIException exception, HttpServletRequest request, HttpServletResponse response)
+    String handleException(PCloudUIException exception, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         response.setStatus(exception.getStatusCode());
         JSONArray errors = new JSONArray();
@@ -177,19 +177,19 @@ public class PersonalCloudRegistrationController {
         error.put("errorCode", exception.getErrorCode());
         error.put("errorMessage", exception.getErrorMessage());
         errors.add(error);
-        LOGGER.error("Errors : {}", exception.getLocalizedMessage(), exception);
+        LOGGER.debug("Errors : {}", exception.getLocalizedMessage(), exception);
         return errors.toJSONString();
     }
 
     @SuppressWarnings("unchecked")
     @ExceptionHandler(PCloudErrorsUIException.class)
     public @ResponseBody
-    String handleUltraException(PCloudErrorsUIException exception, HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
+    String handleUIException(PCloudErrorsUIException exception, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         response.setStatus(exception.getStatusCode());
         JSONArray errors = new JSONArray();
         errors.addAll(exception.getErrors());
-        LOGGER.error("Errors : {}", exception.getLocalizedMessage(), exception);
+        LOGGER.debug("Errors : {}", exception.getLocalizedMessage(), exception);
         return errors.toJSONString();
     }
 }
