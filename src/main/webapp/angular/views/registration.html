@@ -43,13 +43,13 @@ THE SOFTWARE.
 						
 							<div class="col-md-12">
 								<div  class="form-group" ng-class="{'hasError':errorMessageContainer}" show-errors>
-									<h4 class="control-label font-white" >Choose your Cynja ID name:</h4>
+									<h4 class="control-label font-white" >Choose your Cynja ID:</h4>
 									<input class="error-control"  id="cloudName" name="cloudName" ng-model="user.cloudName" ng-change="appendSign()" ng-blur="cloudCheck(user.cloudName)" required/>
 									 
 									<div  id="cloudAvailError" style="text-align: center;color:red" class="help-block" ng-show="cloudAvailForm.cloudName.$error.required">Cloud Name is required.</div>
 								 
 									<div id="cloudNotAvail" style="text-align: center;color:red" ng-if="errorMessageContainer" role="alert">{{errorMessage}}</div>
-									<div id="cloudAvailSuccess" style="text-align: center;color:green" ng-if="successMessageContainer" role="alert">{{successMessage}}</div>	
+									<div id="cloudAvailSuccess" style="text-align: center;color:yellow" ng-if="successMessageContainer" role="alert">{{successMessage}}</div>	
 								</div>
 								<div style="text-align:center;" class="font-white" for="example_name">e.g, =jane, =janedoe, =jane.doe</div>
 								<div class="form-group">
@@ -125,7 +125,7 @@ THE SOFTWARE.
 									 
 										<div class="checkbox">									
 										<input type="checkbox" id="I_Agree" name="I_Agree" ng-model="user.I_Agree" value="CSP" required></div><div class="checkbox-one" style="color: #fff;"><p>
-										I agree to <a href="http://openidentityexchange.org/wp-content/uploads/Respect%20Trust%20Framework_0.pdf" style="color:#33c4ff">Respect Trust Framework</a> and the one-person account rule. </p></div>
+										I agree to <a href="http://openidentityexchange.org/wp-content/uploads/Respect%20Trust%20Framework_0.pdf" target="_blank" style="color:#33c4ff">Respect Trust Framework</a> and the one-person account rule. </p></div>
 									
 									<div class="form-group">
 										<input id="verifyCodes" type="button" value="Verify" ng-click="validatesCodes(validateUserForm.$valid,'codes/validate')" class="grad pull-left checkbox-three"  "/>
@@ -153,7 +153,7 @@ THE SOFTWARE.
 									<div class="checkbox-four form-group" ng-class="{hasError: user.hasErrorPay}" show-errors>									
 										<input type="checkbox" id="I_Agree1" name="I_Agree1" value="CSP" ng-model="user.I_Agree1" required>
 																		
-										<div class="checkbox-one"><p class="para font-white">I agree to <a href="http://www.emmettglobal.com/csp_tos.html" style="color:#33c4ff">CSP terms</a> of service</p></div>
+										<div class="checkbox-one"><p class="para font-white">I agree to <a href="http://www.emmettglobal.com/csp_tos.html" style="color:#33c4ff" target="_blank">CSP terms</a> of service</p></div>
 										<div style="text-align: center;color:red;" class="help-block"ng-show="paymentModeForm.I_Agree1.$error.required">required</div>
 									</div>
 									
