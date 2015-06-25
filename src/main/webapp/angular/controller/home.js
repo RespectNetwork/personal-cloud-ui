@@ -68,8 +68,12 @@ angular.module('myApp').controller("homeController", function ($scope, $filter,$
 			{
 				$scope.errorMessageContainer = true;
 				if(result[0].errorMessage){
-				//$scope.errorMessage = result[0].errorMessage;
-				$scope.errorMessage = "The Cynja Id provided does not exist";
+				$scope.errorMessage = result[0].errorMessage;
+					/*if(result[0].errorCode == '1014'){
+						$scope.errorMessage = "Invalid secret token";
+					  }else if (result[0].errorCode == '7007'){
+						$scope.errorMessage = "The Cynja Id provided does not exist";
+					  }*/
 				}else{
 				//$scope.errorMessage = result.errorMessage;
 				$scope.errorMessage = "The Cynja Id provided does not exist";
