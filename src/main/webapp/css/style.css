@@ -790,3 +790,19 @@ footer{
 	font-weight: bold;
 	color : #fff;
 }
+ 
+.navbar-inverse .navbar-nav > li > a {
+	color : #000;
+}
+.navbar-inverse .navbar-nav > li > a:hover ,.navbar-inverse .navbar-nav > li > a:focus{
+	 
+	color : #68B8D8;
+}
+.dropdown-menu > li > a {
+	color : #000;
+	font-weight : bold;
+}
+.dropdown-menu > li > a:hover ,.dropdown-menu li > a:focus{
+	 
+	color : #68B8D8;
+}

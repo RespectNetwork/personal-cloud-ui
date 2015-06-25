@@ -598,6 +598,30 @@ $scope.changepass.show = false;
 						}
 					});
 	}
+	$scope.submitPayCloudCynja = function() {
+	
+					var dataObject= {
+									paymentType : "CREDIT_CARD",
+									paymentReferenceId : "abcde0123456789",
+									paymentResponseCode:"OK",
+									amount:"10",
+									currency:"USD"
+									};
+					var apiUrl = {postUrl : 'products/SCN/payments'};
+					commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	 
+					 
+						if(responseData.paymentId != null){
+											
+							$scope.registerAdtCloudName(responseData.paymentId,'csp/'+globalInfo.cspName+'/clouds/personalClouds/'+$scope.userlogin.cloudName+'/synonyms');
+							$scope.addCloudFirstContainer = false;									
+						}
+						else
+						{
+							$scope.errorMessageContainerAddDep = true;
+							$scope.errorMessageAddDep = "Error: Invalid request";
+						}
+					});
+	}
 	
 	// function to submit additional cloud 
 	$scope.submitAdnCloud = function(isValid,event,serviceName) {
@@ -605,9 +629,9 @@ $scope.changepass.show = false;
 		if(isValid){
 			$scope.errorMessageContainer = false;
 			$scope.successMessageContainer = false;	
-			$scope.addCloudFirstContainer = false;
-			$scope.addCloudPayContainer = true;				 
-			
+			//$scope.addCloudFirstContainer = false;
+			//$scope.addCloudPayContainer = true;				 
+			$scope.submitPayCloudCynja();
 		}else{
 			$scope.errorMessageContainer = true;
 			$scope.errorMessage = "Error: Invalid Request";
