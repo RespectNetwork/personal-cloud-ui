@@ -25,7 +25,6 @@ package biz.neustar.pc.ui.manager.impl;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -48,6 +47,7 @@ import biz.neustar.pcloud.rest.dto.Synonym;
 import biz.neustar.pcloud.rest.dto.SynonymInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.sun.jersey.api.representation.Form;
 
 /**
@@ -218,7 +218,8 @@ public class PersonalCloudManagerImpl implements PersonalCloudManager {
                 LOGGER.error("Might be list of errors :");
                 List<PCloudError> errors;
                 try {
-                    errors = new ObjectMapper().readValue(responsedata.getBody(), ArrayList.class);
+                    errors = new ObjectMapper().readValue(responsedata.getBody(), TypeFactory.defaultInstance()
+                            .constructCollectionType(List.class, PCloudError.class));
                     throw new PCloudErrorsUIException(errors, responsedata.getStatus());
                 } catch (IOException e1) {
                     LOGGER.error("Error while parsing response data for error condition", e1);

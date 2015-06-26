@@ -51,6 +51,7 @@ import biz.neustar.pcloud.rest.constants.ProductNames;
 import biz.neustar.pcloud.rest.dto.CloudInfo;
 import biz.neustar.pcloud.rest.dto.CloudValidation;
 import biz.neustar.pcloud.rest.dto.DependentList;
+import biz.neustar.pcloud.rest.dto.PCloudError;
 import biz.neustar.pcloud.rest.dto.PaymentInfo;
 import biz.neustar.pcloud.rest.dto.PaymentResponse;
 import biz.neustar.pcloud.rest.dto.Synonym;
@@ -188,8 +189,13 @@ public class PersonalCloudRegistrationController {
             throws IOException {
         response.setStatus(exception.getStatusCode());
         JSONArray errors = new JSONArray();
-        errors.addAll(exception.getErrors());
-        LOGGER.debug("Errors : {}", exception.getLocalizedMessage(), exception);
+        for (PCloudError pCloudError : exception.getErrors()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("errorCode", pCloudError.getErrorCode());
+            jsonObject.put("errorMessage", pCloudError.getErrorMessage());
+            errors.add(jsonObject);
+        }
+        LOGGER.debug("Errors : {}", errors, exception);
         return errors.toJSONString();
     }
 }
