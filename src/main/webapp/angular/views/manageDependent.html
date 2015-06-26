@@ -32,11 +32,11 @@ THE SOFTWARE.
 			
 			<table   style="margin-top:100px;max-width: 100%;width: 100%;">
 				<tr align="center">
-					<td class="font-white" style="font-size:20px;">Add children to you your digital family.</td>
+					<td class="font-white" style="font-size:20px;">Add children to your digital family.</td>
 				</tr>
 				<tr>
 					<td><a href="#userhome" class="btn btn-primary " style="margin-bottom: 10px;">Back</a>&nbsp;&nbsp;					
-					<input style="margin-bottom: 10px;" ng-click="addRecord('addDependent')" class="btn btn-primary"   name="action" id="'action_'+$index" value="Add Children"  >
+					<input style="margin-bottom: 10px;" ng-click="addRecord('addDependent')" class="btn btn-primary"   name="action" id="'action_'+$index" value="Add Child"  >
 					</td>
 					
 				</tr>
@@ -75,9 +75,9 @@ THE SOFTWARE.
 				<div class="modal-content">
 				  <div class="modal-header" style="background-image: linear-gradient(#f9f9f9, #e4e4e4);">
 					<button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title"><span>Add Children</span></h4>
+					<h4 class="modal-title"><span>Add Child</span></h4>
 				  </div>
-				<div class="modal-body" style="background: transparent url('images/kids_jo.png') no-repeat scroll 50% center / 63% auto;">
+				<div class="modal-body" style="background: transparent url('images/kids_jo.png') no-repeat scroll 91% center / 61% auto;">
 					<div id="addDepCloudFirst" ng-show="addDepCloudFirstContainer">
 						<form id="addDependentForm" method="post" name="addDependentForm"  novalidate>	
 							<div ng-show="errorMessageContainerAddDep" style="text-align: center;color:red" role="alert">{{errorMessageAddDep}}</div>
@@ -85,20 +85,20 @@ THE SOFTWARE.
 							 
 								<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
 								<label  >Cynja ID:</label>
-								<input class="modalInput" id="depCloudName" name="depCloudName" ng-model="addDepedent.depCloudName" type="text" placeholder="=children" ng-change="appendSign()" ng-blur="cloudCheckDep(addDepedent.depCloudName)" required/>
+								<input class="modalInput" id="depCloudName" name="depCloudName" ng-model="addDepedent.depCloudName" type="text" placeholder="=child" ng-change="appendSign()" ng-blur="cloudCheckDep(addDepedent.depCloudName)"  required/>
 								<div  id="depCloudName" style="text-align: center;color:red" class="help-block" ng-show="addDependentForm.depCloudName.$error.required">Cloud name is required.</div>
 								</div>
 								
 							<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
 								<label  >Password:</label>
-								<input type="password" class="modalInput"  id="depCloudpass" name="depCloudpass" ng-model="addDepedent.depCloudpass"  placeholder="Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required/>
+								<input type="password" class="modalInput"  id="depCloudpass" name="depCloudpass" ng-model="addDepedent.depCloudpass"  placeholder="Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" readonly required/>
 								<div  id="depCloudpass" style="text-align: center;color:red" class="help-block" ng-show="addDependentForm.depCloudpass.$error.required">Password is required.</div>
 								<div style="color:red;" ng-show="!addDependentForm.depCloudpass.$error.required && (addDependentForm.depCloudpass.$error.minlength || addDependentForm.depCloudpass.$error.maxlength) && addDependentForm.depCloudpass.$dirty">Passwords must be between 8 and 20 characters.</div>
 								<div style="color:red;" ng-show="!addDependentForm.depCloudpass.$error.required && !addDependentForm.depCloudpass.$error.minlength && !addDependentForm.depCloudpass.$error.maxlength && addDependentForm.depCloudpass.$error.pattern && addDependentForm.depCloudpass.$dirty">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</div>
 							</div>		
 								
 							<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>	
-								<input type="password" class="modalInput"  id="depCloudconfPass" name="depCloudconfPass" ng-model="addDepedent.depCloudconfPass"  placeholder="Confirm Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required/>
+								<input type="password" class="modalInput"  id="depCloudconfPass" name="depCloudconfPass" ng-model="addDepedent.depCloudconfPass"  placeholder="Confirm Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" readonly required/>
 								<div  id="depCloudconfPass" style="text-align: center;color:red" class="help-block" ng-show="addDependentForm.depCloudconfPass.$error.required">Confirm password is required.</div>
 								<div style="color:red;" ng-show="addDependentForm.depCloudconfPass.$error.pattern && addDependentForm.depCloudconfPass.$dirty">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</div>
 							</div>	
@@ -113,15 +113,15 @@ THE SOFTWARE.
 							</div>	
 						 
 							
-							<!--div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>	
+							<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>	
 							<div class="checkbox-four">									
 									<input type="checkbox" id="I_AgreeAddDep" name="I_AgreeAddDep" value="CSP" ng-model="addDepedent.I_AgreeAddDep" required>
 									
 							</div>
-							<div class="checkbox-one"><p class="paraAddDep ">I agree to CSP <a href="http://www.emmettglobal.com/csp_tos.html" target="_blank">terms of service<a></p></div>
-							<p  id="I_AgreeAddDep" style="text-align: center;color:red;width:100%" class="help-block" ng-show="addDependentForm.I_AgreeAddDep.$error.required">Please agree with terms and condition.
+							<div class="checkbox-one"><p class="paraAddDep ">I consent to my child obtaining a cynja Id</p></div>
+							<p  id="I_AgreeAddDep" style="text-align: center;color:red;width:100%" class="help-block" ng-show="addDependentForm.I_AgreeAddDep.$error.required">Please agree with above consent.
 							</p>
-							</div-->
+							</div>
 							<div class="form-group">
 									<input id="chkCldStatus" type="button" value="Submit" ng-click="submitDepPayCloudNew(addDependentForm.$valid,'csp/'+cspName+'/clouds/personalClouds',$event,'stripe')" class="modalInput"   />
 							</div>
