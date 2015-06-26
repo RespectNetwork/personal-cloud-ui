@@ -31,9 +31,12 @@ THE SOFTWARE.
 		<div class="row" id="add_dependent" ng-show="addDependentContainer">
 			
 			<table   style="margin-top:100px;max-width: 100%;width: 100%;">
+				<tr align="center">
+					<td class="font-white" style="font-size:20px;">Add children to you your digital family.</td>
+				</tr>
 				<tr>
 					<td><a href="#userhome" class="btn btn-primary " style="margin-bottom: 10px;">Back</a>&nbsp;&nbsp;					
-					<input style="margin-bottom: 10px;" ng-click="addRecord('addDependent')" class="btn btn-primary"   name="action" id="'action_'+$index" value="Add Dependent"  >
+					<input style="margin-bottom: 10px;" ng-click="addRecord('addDependent')" class="btn btn-primary"   name="action" id="'action_'+$index" value="Add Children"  >
 					</td>
 					
 				</tr>
@@ -45,7 +48,7 @@ THE SOFTWARE.
 							<tr class="table-heading" ng-show="successMessageContainerAddDep"  align="center"><th colspan="1" align="center" style="text-align:center;">
 							<span  style="color:white;font-weight:bold;" role="alert">{{successMessageAddDep}}</span></th></tr>
 							<tr class="table-heading">
-								<th>Cloud Name</th>
+								<th>Cynja Id</th>
 								<!--th>DOB</th-->
 															 
 							</tr>
@@ -72,7 +75,7 @@ THE SOFTWARE.
 				<div class="modal-content">
 				  <div class="modal-header" style="background-image: linear-gradient(#f9f9f9, #e4e4e4);">
 					<button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title"><span>Add Dependent Cloud ID</span></h4>
+					<h4 class="modal-title"><span>Add Children</span></h4>
 				  </div>
 				<div class="modal-body" style="background: transparent url('images/kids_jo.png') no-repeat scroll 50% center / 63% auto;">
 					<div id="addDepCloudFirst" ng-show="addDepCloudFirstContainer">
@@ -81,8 +84,8 @@ THE SOFTWARE.
 							<div ng-show="successMessageContainerAddDep" style="text-align: center;color:#68b8d8" role="alert">{{successMessageAddDep}}</div>
 							 
 								<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
-								<label  >Cloud ID:</label>
-								<input class="modalInput" id="depCloudName" name="depCloudName" ng-model="addDepedent.depCloudName" type="text" placeholder="=dependent" ng-change="appendSign()" ng-blur="cloudCheckDep(addDepedent.depCloudName)" required/>
+								<label  >Cynja ID:</label>
+								<input class="modalInput" id="depCloudName" name="depCloudName" ng-model="addDepedent.depCloudName" type="text" placeholder="=children" ng-change="appendSign()" ng-blur="cloudCheckDep(addDepedent.depCloudName)" required/>
 								<div  id="depCloudName" style="text-align: center;color:red" class="help-block" ng-show="addDependentForm.depCloudName.$error.required">Cloud name is required.</div>
 								</div>
 								
@@ -110,7 +113,7 @@ THE SOFTWARE.
 							</div>	
 						 
 							
-							<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>	
+							<!--div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>	
 							<div class="checkbox-four">									
 									<input type="checkbox" id="I_AgreeAddDep" name="I_AgreeAddDep" value="CSP" ng-model="addDepedent.I_AgreeAddDep" required>
 									
@@ -118,7 +121,7 @@ THE SOFTWARE.
 							<div class="checkbox-one"><p class="paraAddDep ">I agree to CSP <a href="http://www.emmettglobal.com/csp_tos.html" target="_blank">terms of service<a></p></div>
 							<p  id="I_AgreeAddDep" style="text-align: center;color:red;width:100%" class="help-block" ng-show="addDependentForm.I_AgreeAddDep.$error.required">Please agree with terms and condition.
 							</p>
-							</div>
+							</div-->
 							<div class="form-group">
 									<input id="chkCldStatus" type="button" value="Submit" ng-click="submitDepPayCloudNew(addDependentForm.$valid,'csp/'+cspName+'/clouds/personalClouds',$event,'stripe')" class="modalInput"   />
 							</div>

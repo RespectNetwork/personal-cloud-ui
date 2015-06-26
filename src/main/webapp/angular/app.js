@@ -49,6 +49,11 @@ app.value('globalInfo', {
                 controller  : 'registration'
             })
 			
+			// route for the faq's page step one page
+            .when('/faqs', {
+                templateUrl : 'angular/views/faqs.html'
+            })
+			
 			 // route for the user home page after login
             .when('/userhome', {
                 templateUrl : 'angular/views/userHome.html',
