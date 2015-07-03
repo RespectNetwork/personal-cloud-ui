@@ -63,7 +63,6 @@ $scope.addCloudFirstContainer = true;
 $scope.addCloudPayContainer = false;
 $scope.addDepCloudFirstContainer = true;
 $scope.addDepCloudPayContainer = false;
-
 $scope.userlogin.cloudName = $cookies.guardianCloudName; 
 $scope.userlogin.guardianPassword = $cookies.guardianPassword;
 
@@ -404,8 +403,8 @@ $scope.changepass.show = false;
 			$scope.changePassword.newPassword ="";
 			$scope.changePassword.confNewPassword="";
 			$scope.addDepedent.depCloudName = "";	
-			$scope.addDepedent.depCloudpass = "";	
-			$scope.addDepedent.depCloudconfPass = "";	
+			$scope.addDepedent.depCloudpass = $cookies.guardianPassword;	
+			$scope.addDepedent.depCloudconfPass = $cookies.guardianPassword;	
 			//$scope.addDepedent.datepicker = null;	
 			$scope.addDepedent.depCloudDOB = null;
 			$scope.addDepedent.I_AgreeAddDep = "";
@@ -876,8 +875,11 @@ $scope.changepass.show = false;
 				{
 							$scope.addDependentContainer = true;
 							$scope.successMessageContainerAddDep=true;
-							$scope.successMessageAddDep="Dependent Cloud Added Successfully";
+							$scope.successMessageAddDep="Child Cynja Id Added Successfully";
 							$('#addDependent').modal('hide');
+							setTimeout(function(){
+							  $scope.dependentCldList();
+							}, 7000); 
 				}
 				else
 				{
