@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import biz.neustar.pc.ui.constants.UIRestPathConstants;
@@ -164,6 +165,14 @@ public class PersonalCloudRegistrationController {
             @PathVariable(value = UIRestPathConstants.CLOUD_NAME) final String cloudName,
             @RequestBody final CloudValidation cloudValidation) {
         return personalCloudManagerImpl.changePassword(cspCloudName, cloudName, cloudValidation);
+
+    }
+
+    @RequestMapping(value = UIRestPathConstants.PERSONAL_CLOUD_PROV_FEEDBACK_URI, method = RequestMethod.POST)
+    public @ResponseBody
+    PCloudResponse processFeedback(@RequestParam(value = UIRestPathConstants.EMAIL) final String email,
+            @RequestBody final String message) {
+        return personalCloudManagerImpl.processFeedback(email, message);
 
     }
 
