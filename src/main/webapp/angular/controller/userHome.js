@@ -63,7 +63,6 @@ $scope.addCloudFirstContainer = true;
 $scope.addCloudPayContainer = false;
 $scope.addDepCloudFirstContainer = true;
 $scope.addDepCloudPayContainer = false;
-
 $scope.userlogin.cloudName = $cookies.guardianCloudName; 
 $scope.userlogin.guardianPassword = $cookies.guardianPassword;
 
@@ -404,8 +403,8 @@ $scope.changepass.show = false;
 			$scope.changePassword.newPassword ="";
 			$scope.changePassword.confNewPassword="";
 			$scope.addDepedent.depCloudName = "";	
-			$scope.addDepedent.depCloudpass = "";	
-			$scope.addDepedent.depCloudconfPass = "";	
+			$scope.addDepedent.depCloudpass = $cookies.guardianPassword;	
+			$scope.addDepedent.depCloudconfPass = $cookies.guardianPassword;	
 			//$scope.addDepedent.datepicker = null;	
 			$scope.addDepedent.depCloudDOB = null;
 			$scope.addDepedent.I_AgreeAddDep = "";
@@ -598,6 +597,30 @@ $scope.changepass.show = false;
 						}
 					});
 	}
+	$scope.submitPayCloudCynja = function() {
+	
+					var dataObject= {
+									paymentType : "CREDIT_CARD",
+									paymentReferenceId : "abcde0123456789",
+									paymentResponseCode:"OK",
+									amount:"10",
+									currency:"USD"
+									};
+					var apiUrl = {postUrl : 'products/SCN/payments'};
+					commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	 
+					 
+						if(responseData.paymentId != null){
+											
+							$scope.registerAdtCloudName(responseData.paymentId,'csp/'+globalInfo.cspName+'/clouds/personalClouds/'+$scope.userlogin.cloudName+'/synonyms');
+							$scope.addCloudFirstContainer = false;									
+						}
+						else
+						{
+							$scope.errorMessageContainerAddDep = true;
+							$scope.errorMessageAddDep = "Error: Invalid request";
+						}
+					});
+	}
 	
 	// function to submit additional cloud 
 	$scope.submitAdnCloud = function(isValid,event,serviceName) {
@@ -605,9 +628,9 @@ $scope.changepass.show = false;
 		if(isValid){
 			$scope.errorMessageContainer = false;
 			$scope.successMessageContainer = false;	
-			$scope.addCloudFirstContainer = false;
-			$scope.addCloudPayContainer = true;				 
-			
+			//$scope.addCloudFirstContainer = false;
+			//$scope.addCloudPayContainer = true;				 
+			$scope.submitPayCloudCynja();
 		}else{
 			$scope.errorMessageContainer = true;
 			$scope.errorMessage = "Error: Invalid Request";
@@ -746,6 +769,51 @@ $scope.changepass.show = false;
 			});
 	
 	}
+	$scope.submitDepPayCloudNew = function(isValid,posturl,event,serviceName)
+	{
+		if(isValid){
+				if($scope.addDepedent.depCloudpass!=undefined && !($scope.addDepedent.depCloudpass===$scope.addDepedent.depCloudconfPass)){
+				
+					$scope.errorMessageContainerAddDep = true;
+					$scope.successMessageContainerAddDep = false;				 
+					$scope.errorMessageAddDep = "Password don't match";
+					return false;
+				
+				}
+			
+		//Updating paramters accordingly
+			var dataObject= {
+				paymentType : "CREDIT_CARD",
+				paymentReferenceId : "abcde0123456789",
+				paymentResponseCode:"OK",
+				amount:"15",
+				currency:"USD"
+			};
+			var apiUrl = {postUrl : 'products/DCN/payments'};
+			commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	
+			if(responseData.paymentId != null){
+					$scope.pageLoaded = true;					
+					$scope.loading_contactsInfo=false;								  
+					$scope.userDetailContainer = false;
+					$scope.validUserContainer = false;		
+					$scope.paymentContainer = true;
+					$scope.registerDepCloudName(responseData.paymentId,'csp/'+globalInfo.cspName+'/clouds/personalClouds');
+				}
+				else
+				{
+					$scope.errorPaymentContainer = true;
+					$scope.errorPaymentMessage = "Error: Invalid request";
+				}
+			});
+		}
+		else
+		{
+			$scope.user.hasErrorCond = true;
+			
+		}
+	
+	}
+	
 	$scope.getPaymentID = function(isValid,posturl,event,serviceName)
 	{ 
 		
@@ -807,8 +875,11 @@ $scope.changepass.show = false;
 				{
 							$scope.addDependentContainer = true;
 							$scope.successMessageContainerAddDep=true;
-							$scope.successMessageAddDep="Dependent Cloud Added Successfully";
+							$scope.successMessageAddDep="Child Cynja Id Added Successfully";
 							$('#addDependent').modal('hide');
+							setTimeout(function(){
+							  $scope.dependentCldList();
+							}, 7000); 
 				}
 				else
 				{

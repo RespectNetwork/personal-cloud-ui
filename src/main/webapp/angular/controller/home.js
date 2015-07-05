@@ -72,12 +72,8 @@ angular.module('myApp').controller("homeController", function ($scope, $filter,$
 					$scope.errorMessage = result[0].errorMessage;
 				}else{
 					$scope.errorMessage = result.errorMessage;
-				}
-			
+				}	
 			}
-		
-			
-		
 		});
 		}else{
 				$scope.userlogin.hasErrorCond = true;

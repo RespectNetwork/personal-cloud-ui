@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 'use strict'
-angular.module('myApp').controller("registration", function ($scope,$location,blockUI, commonServices,globalInfo) {
+angular.module('myApp').controller("registration", function ($scope,$location,blockUI, commonServices,globalInfo,ModalService) {
 	
 	$scope.pageLoaded = true;
 	$scope.errorMessageContainer = false;
@@ -36,7 +36,6 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 	$scope.cloudAvalContainer = true;
 	$scope.userDetailContainer = false;
 	$scope.validUserContainer = false;
-	$scope.loading_contactsInfo = false;
 	$scope.registrationcontainer = true;
 	$scope.CongratulationContainer = false;
 	$scope.paymentContainer = false;
@@ -47,7 +46,11 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 	$scope.hasErrorPay = false;
 	$scope.user.countryCode = "+1";
 	 
-	
+	$scope.openTerm = function(modalName)
+	{ 
+			
+			$('#'+modalName).modal();
+	}
 	
 	$scope.reset = function() {
     $scope.$broadcast('show-errors-reset');
@@ -214,18 +217,33 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 	
 	$scope.validatesCodes = function(isValid,postUrl)
 	{ 
-		if(!($scope.user.I_Agree) || $scope.user.I_Agree === "undefined"){
-			 
+		/*if(!($scope.user.I_Agree) || $scope.user.I_Agree === "undefined"){			 
 			$scope.user.errorMessageContainer = true;
 			$scope.user.errorMessage = "Please agree on rule.";
-			return false;
+			
+			if(!($scope.user.I_AgreeTerm) || $scope.user.I_AgreeTerm === "undefined"){			 
+			$scope.user.errorMessageContainer = true;
+			$scope.user.errorMessage += "Please agree on term of service.";
+			}
+			if(!isValid){
+					$scope.user.errorMessageContainer = true;			 
+					$scope.user.hasErrorVerify= true;
+			}else{
+					$scope.user.errorMessageContainer = false;			 
+					$scope.user.hasErrorVerify= false;
+			}
+			return false;		
+		}else{
+			$scope.user.errorMessageContainer = false;
+			$scope.user.errorMessage = "";
+		}*/
 		
-		}
 		if(isValid){
-			$scope.errorMessageContainer = false;
+			$scope.user.errorMessageContainer = false;
 			$scope.successMessageContainer = false;	
 			$scope.loading_contactsInfo = true;
-			 
+			$scope.user.hasErrorVerify= false; 
+			
 			 var apiUrl = {postUrl : postUrl};
 			 
 			
@@ -236,18 +254,37 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 				phoneCode : $scope.user.phoneCode,
 				identifier:$scope.user.identifier
 			};
+			
 			commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	
 			
 				if(responseData.message == "Success"){
 					$scope.pageLoaded = true;					
 					 					  
 					$scope.userDetailContainer = false;
-					$scope.validUserContainer = false;		
-					$scope.paymentContainer = true;
+					var dataObject= {
+									paymentType : "CREDIT_CARD",
+									paymentReferenceId : "abcde0123456789",
+									paymentResponseCode:"OK",
+									amount:"25",
+									currency:"USD"
+									};
+					var apiUrl = {postUrl : 'products/PCN/payments'};
+			
+					commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	
+					if(responseData.paymentId != null){
+							 
+							$scope.registerCloudName(responseData.paymentId,"csp/"+globalInfo.cspName+"/clouds/personalClouds");
+						}
+						else
+						{
+							$scope.errorMessageContainer = true;
+							$scope.errorMessage = responseData[0].errorMessage;
+						}
+					});
 				}
 				else
 				{
-					$scope.errorMessageContainer = true;
+					$scope.user.errorMessageContainer = true;
 					if(responseData.errorMessage)
 					$scope.user.errorMessage = responseData.errorMessage;
 					else if(responseData[0].errorMessage)
@@ -259,13 +296,13 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 		}
 		else
 		{
-			$scope.errorMessageContainer = true;			 
+			$scope.user.errorMessageContainer = true;			 
 			$scope.user.hasErrorVerify= true;
 		}
 		
 		
 	}
-	
+	 
 	$scope.getPaymentID = function(isValid,event,serviceName)
 	{  
 		 
@@ -285,7 +322,7 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 		}	
 			
 			if(isValid){
-			$scope.errorMessageContainer = false;
+			$scope.user.errorMessageContainer = false;
 			$scope.successMessageContainer = false;	
 			$scope.paymentContainer = false;
 			$scope.paymentDetailContainer = true;
@@ -405,7 +442,7 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 									requestType: "PERSONAL",
 									paymentId: paymentID,
 									rnPolicyConsent: $scope.user.I_Agree,
-									cspPolicyConsent: $scope.user.I_Agree
+									cspPolicyConsent: $scope.user.I_AgreeTerm
 								},
 								personalCloudInfo: 
 								{
@@ -442,6 +479,7 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 		}
 	
 	}
+	
 	
 	
 });

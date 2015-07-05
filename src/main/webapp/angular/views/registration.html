@@ -25,31 +25,33 @@ THE SOFTWARE.
 <div class="container">
 <div block-ui="main" class="block-ui-main">
 <div class="registrationrow space">
-
-		<div class="col-md-12">
-				<div class="registration-container" style="" ng-show="registrationcontainer">
+<div class="col-md-4 login-img">
+	<div><img src="images/kids_cynja.png" class="img-responsive center-block"></div>
+</div>
+		<div class="col-md-4">
+				<div class="registration-container" style="width:100%;" ng-show="registrationcontainer">
 						<div class="row step2">
 							<nav class="header-shadow">
 								<ul>
 									<li><a href="#home">Login</a></li>
 									<li><a href="#registration">Registration</a></li>
-									<li><a href="javascript:void(0)">Help</a></li>
+									<li><a href="#faqs">FAQ</a></li>
 								</ul>	
 							</nav>
-				<div class="row" id="cloudAvaliable" ng-show="cloudAvalContainer">					 
+				<div  id="cloudAvaliable" ng-show="cloudAvalContainer">					 
 					<form id="cloudAvailForm" method="post" name="cloudAvailForm"  novalidate>			
 						
 							<div class="col-md-12">
 								<div  class="form-group" ng-class="{'hasError':errorMessageContainer}" show-errors>
-									<h3 class="control-label" >Choose Your Cloud Name:</h3>
+									<h4 class="control-label font-white" >Choose your Cynja ID:</h4>
 									<input class="error-control"  id="cloudName" name="cloudName" ng-model="user.cloudName" ng-change="appendSign()" ng-blur="cloudCheck(user.cloudName)" required/>
 									 
 									<div  id="cloudAvailError" style="text-align: center;color:red" class="help-block" ng-show="cloudAvailForm.cloudName.$error.required">Cloud Name is required.</div>
 								 
 									<div id="cloudNotAvail" style="text-align: center;color:red" ng-if="errorMessageContainer" role="alert">{{errorMessage}}</div>
-									<div id="cloudAvailSuccess" style="text-align: center;color:green" ng-if="successMessageContainer" role="alert">{{successMessage}}</div>	
+									<div id="cloudAvailSuccess" style="text-align: center;color:yellow" ng-if="successMessageContainer" role="alert">{{successMessage}}</div>	
 								</div>
-								<div style="text-align:center;" for="example_name">e.g: =jane,=john</div>
+								<div style="text-align:center;" class="font-white" for="example_name">e.g, =jane, =janedoe, =jane.doe</div>
 								<div class="form-group">
 								<!--input id="chkCldStatus" type="submit" value="Submit" ng-click='submitForm(cloudAvailForm.$valid)' class="btn" ng-disabled="error" /-->
 								<input id="chkCldStatus" type="submit" value="Submit" ng-click='submitForm(cloudAvailForm.$valid,errorMessageContainer)' class="btn"  />
@@ -58,10 +60,10 @@ THE SOFTWARE.
 							</div>
 					</form>
 				</div>	
-				<div class="row" id="cloudUserDetail" ng-show="userDetailContainer">
+				<div  id="cloudUserDetail" ng-show="userDetailContainer">
 				
 							<form id="userDetailForm" method="post" name="userDetailForm"   novalidate >			
-							<h1 >Registration Details</h1>
+							<h4 class="font-white">To ensure a secure CynjaSpace we need to verify your email and phone by sending a verification code.</h4>
 								<div class="col-md-12">
 									<div id="errorMessageContainer" style="text-align: center;color:red" ng-show="user.errorMessageContainer" role="alert">{{user.errorMessage}}</div>
 									
@@ -97,33 +99,49 @@ THE SOFTWARE.
 								</div>
 							</form>
 				</div>
-				<div class="row" id="validUserCode" ng-show="validUserContainer">
+				<div  id="validUserCode" ng-show="validUserContainer">
 							<form id="validateUserForm" method="post" name="validateUserForm"  novalidate>
 							<div class="verify">
 								    <div class="col-md-12">	
 									<div class="row">
-										<h4>Enter Verification Code sent to your email and Mobile</h4>
+										<h4 class="font-white">Verification codes have been sent to your email and phone. Enter both codes in the fields below.</h4>
 									</div>
 									<div style="text-align: center;color:red" ng-show="user.errorMessageContainer" role="alert">{{user.errorMessage}}</div>
 									
 									<div class="form-group" ng-class="{hasError: user.hasErrorVerify}" show-errors>
 										<input type="text" class="error-control" id="emailCode" name="emailCode" placeholder="email code"  ng-model="user.emailCode" required/>
-										<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.emailCode.$error.required ">required</div>
+										<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.emailCode.$error.required ">Email code is required</div>
 									</div>	
 									<div class="row">
 										<center><label>Sent to: {{user.userEmail}}</label></center>
 									</div>	
 									<div  class="form-group" ng-class="{hasError: user.hasErrorVerify}" show-errors>
 										<input type="phoneCode" class="error-control"  id="phoneCode" name="phoneCode" placeholder="phone code"  ng-model="user.phoneCode" required>
-										<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.phoneCode.$error.required ">required</div>
+										<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.phoneCode.$error.required ">Phone code is required</div>
 									</div>
 									<div class="row">
 										<center><label>Sent to: {{user.userTel}}</label></center>
 									</div>
-									 
-										<div class="checkbox">									
-										<input type="checkbox" id="I_Agree" name="I_Agree" ng-model="user.I_Agree" value="CSP" required></div><div class="checkbox-one"><p>I agree to CSP trust framework and one person one account rule</p></div>
-									
+									<!-- first checkbox -->
+									<div  class="form-group" ng-class="{hasError: user.hasErrorVerify}"  show-errors>
+									<div class="checkbox" >									
+										<input type="checkbox" id="I_Agree" name="I_Agree" ng-model="user.I_Agree" value="CSP" style="vertical-align:top;" required>
+									</div>
+									<div class="checkbox-one" style="color: #fff; padding-top: 10px;"><p>
+										I agree to <a href="http://openidentityexchange.org/wp-content/uploads/Respect%20Trust%20Framework_0.pdf" target="_blank" style="color:#33c4ff">Respect Trust Framework</a> and the one-person account rule. </p>
+									</div>
+									<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.I_Agree.$error.required ">Please agree on rule.</div>
+									</div>
+									<!-- Secound checkbox -->
+									<div  class="form-group"  ng-class="{hasError: user.hasErrorVerify}" show-errors >
+									<div class="checkbox">									
+										<input type="checkbox" id="I_AgreeTerm" name="I_AgreeTerm" ng-model="user.I_AgreeTerm" value="" required>
+									</div>
+									<div  style="color: #fff;width:65%;padding-top: 10px;"><p>
+										I agree to <a ng-click="openTerm('termOfServ')" target="_blank" style="color:#33c4ff">terms of service.</a></p>
+									</div>
+									<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.I_AgreeTerm.$error.required ">Please agree on terms of service.</div>
+									</div>	
 									<div class="form-group">
 										<input id="verifyCodes" type="button" value="Verify" ng-click="validatesCodes(validateUserForm.$valid,'codes/validate')" class="grad pull-left checkbox-three"  "/>
 										<input id="sendNewCodes" type="button" value="Send New Codes" ng-click="submitUserInfo(userDetailForm.$valid,'codes/generate')" class="grad pull-right checkbox-three"/>	
@@ -132,15 +150,15 @@ THE SOFTWARE.
 								</div>
 								</form>
 				</div>
-				<div class="row" id="paymentMode" ng-show="paymentContainer">
+				<div  id="paymentMode" ng-show="paymentContainer">
 				<form id="paymentModeForm" method="post" name="paymentModeForm"  novalidate>
 					<div class="col-md-12" >
 						<div class="paymentName-container">
 							<div class="row">
-								<h3>Select Your Payment method</h3>
+								<h4 class="font-white" >Select Your Payment method</h4>
 								<div style="text-align: center;color:red" ng-show="user.errorMessageContainer" role="alert">{{user.errorMessage}}</div>
 									
-									<div class="form-group" ng-class="{hasError: user.hasErrorPay}" show-errors>
+									<div class="form-group font-white" ng-class="{hasError: user.hasErrorPay}" show-errors>
 										<input type="radio" name="paymentOption"  value="Gift Code" disabled='disabled'> <input type="text" placeholder="Gift Code Coming Soon" required="true" readonly/><br>
 										<input type="radio" name="paymentOption" id="paymentOption" ng-model="user.paymentOption" value="Credit Card">Credit Card<br>
 										<center><b>Life Hosting + Lifetime Connection</b></center><br>
@@ -150,12 +168,13 @@ THE SOFTWARE.
 									<div class="checkbox-four form-group" ng-class="{hasError: user.hasErrorPay}" show-errors>									
 										<input type="checkbox" id="I_Agree1" name="I_Agree1" value="CSP" ng-model="user.I_Agree1" required>
 																		
-										<div class="checkbox-one"><p class="para">I agree to CSP terms of service</p></div>
+										<div class="checkbox-one"><p class="para font-white">I agree to <a href="http://www.emmettglobal.com/csp_tos.html" style="color:#33c4ff" target="_blank">CSP terms</a> of service</p></div>
 										<div style="text-align: center;color:red;" class="help-block"ng-show="paymentModeForm.I_Agree1.$error.required">required</div>
 									</div>
 									
 									<div class="form-group">
-									<input type="button" value="Submit" ng-click="getPaymentID(paymentModeForm.$valid,$event,'stripe')" class="grad"  style=" margin: 35px; vertical-align: middle;"/></div>
+									<input type="button" value="Submit" ng-click="getPaymentID(paymentModeForm.$valid,$event,'stripe')" class="grad"  style=" margin: 35px; vertical-align: middle;"/>
+									<!--input type="button" value="Submit" ng-click="callPaymentInfo(paymentModeForm.$valid,$event,'stripe')" class="grad"  style=" margin: 35px; vertical-align: middle;"/--></div>
 							</div>	
 						</div>
 					</div>
@@ -196,14 +215,660 @@ THE SOFTWARE.
 				</div>
 			</div>	
 		</div>
-				<div class="row" id="Congratulation" ng-show="CongratulationContainer"><p id="para1">Thank you {{user.cloudName}} for your personal cloud order.
-
-																							We will shortly notify once we complete registering your cloud with the network.<br>
-
-																							We are processing your order and will notify you once it completes registration in the network.<br></p>
-																				<p id="para2"><a href="#home">Click Here</a> for login Page.</p></div>
-	</div>	
+				<div class="row" id="Congratulation" ng-show="CongratulationContainer"><p id="para1" class="font-white"> 
+Welcome {{user.cloudName}} to CynjaSpace!<br>
+Cyberspace will never look the same again!<br>
+Start Your Cynja Adventure By Creating Cynja IDs for Your Kids!<br>
+Each child will need its own ID.
+<br></p>
+	<p id="para2" class="font-white"><a href="#home" style="color:#33c4ff">Click Here</a> for login Page.</p></div>
+	</div>
+<div class="col-md-4 login-img">
+	<div><img src="images/kids_jo.png" class="img-responsive center-block"></div>
+</div>
+<div ng-include="'angular/views/footer.html'"></div> 
+ <div class="modal fade" id="termOfServ"  tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+			<div class="modal-dialog" style="width:80%;">
+				<div class="modal-content">
+				  <div class="modal-header" style="background-image: linear-gradient(#f9f9f9, #e4e4e4);">
+					<button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><span>Terms of Service</span></h4>
+				  </div>
+					<div class="modal-body" style="text-align: center;">
+								<div property="content:encoded" class="field-item even">
+								<div style="text-align: center;"><span style="font-weight: bold;"><big><big><img  alt="The Cynja" src="images/Cynja-logo_300x150.png"></big></big></span><br><span style="font-weight: bold;"></span></div><span style="font-weight: bold;"><big><big><br></big></big></span><div style="text-align: center;"><big><span style="font-weight: bold;"><big><big>Terms of
+								Service
+								</big></big></span></big><br><span style="font-weight: bold;">
+								</span><br><span style="font-weight: bold;">
+								The Cynja LLC & CynjaTech&nbsp;
+								</span><br style="font-weight: bold;">
+								<span style="font-weight: bold;">P.O.BOX 65916</span><br style="font-weight: bold;">
+								<span style="font-weight: bold;">Washington, DC 20035</span></div><span style="font-weight: bold;"><p>
+								</p></span>
+								<p style="text-align:left">If you have any comments or questions about these Terms,
+								please contact us at <mailto: ="" info@thecynja.com=""><a href="mailto:info@thecynja.com">info@thecynja.com</a>.
+								Effective date of this version: June 1, 2014
+								</mailto:></p>
+								<p style="text-align:left">Online location of this Terms of Service:&nbsp;<a href="http://emmettGlobal.com/csp_tos.html">http://emmettGlobal.com/csp_tos.html</a>
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Incorporation of
+								the Respect Trust Framework</span>.&nbsp;These Terms of
+								Service (Terms) incorporate by reference the Respect Trust Framework
+								listed with the Open Identity Exchange at&nbsp;<a target="_blank" href="http://openidentityexchange.org/trust-frameworks/respect-trust-framework">http://openidentityexchange.org/trust-frameworks/respect-trust-framework</a>.
+								</p>
+								<p style="text-align:left">A one-page summary of the five Respect Principles (Promise,
+								Permission, Protection, Portability, Proof) at the core of the Respect
+								Trust Framework is available at&nbsp;<a target="_blank" href="http://respectnetwork.com/respect-trust-framework">http://respectnetwork.com/respect-trust-framework</a>.
+								The purpose of the Respect Trust Framework is to define a simple set of
+								principles and rules to which all Members of a digital trust network
+								agree so that they may share identity and personal data with greater
+								confidence that it will be protected and only used as authorized. All
+								Members of the Respect Network, including The Cynja, agree to the
+								Global Terms of the Respect Trust Framework, provided that such
+								participation does not preclude Members from pursuing claims outside of
+								the scope of the Respect Trust Framework through other means.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Definitions.</span>&nbsp;All
+								capitalized terms that are not otherwise defined in this document are
+								defined in the Respect Trust Framework, available at&nbsp;<a target="_blank" href="http://respectnetwork.com/respect-trust-framework">http://respectnetwork.com/respect-trust-framework</a>.&nbsp;</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Global and Local
+								Terms.</span>&nbsp;The purpose, principles, and rules of
+								the Respect Trust Framework comprise the Global Terms. These Terms of
+								Service together with the&nbsp;The Cynja&nbsp;Privacy
+								Policy comprise the Local Terms that apply specifically to your
+								relationship with&nbsp;The Cynja.&nbsp;The Respect Trust
+								Framework requires that any Local Terms, such as these Terms of
+								Service, not conflict with the Global Terms. If any such Local Terms
+								conflict with the Global Terms then the Global Terms shall prevail.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Scope:</span>&nbsp;These
+								Terms of Service (Terms) govern your use of and access to the Respect
+								Network (Network); to The Cynja&nbsp;websites, APIs, and other
+								personal networking services (collectively referred to as Services);
+								and to any Member Data or other content.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Acceptance:</span>&nbsp;The Cynja's Services are dependent on every Members agreement to and
+								observance of these standard Terms. This cooperation is critical to the
+								functioning and accountability of the Respect Network. The more
+								consistently that Members of the Network act with these Terms, the
+								greater the benefit of the Network to every Member. Accordingly, it is
+								a pre-condition to your access to and use of the Services that you
+								accept and comply with the requirements, conditions, notices, and
+								disclaimers contained in these Terms, including by reference the
+								Respect Trust Framework. The acceptance and agreement to be bound by
+								these Terms is indicated in either of two ways; by your registration
+								with&nbsp;The Cynja&nbsp;and formal agreement to these
+								Terms, or by your accessing or using the Services.&nbsp;</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Refunds:</span>&nbsp;Members
+								of The Cynja can request refunds if requested within 30 days from
+								the date of purchase. Please contact<a href="mailto:info@thecynja.com.com">&nbsp;info@thecynja.com</a>
+								to initiate the request for a refund.&nbsp;</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Sections:</span>&nbsp;For
+								purposes of readability only, the Terms are listed in the following
+								sections. Please read all Terms carefully.
+								</p>
+								<p style="text-align:left">1. Membership Requirements and Accountability<br>
+								2. Security and Access Control<br>
+								3. Privacy and Communications<br>
+								4. Member Data and Intellectual Property<br>
+								5. Other Legal Terms<br>
+								6. Modifications<br>
+								</p>
+								<p style="text-align:left"><big><big><span style="font-weight: bold;">Membership
+								Requirements and Accountability</span></big></big><br style="font-weight: bold;">
+								<span style="font-weight: bold;"></span></p>
+								<p style="text-align:left"><span style="font-weight: bold;">Membership
+								Eligibility</span><br>
+								As a Member, you represent that you understand that you are only
+								permitted to use the Services if you are a legal person that can form a
+								binding contract with The Cynja, and that you are not a person that
+								is prohibited from using or receiving the Services under the laws of
+								the United States or other applicable jurisdiction.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Lawful Use</span><br>
+								You may only use the Services in compliance with these Terms and all
+								applicable local, state, national, and international laws. You warrant
+								and represent that you will use the Respect Network and&nbsp;The Cynja&nbsp;Services for lawful purposes only.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">One-Person-One-Account</span><br>
+								As required by the Accountability section of the Respect Reputation
+								System, you agree that your Member Account must be correlated with a
+								single legal person (natural or statutory), and that each legal person
+								may register only one Member Account. You understand and acknowledge
+								that maintaining this One-Person-One-Account Rule is essential to
+								maintaining the integrity of the Respect Network, and the Respect Trust
+								Framework.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Personas</span><br>
+								You agree that when the Respect Network incorporates support for
+								pseudonymous or anonymous Personas, you will be responsible for any and
+								all Personas associated with your Member Account, including voting for
+								Amendments to the Respect Trust Framework, or any other action that
+								represents your official action through a Persona on the Network.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Sole
+								Responsibility for Individual Member Account</span><br>
+								Use of an Individual Member Account is expressly limited to you as a
+								natural person. Your Individual Member Account may not be transferred
+								or shared with any other party, temporarily or permanently.
+								We recommend that you treat access to your account as you would treat
+								your signature; it is the foundation for your personal brand on the
+								Respect Network. You agree to bear sole responsibility for all use of
+								your Member Account, and for the confidentiality of your authentication
+								credentials, including your use of authentication services from
+								third-party social networks or sites (herein jointly referred to as
+								Social Login Services).
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Impersonation</span><br>
+								You represent and guarantee that all Member Data you provide
+								to&nbsp;The Cynja&nbsp;at the time of registration and
+								thereafter is accurate, and agree not to impersonate any person or
+								entity, not to falsely represent your affiliation with any person or
+								entity, and not to otherwise provide the personal information of any
+								third party or any fictitious person or attribute as part of the
+								registration process or thereafter.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Name Squatting</span><br>
+								You must be a legal representative of the legal entity represented by
+								a&nbsp;The Cynja&nbsp;Member Account in order to register a
+								Member Account. You may not engage in squatting on Member Account
+								names. Squatting is herein defined as the procurement of Member
+								Accounts with the intention of later trading in their use or control
+								for value.
+								To help prevent squatting, Member accounts that are inactive for more
+								than 6 months without notice to The Cynja&nbsp;may be suspended
+								or cancelled without further notic e.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Termination of
+								Your Account</span><br>
+								If, in&nbsp;The Cynja&nbsp;sole discretion, you have
+								violated these Terms,&nbsp;The Cynja&nbsp;may take
+								necessary measures to remedy your violation, including terminating your
+								ability to access the Respect Network system, and/or suspending and/or
+								terminating your Membership. If&nbsp;The Cynja&nbsp;terminates your account, we shall enable export of
+								Member Data that you sourced or shared on the Respect Network
+								consistent with the requirements of the Respect Trust Framework unless:
+								a) we are constrained from doing so by a court order or other legal
+								action, or b) it can be reasonably shown that this action would enable
+								you or others to violate or circumvent these Local Terms or the Global
+								Terms of the&nbsp;Respect Trust Framework.
+								</p>
+								<p style="text-align:left"><big><big><span style="font-weight: bold;">Security
+								and Access Control</span>
+								</big></big></p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Unauthorized
+								Access</span><br>
+								You may not access, tamper with, copy from, or use non-public elements
+								and areas of the computing systems The Cynja&nbsp;uses to
+								provide the Services (including, but not limited to, any third party
+								cloud providers and other third-party services and resources used by
+								The Cynja).
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Network
+								Vulnerability Scans</span><br>
+								You may not probe, scan, or test the vulnerability of any connection,
+								system or network or breach or circumvent any security or
+								authentication measures of the Respect Network (or attempt to do any of
+								the foregoing).
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Interference
+								with Network Function</span><br>
+								You may not interfere with, limit, block or disrupt (or attempt to do
+								so) the access of any Member to the Respect Network, including, but not
+								limited to, sending a virus, overloading, flooding, spamming, or
+								mail-bombing the Services, creating false or fictitious accounts,
+								creating or causing to be created false information, or scripting the
+								creation, deletion, transfer, or other processing of Member Data in
+								such a manner as to interfere with or create an undue burden on the
+								Respect Network or the Services.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No
+								Malware/Phishing</span><br>
+								You may not publish or link to malicious Member Data intended to damage
+								or disrupt another Member&#8364;&#8482;s browser or computer or to compromise a
+								Member&#8364;&#8482;s privacy or other enjoyment of the benefits of the Respect
+								Network or Respect Trust Framework.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Altered
+								Identity Information</span><br>
+								You may not forge any TCP/IP packet header or any part of the header
+								information in any email or posting made on the Services, and you may
+								not in any way use the Services (including the registration functions
+								associated with the Services) to transmit altered, deceptive or false
+								identity information or other false source-identifying information.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Threats</span><br>
+								You may not send via the Respect Network or&nbsp;The Cynja&nbsp;Services direct, specific threats of violence or harm
+								to property or person.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Network
+								Interface Limitations</span><br>
+								You may not access or search or attempt to access or search the
+								Services by any automated or other means other than through the use
+								of&nbsp;The Cynja's published interfaces (in each case pursuant
+								to the terms and conditions thereof), unless permitted under a separate
+								agreement with&nbsp;The Cynja.
+								</p>
+								<p style="font-weight: bold;text-align:left"><big><big>Privacy
+								and Communications
+								</big></big></p>
+								<p style="text-align:left"><span style="font-weight: bold;">Privacy Policy</span><br>
+								Any Member Data that you provide to&nbsp;The Cynja&nbsp;and
+								information that we generate about you is subject to our Privacy Policy
+								available at <a href="http://www.thecynja.com/privacy.php" target="_blank">http://www.thecynja.com/privacy.php</a>
+								which governs our collection and use of that information.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Consent to Data
+								Transfer</span><br>
+								You consent to the transfer of Member Data (consistent with our Privacy
+								Policy) to the United States and/or other countries for storage,
+								processing and use by&nbsp;The Cynja.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Our
+								Communications with You</span><br>
+								In the course of providing the Services to you, we may need to
+								communicate with you, such as to provide messages about operation of
+								the system and service announcements. These communications are part of
+								the Services and the administration of your&nbsp;The Cynja&nbsp;Member Account, and you may not be able to opt-out of
+								receiving some of these messages. You may control and opt-out of any
+								other communications from&nbsp;The Cynja via the link sent
+								within&nbsp;The Cynja&nbsp;Welcome Email.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Your
+								Communications with Other Members</span><br>
+								When you use the Respect Network or&nbsp;The Cynja&nbsp;Services to communicate with other Members, you agree
+								to observe the terms of the Respect Trust Framework, and in particular
+								the Permission Principle.
+								</p>
+								<p style="font-weight: bold;text-align:left"><big><big>Member
+								Data and Intellectual Property
+								</big></big></p>
+								<p style="text-align:left"><span style="font-weight: bold;">The Cynja&nbsp;Ownership</span><br>
+								All right, title and interest in and to the Respect Network and the
+								Services (but not including Member-Sourced Data) is and will remain the
+								exclusive property of and be owned, controlled and operated
+								by&nbsp;The Cynja.&nbsp;All materials used in connection
+								with the Respect Network, including the materials on
+								the&nbsp;The Cynja&nbsp;website, including, but not limited
+								to, images, text, illustrations, audio, video files, data (other than
+								Member-Sourced Data), and information and the selection, coordination
+								and arrangement of such materials (Intellectual Property), are
+								protected by copyrights, patents, trademarks, service marks, or other
+								proprietary and intellectual property rights (Intellectual Property
+								Rights) which are either owned by Respect Network, or owned by other
+								parties who have licensed their intellectual property and rights
+								therein to Respect Network, and are protected by U.S. and international
+								copyright, trademark, trade dress, patent, and other intellectual
+								property laws, and data and network protection laws.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">The Cynja&nbsp;Trademarks</span><br>
+								All trademarks, service marks, and trade names used on the site are the
+								property of their respective owners. Nothing in the Terms gives you a
+								right to use the&nbsp;The Cynja&nbsp;name or any of
+								the&nbsp;The Cynja&nbsp;trademarks, logos, domain names,
+								and other distinctive brand features except as stated within these
+								Terms.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Limited License
+								to&nbsp;The Cynja&nbsp;and Respect Network Trust Marks</span><br>
+								The&nbsp;The Cynja&nbsp;and Respect Network Trust Marks
+								(Trust Marks) may only be used by a Member in good standing of the
+								Respect Network, and only in accordance with the&nbsp;The Cynja&nbsp;Trust Mark Usage Terms and the limited license set
+								forth therein as in effect and as amended from time to time. The Trust
+								Marks may only be displayed for the purpose of designating that the
+								Member is a member in good standing of the Respect Network. Trust Marks
+								may not be used in any way that suggests endorsement, acceptance or
+								promotion of any other product, service or person without the express
+								written consent of&nbsp;The Cynja.&nbsp;In addition, the
+								limited license to display the Trust Marks is only effective during the
+								time that the Member is a member in good standing. As a result, to the
+								extent that a membership is suspended or terminated, the license is
+								automatically terminated during the period of such suspension or
+								following such termination (until such time as the affected Member is
+								again a Member in good standing).
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Links and
+								Relationship to Other Services</span><br>
+								The Services may contain links to third-party websites or online or
+								other resources. You acknowledge and agree that&nbsp;The Cynja&nbsp;is not responsible or liable for the content, products,
+								or services provided through or available from such websites or
+								resources or the availability, reliability or accuracy of such websites
+								or resources. Providing such links to such other websites or resources
+								does not constitute and should not imply any endorsement
+								by&nbsp;The Cynja&nbsp;of such websites or resources or the
+								content, products, or services available from such websites or
+								resources. You acknowledge sole responsibility for and assume all risk
+								arising from your use of any such websites or resources.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Member-Sourced
+								Data</span><br>
+								You retain your intellectual property or other rights to any
+								Member-Sourced Data you make available on or share through the
+								Services, subject to applicable law. By contributing such
+								Member-Sourced Data, you grant The Cynja&nbsp;a worldwide,
+								non-exclusive, royalty-free license (with the right to sublicense) to
+								use, copy, reproduce, process, adapt, modify, publish, transmit,
+								display, create derivative works and distribute such Member-Sourced
+								Data in any and all media or distribution methods (now known or later
+								developed) for the purposes of providing you&nbsp;The Cynja&nbsp;Services, sharing that Member Data under your control
+								as provided by the Respect Trust Framework, and any other purposes for
+								which you have given permission as specified in the The Cynja&nbsp;Privacy Policy.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Sublicense of
+								Member-Sourced Data to Members</span><br>
+								You agree that your license of Member-Sourced Data to&nbsp;The Cynja&nbsp;includes the right for&nbsp;The Cynja&nbsp;to also make such Member-Sourced Data available to
+								other Members to whom you have given permission and to others who work
+								with&nbsp;The Cynja&nbsp;in accordance with your
+								permissions.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Sole
+								Responsibility for Member Data</span><br>
+								All Member Data on the Respect Network is the sole responsibility of
+								the Member who either provided it as Member-Sourced Data or is sharing
+								it as Member-Shared Data.&nbsp;The Cynja&nbsp;may not
+								monitor or control the Member Data posted on or through the Services
+								and therefore cannot take responsibility for such Member
+								Data.&nbsp;The Cynja&nbsp;does not guarantee, endorse,
+								warrant, support, or make representations about the reliability,
+								accuracy, completeness, truthfulness, or usefulness of any Member Data
+								or other content posted on or through the Services.&nbsp;Emmett
+								Global&nbsp;does not endorse any opinions expressed on or through
+								the Services. By using the Services, you may be exposed to Member Data
+								that might be inaccurate, offensive, or otherwise inappropriate, and
+								might be presented with Member Data that has been mislabeled or is
+								otherwise deceptive or potentially harmful. You recognize that this is
+								a member network where Member Data is produced, posted, and shared by
+								Members, and that&nbsp;The Cynja&nbsp;will not under any
+								circumstances be liable in any way for any Member Data or other third
+								party content, including, but not limited to, any damages or losses or
+								any kind that result from or are incurred as a direct or indirect
+								result of any use of any Member Data or other content or any errors or
+								omissions in any Member Data or other content that is accessed or made
+								available to you on or through the Services or elsewhere in association
+								with the Services.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Member Reliance
+								on Member Data</span><br>
+								You should be aware that your use or reliance on any Member Data or
+								other content posted on or through the Services or accessed by you on
+								or through the Services for any purpose is at your own risk. You are
+								also responsible for any consequences of contributing or relying on
+								Member Data, such as the use by other Members and third parties of
+								Member-Sourced Data for which you are the source, and your use and
+								reliance on any Member Data provided by other Members on or through the
+								Respect Network. You understand that Member-Sourced Data that you
+								provide on or through the Service may be redistributed or retransmitted
+								by others so that if you do not have the right to submit Member-Sourced
+								Data for such use, it may subject you to liability.&nbsp;Emmett
+								Global&nbsp;will not be responsible or liable for any use of Member
+								Data in accordance with these Terms. You represent and warrant that you
+								have all the rights, interests, power and authority necessary to grant
+								the rights granted herein to any Member-Sourced Data that you provide
+								on or through the service.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Emmett
+								Global&nbsp;Right to Adapt Member-Sourced Data</span><br>
+								We may adapt the Member-Sourced Data that you provide on or through the
+								system in order to process, transmit, display or distribute it
+								over&nbsp;The Cynja&nbsp;and other networks and in various
+								media.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Portability of
+								Member Data</span><br>
+								A core purpose of the Respect Network is to enable Members to share
+								Member Data with any other Member in accordance with the Portability
+								Principle of the Respect Trust Framework.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Trademark
+								Misuse</span>&nbsp;</p>
+								<p style="text-align:left"><span style="font-weight: bold;">**** Member names</span><br>
+								The Cynja&nbsp;reserves the right to remove content and reclaim
+								Member names where a claim is made of and on behalf of businesses or
+								individuals that prove they hold legal claim, trademark, or other
+								rights to those Member names.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No
+								Misrepresentation</span><br>
+								You may not use or include unauthorized business names and/or logos to
+								mislead others in your Profile Page or anywhere else in Member-Sourced
+								Data you provide.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Pornography</span><br>
+								You agree not to present pornographic or obscene pictures or images in
+								your Profile Page or any other Member-Sourced Data you contribute or
+								Member-Shared Data you share.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Feedback to
+								The Cynja</span><br>
+								Any feedback, input, comments, or suggestions you may provide
+								regarding&nbsp;The Cynja&nbsp;or the Services is entirely
+								voluntary and you agree that&nbsp;The Cynja&nbsp;is free to
+								use such feedback, input, comments or suggestions as we see fit and
+								without any obligation to you.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Legally
+								Compelled Disclosure</span><br>
+								You acknowledge and agree that&nbsp;The Cynja&nbsp;will
+								fully cooperate with any law enforcement authorities or court order
+								requesting or directing&nbsp;The Cynja&nbsp;to disclose
+								information or materials in its possession.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Copyright
+								Infringement Notification Process</span><br>
+								The Cynja&nbsp;respects the intellectual property rights of
+								others and expects Members to do the same.The Cynja&nbsp;will
+								respond to notices of alleged copyright infringement that comply with
+								applicable law and that are properly provided to us.
+								If you believe that your Member-Sourced Data or other content has been
+								used or copied in a way that constitutes copyright infringement, please
+								provide us with the following information:
+								a physical or electronic signature of the copyright owner or a person
+								authorized to act on their behalf;
+								identification of the copyrighted work claimed to have been infringed;
+								identification of the material that is claimed to be infringing or to
+								be the subject of infringing activity and that is to be removed or
+								access to which is to be disabled, and information reasonably
+								sufficient to permit us to locate the material;
+								your contact information, including your address, telephone number, and
+								an email address;
+								a statement by you that you have a good faith belief that use of the
+								material in the manner complained of is not authorized by the copyright
+								owner, its agent, or the law; and
+								a statement that the information in the notification is accurate, and,
+								under penalty of perjury, that you are authorized to act on behalf of
+								the copyright owner.
+								</p>
+								<p style="text-align:left">We reserve the right to remove Member Data or other content
+								alleged to be infringing without prior notice and at our sole
+								discretion.&nbsp;The Cynja&nbsp;reserves the right to
+								terminate the account of those Members that are determined to be a
+								repeat infringer of others copyright.
+								</p>
+								<p style="text-align:left"><big><big><span style="font-weight: bold;">Other
+								Legal Terms:</span></big></big></p>
+								<p style="text-align:left"><big><big><span style="font-weight: bold;"></span></big></big><span style="font-weight: bold;">Services Provided As Is</span>,
+								No Warranties
+								Your access to and use of the Services or any Member Data or other
+								content is at your own risk. You understand and agree that the Services
+								are provided to you on an AS IS and AS AVAILABLE basis. Emmett
+								Global&nbsp;will not be responsible or liable for any harm to your
+								computer system, loss of data, or other harm that results from your
+								access to or use of the Services, or any Member Data or other content.
+								Without limiting the foregoing,&nbsp;The Cynja, ITS MEMBERS,
+								PROVIDERS, AND AUTHORIZED AGENTS HEREBY DISCLAIM ALL REPRESENTATIONS
+								AND WARRANTIES, WHETHER EXPRESS OR IMPLIED, CREATED BY LAW, CONTRACT OR
+								OTHERWISE, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OF
+								MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE OR
+								NON-INFRINGEMENT, OR FOR THE COMPLETENESS, ACCURACY, AVAILABILTY,
+								TIMELINESS, SECURITY, OR RELIABILITY OF THE SERVICES OR ANY MEMBER DATA
+								OR OTHER CONTENT THEREON.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Limitation of
+								Liability</span>&nbsp;<br>
+								TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW,&nbsp;EMMETT
+								GLOBAL&nbsp;AND ITS SUBSIDIARIES, AFFILIATES, OFFICERS, EMPLOYEES,
+								AGENTS, AND LICENSORS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT,
+								INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, INCLUDING
+								WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOOD-WILL, OR OTHER
+								INTANGIBLE LOSSES, RESULTING FROM (i) YOUR ACCESS TO OR USE OF OR
+								INABILITY TO ACCESS OR USE THE SERVICES OR THE RESPECT NETWORK; (ii)
+								ANY CONDUCT OR MEMBER DATA OF ANY OTHER MEMBER OR OTHER THIRD PARTY ON
+								THE SERVICES, INCLUDING WITHOUT LIMITATION, ANY DEFAMATORY, FRAUDALENT,
+								OFFENSIVE OR ILLEGAL CONDUCT OF OTHER MEMBERS OR THIRD PARTIES; (iii)
+								ANY MEMBER DATA OR OTHER CONTENT ACCESSED FROM THE SERVICES; AND (iv)
+								UNAUTHORIZED ACCESS, USE OR ALTERATION OF YOUR TRANSMISSIONS OR MEMBER
+								DATA OR OTHER CONTENT, WHETHER BASED ON WARRANTY, CONTRACT, TORT
+								(INCLUDING NEGLIGENCE) OR ANY OTHER LEGAL THEORY, WHETHER OR
+								NOT&nbsp;The Cynja&nbsp;HAS BEEN INFORMED OF THE
+								POSSIBILITY OF SUCH DAMAGE, AND EVEN IF A REMEDY SET FORTH HEREIN IS
+								FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.
+								</p>
+								<p style="text-align:left">The Cynja, ITS MEMBERS, PROVIDERS, OR AUTHORIZED AGENTS
+								SHALL NOT BE RESPONSIBLE FOR ANY DAMAGES THAT RESULT FROM MISTAKES,
+								OMISSIONS, INTERRUPTIONS, DELETION OF DATA AND FILES, ERRORS, DEFECTS,
+								DELAYS IN OPERATION OR TRANSMISSION, OR ANY FAILURE OF PERFORMANCE
+								WHETHER OR NOT CAUSED BY EVENTS BEYOND The Cynja IS
+								REASONABLE CONTROL, INCLUDING BUT NOT LIMITED TO ACTS OF GOD,
+								COMMUNICATIONS LINE FAILURE, THEFT, DESTRUCTION, OR UNAUTHORIZED ACCESS
+								TO THE RESPECT NETWORK, INCLUDING THE&nbsp;The Cynja&nbsp;WEBSITE,
+								RECORDS, PROGRAMS, OR SERVICES. IN NO EVENT
+								WILL The Cynja TOTAL LIABILITY TO ANY MEMBER FOR ANY
+								REASON EXCEED THE TOTAL MONETARY CONSIDERATION PAID BY SUCH MEMBER FOR
+								THE SERVICES IT RECEIVED IN THE PRIOR THREE (3) MONTHS.&nbsp;</p>
+								<p style="text-align:left">Some jurisdictions do not allow the limitation or exclusion of
+								certain
+								warranties or the exclusion or limitation of liability for
+								consequential or incidental damages; as a result the limitations above
+								may not apply to you.&nbsp;</p>
+								<p style="text-align:left">You agree that&nbsp;The Cynja&nbsp;has no
+								responsibility or liability for the deletion of, or the failure to
+								store or to transmit, any Member Data, content, and other
+								communications maintained by the Services.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Indemnification</span>&nbsp;<br>
+								You agree to indemnify and hold harmless&nbsp;Emmett
+								Global&nbsp;and its officers, directors, employees, agents,
+								distributors, successors and assigns and affiliates from and against
+								any and all third party claims, demands, liabilities, costs, or
+								expenses, including reasonable attorney's fees, resulting from your
+								breach of any of the provisions of these Terms.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Jurisdiction/Choice
+								of Law</span><br>
+								The Cynja&nbsp;makes no representation that materials in this
+								site are appropriate or available for use in other locations outside
+								the United States. This agreement shall be governed by, construed, and
+								enforced in accordance with the laws of the State of Nevada, as it is
+								applied to agreements entered into and to be performed entirely within
+								such State. Any action you or any third party might bring in connection
+								with any matters related to the Respect Network shall be brought only
+								in either the state or Federal Courts located in Califronia, and you
+								expressly consent to the jurisdiction of and venue in said courts and
+								waive any objection as to inconvenient forum. Any action you or any
+								third party might bring in connection with any matters related to
+								the&nbsp;The Cynja&nbsp;website, shall be brought only in
+								either the state or Federal Courts located in Nevada, and you expressly
+								consent to the jurisdiction of and venue in said courts and waive any
+								objection as to inconvenient forum.
+								</p>
+								<p style="text-align:left">If you are accepting these Terms on behalf of a government
+								entity. Please note some governmental entities are not permitted as a
+								matter of law to accepting a controlling law, jurisdiction or venue
+								clause that recognizes jurisdiction or venue other than their own. If
+								you are such an entity, then the clauses above do not apply to you. If
+								you are also a representative of the United States, these Terms and any
+								action related thereto will be will be governed by the laws of the
+								United States of America (without reference to conflict of laws) and,
+								in the absence of federal law and to the extent permitted under federal
+								law, the laws of the State of Nevada (excluding choice of law).
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Assignment&nbsp;</span><br>
+								The Cynja's successors and assigns may fully enforce any term or
+								provision of these Terms of Use, and all rights and benefits shall
+								inure to such successors and assigns, with or without prior notice.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Complete
+								Agreement, Waiver, Severability</span><br>
+								These Terms, in the then current form presented online and updated from
+								time to time at&nbsp;<a target="_blank" href="http://emmettglobal.com/csp_tos.html">http://emmettglobal.com/csp_tos.html</a>,
+								including the documents referenced by and incorporated into these
+								Terms, form the entire, exclusive and complete agreement between you
+								and&nbsp;The Cynja&nbsp;and these Terms supersede and
+								replace any prior agreements between&nbsp;Emmett
+								Global&nbsp;and you regarding the Services. Any other statements,
+								trade practices, or conduct engaged in by either party shall not alter
+								or modify this agreement; the words contained in this document control
+								the entire meaning of this agreement.
+								</p>
+								<p style="text-align:left">Any failure to enforce or decision by&nbsp;Emmett
+								Global&nbsp;not to enforce a particular right or provision of these
+								Terms does not waive the right to enforce it at any other time,
+								and&nbsp;The Cynja&nbsp;will not waive the right to enforce
+								any provision of these Terms except in writing. In the event that any
+								provision of these Terms is held to be invalid or unenforceable, the
+								remaining provisions of these Terms will remain in full force and
+								effect.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Third Party
+								Beneficiaries</span><br>
+								Other than members of the group of companies of which&nbsp;Emmett
+								Global&nbsp;is a parent, no other person or company will be third
+								party beneficiaries to the Terms.
+								</p>
+								<p style="text-align:left"><big><big><span style="font-weight: bold;">Modifications</span></big></big></p>
+								<p style="text-align:left"><big><big><span style="font-weight: bold;"></span></big></big>Modifications
+								to Services and Terms
+								Since the Respect Network is designed to evolve to meet changing Member
+								needs, the Services thatThe Cynja&nbsp;provides will also
+								continue to evolve and the form and nature of the Services
+								that&nbsp;The Cynjaprovides may change from time to time
+								without providing you with prior notice.
+								</p>
+								<p style="text-align:left">With the exception of the Respect Trust Framework that is
+								incorporated by reference herein, which has its own Versioning and
+								Amendment terms (which require a supermajority vote of the Trust
+								Anchors on the Respect Network),&nbsp;The Cynja&nbsp;may
+								revise these Terms from time to time. The most current version will
+								always be at&nbsp;<a href="http://emmettglobal.com/csp_tos.html">http://emmettglobal.com/csp_tos.html</a>.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Notification and
+								Consent to Modifications of Terms</span>&nbsp;<br>
+								We will provide you with notification of changes to these Terms that in
+								our reasonable judgment may be considered material through the
+								communications channels and preferences you selected when claiming your
+								cloud name with&nbsp;The Cynja.&nbsp;You agree that your
+								continued access or use the Services after revisions become effective
+								constitutes your agreement to be bound by the revised Terms.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">Limitation of
+								Service Without Notice</span><br>
+								The Cynja&nbsp;may, in its discretion, temporarily or
+								permanently stop providing the Services in whole or in part to you or
+								to Members generally and may not be able to provide you with prior
+								notice of such termination. In addition, although we hope to be able to
+								anticipate and meet the resource requirements for all Members on the
+								Respect Network as it grows, there may be times when we are not able to
+								fully meet the needs of all Members. In order to cover that
+								possibility, we retain the right to create limits on use
+								of&nbsp;The Cynjasystems and resources at our sole discretion
+								at any time without prior notice to you.
+								</p>
+								<p style="text-align:left"><span style="font-weight: bold;">No Voting or
+								other Rights</span><br>
+								Notwithstanding their designation as Members of the Respect Network,
+								Members shall have no right to vote with respect to the operation and
+								affairs of The Cynja, nor with respect to the appointment of
+								Directors, Officers or the operations of the corporation. Trust Anchor
+								Members do have the right to participate in revisions to the Respect
+								Trust Framework as described in the Versioning and Amendment section of
+								that document. See <a href="http://openidentityexchange.org/trust-frameworks/respect-trust-framework" target="_blank">http://openidentityexchange.org/trust-frameworks/respect-trust-framework</a>.
+								</p>
+						</div> 
+				
+				</div><!--Modal body close -->
+			</div>
+		</div>	
 </div>
 </div>		 
  </div>
- <div ng-include="'angular/views/footer.html'"></div> 
+ 
