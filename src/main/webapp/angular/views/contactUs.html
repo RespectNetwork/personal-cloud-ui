@@ -1,0 +1,103 @@
+<!--
+The MIT License (MIT)
+	
+Copyright (c) 2015 Neustar Inc.
+	
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<div ng-include="'angular/views/userHeader.html'" ></div>
+<div class="container">
+<div class="dependentlist">
+<div block-ui="main" class="block-ui-main">
+	<div class="container"  >  
+
+		
+		<div class="row" id="contactus_id" ng-show="contactUsContainer">
+			
+			<table   style="margin-top:100px;max-width: 100%;width: 100%;">
+				<tr align="center">
+					<td class="font-white" style="font-size:20px;">Get in touch.</td>
+				</tr>
+				<tr>
+					<td>
+						<form id="contactfrm" method="post" name="contactfrm"  novalidate> 
+						<table class="table"  >
+						<thead>
+							<tr class="table-heading" ng-show="msgContactUs"  align="center"><th colspan="1" align="center" style="text-align:center;">
+							<span  style="color:white;font-weight:bold;" role="alert">{{successContactmsg}}</span></th>
+							</tr>
+							<tr class="table-heading" ng-show="ermsgContactUs"  align="center"><th colspan="1" align="center" style="text-align:center;">
+							<span  style="color:red;font-weight:bold;" role="alert">{{errorContactmsg}}</span></th>
+							</tr>
+							<tr class="table-heading">
+								<th colspan="2">Contact Us</th>
+								<!--th>DOB</th-->
+															 
+							</tr>
+						</thead>
+					
+						<tbody style="background-color: #f3f6fa;">
+							<tr >
+								 
+								<td align="left">
+								<div class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
+									<span class="error-control" style="font-weight:bold" >Email</span>
+								<div>								
+								<div class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
+										<input type="text" class="error-control modalInput"  id="emailCnt" name="emailCnt" placeholder="Your email"  ng-model="user.emailCnt" style=" border: 1px solid #DCDCDC;width:25%"  required />
+										<div style="text-align: left;color:red;" class="help-block" ng-show="contactfrm.emailCnt.$error.required ">Email is required</div>
+									</div></td>					 
+							</tr>
+							<tr >
+								
+							<td align="left">
+								<div class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
+									<span class="error-control"  style="font-weight:bold">Message</span>
+								</div>
+								<div class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"   show-errors>		 
+										<textarea name="textmsg" class="error-control modalInput" ng-model="user.textmsg" placeholder="Your message here..."  style=" border: 1px solid #DCDCDC;width:40%" required></textarea>
+										<div style="text-align: left;color:red;" class="help-block" ng-show="contactfrm.textmsg.$error.required ">Message is required</div>
+								</div> 
+							</td>					 
+						    </tr>
+							<tr   >
+								
+								<td >
+								<div class="form-group">
+									<input id="contactStatus" type="submit" value="Submit" ng-click="submitContact(contactfrm.$valid,'/feedback')" class="modalInput" style="width:25%"   />
+								</div>
+							 </td>					 
+							</tr>
+						</tbody>
+							 
+					</table>
+					</form>
+				</td>
+				</tr>
+			</table>
+		</div>	
+		
+		
+		 
+		
+	</div>  
+</div>
+</div>
+</div>
+		<div ng-include="'angular/views/userFooter.html'"></div>

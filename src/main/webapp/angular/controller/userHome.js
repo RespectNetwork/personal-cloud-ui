@@ -80,7 +80,10 @@ $scope.guardianName = $scope.guardianCloudName;
 $scope.changepass = {};
 $scope.changepass.show = false;
 
-
+$scope.contactUsContainer= false;
+$scope.user.hasErrorContact = false;
+$scope.msgContactUs = false;
+$scope.ermsgContactUs = false;
 	
 	//function is called to allow a request 
 	$scope.allowBlockUrl = function(type,urlHost,requestlist,requestType)
@@ -285,6 +288,11 @@ $scope.changepass.show = false;
 		else if($location.path() == "/addDependent")
 		{
 			$scope.addDependentContainer = true;
+			
+		}
+		else if($location.path() == "/contact")
+		{
+			$scope.contactUsContainer= true;
 			
 		}
 	}
@@ -998,6 +1006,39 @@ $scope.changepass.show = false;
 		$('#'+modalName).modal('hide');
 	}
 	
+	$scope.submitContact= function(isvalid,apiurl)
+	{   
+		if(isvalid){
+				 
+			var dataObject= {
+				message : $scope.user.textmsg
+			};
+		 
+			var apiUrl = {postUrl : 'feedback?email='+$scope.user.emailCnt};
+			commonServices.saveInfo(dataObject,apiUrl).then(function(result){	
+			if(result.message == 'Success' || result[0].message == 'Success')
+				{
+					$scope.msgContactUs = true;					
+					$scope.successContactmsg="Email sent successfully.";								  
+					 
+				}
+				else
+				{
+					$scope.ermsgContactUs = true;
+					if(result[0].errorMessage)
+					$scope.errorContactmsg = result[0].errorMessage;
+					else
+					$scope.errorContactmsg = "Error in sending email.";
+				}
+			});
+		}
+		else
+		{
+			$scope.user.hasErrorCond = true;
+			
+		}
+		 
+	}
 	
 	$scope.initiateList();
 	$scope.additionalCldList();
