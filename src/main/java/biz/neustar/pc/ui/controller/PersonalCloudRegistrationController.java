@@ -52,6 +52,7 @@ import biz.neustar.pcloud.rest.constants.ProductNames;
 import biz.neustar.pcloud.rest.dto.CloudInfo;
 import biz.neustar.pcloud.rest.dto.CloudValidation;
 import biz.neustar.pcloud.rest.dto.DependentList;
+import biz.neustar.pcloud.rest.dto.FeedbackInfo;
 import biz.neustar.pcloud.rest.dto.PCloudError;
 import biz.neustar.pcloud.rest.dto.PaymentInfo;
 import biz.neustar.pcloud.rest.dto.PaymentResponse;
@@ -170,9 +171,8 @@ public class PersonalCloudRegistrationController {
 
     @RequestMapping(value = UIRestPathConstants.PERSONAL_CLOUD_PROV_FEEDBACK_URI, method = RequestMethod.POST)
     public @ResponseBody
-    PCloudResponse processFeedback(@RequestParam(value = UIRestPathConstants.EMAIL) final String email,
-            @RequestBody final String message) {
-        return personalCloudManagerImpl.processFeedback(email, message);
+    PCloudResponse processFeedback(@RequestBody final FeedbackInfo feedbackInfo) {
+        return personalCloudManagerImpl.processFeedback(feedbackInfo);
 
     }
 

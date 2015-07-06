@@ -238,11 +238,8 @@ public class PersonalCloudManagerImpl implements PersonalCloudManager {
     }
 
     @Override
-    public PCloudResponse processFeedback(String email, String message) {
-        FeedbackInfo feedbackInfo = new FeedbackInfo();
-        feedbackInfo.setEmail(email);
+    public PCloudResponse processFeedback(FeedbackInfo feedbackInfo) {
         feedbackInfo.setToEmail(feedbackEmail);
-        feedbackInfo.setMessage(message);
         return handleException(pcRestClient.post(UIRestPathConstants.PERSONAL_CLOUD_PROV_FEEDBACK_URI, feedbackInfo),
                 PCloudResponse.class);
     }
