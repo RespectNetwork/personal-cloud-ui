@@ -160,7 +160,7 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 		if($scope.user.password!=undefined && !($scope.user.password===$scope.user.password_c)){
 		
 			$scope.user.errorMessageContainer = true;
-			$scope.user.errorMessage = "Password don't match";
+			$scope.user.errorMessage = "Password and confirm password don't match";
 			return false;
 		
 		}
@@ -171,6 +171,12 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 			$scope.user.errorMessageContainer = false;
 			$scope.successMessageContainer = false;	
 			$scope.loading_contactsInfo = true;
+			if($scope.user.countryCode.charAt(0) == "+")
+			{
+				var newCountryCode = $scope.user.countryCode; 
+				newCountryCode = newCountryCode.substring(1);
+				$scope.user.countryCode = newCountryCode;
+			}
 			$scope.user.userTel = "+"+$scope.user.countryCode+"."+$scope.user.userMobile; 
 			 var apiUrl = {postUrl : postUrl};
 			 

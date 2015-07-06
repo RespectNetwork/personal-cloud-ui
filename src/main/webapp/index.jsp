@@ -60,7 +60,7 @@ THE SOFTWARE.
 <!-- Cloud name Resources -->
 <script src="angular/controller/home.js"></script>
 <script src="angular/controller/registration.js"></script>
-
+<script src="angular/controller/forgotPassword.js"></script>
 <script src="angular/controller/userHome.js"></script>
 <script src="angular/services/commonServices.js"></script>
 <script src="angular/services/international-phone-number.js"></script>

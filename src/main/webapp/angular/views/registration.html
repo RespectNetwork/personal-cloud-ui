@@ -44,6 +44,8 @@ THE SOFTWARE.
 							<div class="col-md-12">
 								<div  class="form-group" ng-class="{'hasError':errorMessageContainer}" show-errors>
 									<h4 class="control-label font-white" >Choose your Cynja ID:</h4>
+									<div class="font-white" style="font-size:11px;text-align: center;">Your Cynja ID is your name in CynjaSpace!<br>
+Parents-please register for your own personal ID here & you'll register for your kids once inside our portal.</div>
 									<input class="error-control"  id="cloudName" name="cloudName" ng-model="user.cloudName" ng-change="appendSign()" ng-blur="cloudCheck(user.cloudName)" required/>
 									 
 									<div  id="cloudAvailError" style="text-align: center;color:red" class="help-block" ng-show="cloudAvailForm.cloudName.$error.required">Cloud Name is required.</div>
@@ -74,8 +76,8 @@ THE SOFTWARE.
 									</div>
 									<div  class="form-group required" ng-class="{'hasError': user.hasErrorCond}" show-errors>
 										<input type="text" id="countryCode"  name="countryCode"   value="" international-phone-number ng-model="user.countryCode"  required/> <input class="userTelephone error-control"  id="userMobile"  name="userMobile"  placeholder="" value=""  ng-model="user.userMobile" ng-minlength="6" ng-maxlength="14" ng-pattern="/^(0|[1-9][0-9]*)$/"  required />
-										<div id="userMobileError_1" style="text-align: center;color:red" class="userMobSpan help-block" ng-if="!userDetailForm.userMobile.$error.required && (userDetailForm.userMobile.$error.minlength || userDetailForm.userMobile.$error.maxlength)">Phone number must contain minimum 6 and max 14 digits</div>
-										<div id="countryCodeError" style="text-align: center;color:red" class="help-block" ng-if="userDetailForm.countryCodeError.$error.required">Country Code is required</div>
+										<div id="userMobileError_1" style="text-align: center;color:red" class="userMobSpan help-block" ng-if="!userDetailForm.userMobile.$error.required && (userDetailForm.userMobile.$error.minlength || userDetailForm.userMobile.$error.maxlength || userDetailForm.userMobile.$error.pattern)">Should be a number and must contain minimum 6 and max 14 digits</div>
+										<div id="countryCodeError" style="text-align: center;color:red" class="help-block" ng-if="userDetailForm.countryCode.$error.required">Country code is required</div>
 										<div id="userMobileError_2" style="text-align: center;color:red" class="help-block" ng-if="userDetailForm.userMobile.$error.required">Phone number is required</div>
 									</div>
 									<div  class="form-group required" ng-class="{'hasError': user.hasErrorCond}" showErrors>
