@@ -40,6 +40,7 @@ import biz.neustar.pcloud.rest.constants.ProductNames;
 import biz.neustar.pcloud.rest.dto.CloudInfo;
 import biz.neustar.pcloud.rest.dto.CloudValidation;
 import biz.neustar.pcloud.rest.dto.DependentList;
+import biz.neustar.pcloud.rest.dto.FeedbackInfo;
 import biz.neustar.pcloud.rest.dto.PCloudError;
 import biz.neustar.pcloud.rest.dto.PaymentInfo;
 import biz.neustar.pcloud.rest.dto.PaymentResponse;
@@ -59,9 +60,10 @@ public class PersonalCloudManagerImpl implements PersonalCloudManager {
      * 
      */
     private PCRestClient pcRestClient;
-
-    public PersonalCloudManagerImpl(PCRestClient pcRestClient) {
+    private String feedbackEmail;
+    public PersonalCloudManagerImpl(PCRestClient pcRestClient, String feedbackEmail) {
         this.pcRestClient = pcRestClient;
+        this.feedbackEmail = feedbackEmail;
     }
 
     /*
@@ -233,5 +235,15 @@ public class PersonalCloudManagerImpl implements PersonalCloudManager {
             }
         }
         return entity;
+    }
+
+    @Override
+    public PCloudResponse processFeedback(String email, String message) {
+        FeedbackInfo feedbackInfo = new FeedbackInfo();
+        feedbackInfo.setEmail(email);
+        feedbackInfo.setToEmail(feedbackEmail);
+        feedbackInfo.setMessage(message);
+        return handleException(pcRestClient.post(UIRestPathConstants.PERSONAL_CLOUD_PROV_FEEDBACK_URI, feedbackInfo),
+                PCloudResponse.class);
     }
 }

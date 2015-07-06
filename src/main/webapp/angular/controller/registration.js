@@ -44,7 +44,7 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 	$scope.hasErrorCond = false;
 	$scope.hasErrorVerify = false;
 	$scope.hasErrorPay = false;
-	
+	$scope.user.countryCode = "+1";
 	 
 	$scope.openTerm = function(modalName)
 	{ 

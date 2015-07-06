@@ -58,4 +58,6 @@ public interface PersonalCloudManager {
     public abstract PaymentResponse processPayment(ProductNames productName, PaymentInfo paymentInfo);
 
     public abstract PCloudResponse changePassword(String cspCloudName, String cloudName, CloudValidation cloudValidation);
+
+    public abstract PCloudResponse processFeedback(String email, String message);
 }
