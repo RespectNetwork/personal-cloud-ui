@@ -43,15 +43,21 @@ angular.module('myApp').controller("forgotPassword", function ($scope,$location,
 	$scope.submitForgotEmail = function(isValid,postUrl) {
 	 
 		if(isValid){
-		 
-			if($scope.user.countryCode.charAt(0) == "+")
+		
+			if($scope.user.countryCode.charAt(0) == "+" && $scope.user.countryCode.charAt(1)== "+")
 			{
 				var newCountryCode = $scope.user.countryCode; 
 				newCountryCode = newCountryCode.substring(1);
-				$scope.user.countryCode = newCountryCode;
+				$scope.user.userTel = newCountryCode+"."+$scope.user.userMobile; 
 			}
-		 
-			$scope.user.userTel = "+"+$scope.user.countryCode+"."+$scope.user.userMobile; 
+			else if($scope.user.countryCode.charAt(0) == "+" && $scope.user.countryCode.charAt(1)!= "+")
+			{
+				$scope.user.userTel = $scope.user.countryCode+"."+$scope.user.userMobile; 
+			}
+			else if ($scope.user.countryCode.charAt(0) != "+"){
+				$scope.user.userTel = "+"+$scope.user.countryCode+"."+$scope.user.userMobile; 
+			}		 
+			
 			$scope.user.identifier = Math.floor((Math.random() *(10000-1000))+1000);
 			//Updating paramters accordingly
 			var dataObject= {
@@ -76,8 +82,12 @@ angular.module('myApp').controller("forgotPassword", function ($scope,$location,
 				else
 				{ 
 					$scope.user.errorMailContainer = true;
+					if(result[0].errorMessage){
+					$scope.user.errorMessage = result[0].errorMessage;
+					}
+					else{
 					$scope.user.errorMessage = "Error: Invalid request";
-										 
+					}					 
 				}
 			});
 		

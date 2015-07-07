@@ -171,13 +171,19 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 			$scope.user.errorMessageContainer = false;
 			$scope.successMessageContainer = false;	
 			$scope.loading_contactsInfo = true;
-			if($scope.user.countryCode.charAt(0) == "+")
+			if($scope.user.countryCode.charAt(0) == "+" && $scope.user.countryCode.charAt(1)== "+")
 			{
 				var newCountryCode = $scope.user.countryCode; 
 				newCountryCode = newCountryCode.substring(1);
-				$scope.user.countryCode = newCountryCode;
+				$scope.user.userTel = newCountryCode+"."+$scope.user.userMobile; 
 			}
-			$scope.user.userTel = "+"+$scope.user.countryCode+"."+$scope.user.userMobile; 
+			else if($scope.user.countryCode.charAt(0) == "+" && $scope.user.countryCode.charAt(1)!= "+")
+			{
+				$scope.user.userTel = $scope.user.countryCode+"."+$scope.user.userMobile; 
+			}
+			else if ($scope.user.countryCode.charAt(0) != "+"){
+				$scope.user.userTel = "+"+$scope.user.countryCode+"."+$scope.user.userMobile; 
+			} 
 			 var apiUrl = {postUrl : postUrl};
 			 
 			$scope.user.identifier = Math.floor((Math.random() *(10000-1000))+1000);
