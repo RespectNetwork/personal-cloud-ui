@@ -29,13 +29,14 @@ THE SOFTWARE.
 	<div><img src="images/kids_cynja.png" class="img-responsive center-block"></div>
 </div>
 		<div class="col-md-4">
-				<div class="registration-container" style="width:100%;" ng-show="registrationcontainer">
-						<div class="row step2">
+			<div class="registration-container" style="width:100%;" ng-show="registrationcontainer">
+				<div class="row step2">
 							<nav class="header-shadow">
 								<ul>
-									<li><a href="#home">Login</a></li>
-									<li><a href="#registration">Registration</a></li>
-									<li><a href="#faqs">FAQ</a></li>
+									<li>&nbsp;</li>
+									<li><a href="#registration">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Registration</a></li>
+									<li>&nbsp;</li>
+									
 								</ul>	
 							</nav>
 				<div  id="cloudAvaliable" ng-show="cloudAvalContainer">					 
@@ -44,19 +45,19 @@ THE SOFTWARE.
 							<div class="col-md-12">
 								<div  class="form-group" ng-class="{'hasError':errorMessageContainer}" show-errors>
 									<h4 class="control-label font-white" >Choose your Cynja ID:</h4>
-									<div class="font-white" style="font-size:11px;text-align: center;">Your Cynja ID is your name in CynjaSpace!<br>
+									<div class="font-white row" style="font-size:11px;text-align: center;">Your Cynja ID is your name in CynjaSpace!<br>
 Parents-please register for your own personal ID here & you'll register for your kids once inside our portal.</div>
 									<input class="error-control"  id="cloudName" name="cloudName" ng-model="user.cloudName" ng-change="appendSign()" ng-blur="cloudCheck(user.cloudName)" required/>
 									 
-									<div  id="cloudAvailError" style="text-align: center;color:red" class="help-block" ng-show="cloudAvailForm.cloudName.$error.required">Cloud Name is required.</div>
+									<div  id="cloudAvailError" style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="cloudAvailForm.cloudName.$error.required">Cloud Name is required.</div>
 								 
-									<div id="cloudNotAvail" style="text-align: center;color:red" ng-if="errorMessageContainer" role="alert">{{errorMessage}}</div>
-									<div id="cloudAvailSuccess" style="text-align: center;color:yellow" ng-if="successMessageContainer" role="alert">{{successMessage}}</div>	
+									<div id="cloudNotAvail" style="text-align: center;color:red;font-weight: 900;font-size:13px;" ng-if="errorMessageContainer" role="alert">{{errorMessage}} <img width="17px" height="17px"  src="images/smileyface.png"></div>
+									<div id="cloudAvailSuccess" style="text-align: center;color:#e38d17;font-weight: 900;" ng-if="successMessageContainer" role="alert">{{successMessage}}</div>	
 								</div>
-								<div style="text-align:center;" class="font-white" for="example_name">e.g, =jane, =janedoe, =jane.doe</div>
+								<div style="text-align:center;" class="font-white" for="example_name">e.g,  =grant, =grantwiley, =grant.wiley</div>
 								<div class="form-group">
 								<!--input id="chkCldStatus" type="submit" value="Submit" ng-click='submitForm(cloudAvailForm.$valid)' class="btn" ng-disabled="error" /-->
-								<input id="chkCldStatus" type="submit" value="Submit" ng-click='submitForm(cloudAvailForm.$valid,errorMessageContainer)' class="btn"  />
+								<input id="chkCldStatus" type="submit" value="Submit" ng-click='submitForm(cloudAvailForm.$valid,errorMessageContainer)' class="btn orange"  />
 								
 								</div>
 							</div>
@@ -67,36 +68,36 @@ Parents-please register for your own personal ID here & you'll register for your
 							<form id="userDetailForm" method="post" name="userDetailForm"   novalidate >			
 							<h4 class="font-white">To ensure a secure CynjaSpace we need to verify your email and phone by sending a verification code.</h4>
 								<div class="col-md-12">
-									<div id="errorMessageContainer" style="text-align: center;color:red" ng-show="user.errorMessageContainer" role="alert">{{user.errorMessage}}</div>
+									<div id="errorMessageContainer" style="text-align: center;color:red;font-weight: 900;" ng-show="user.errorMessageContainer" role="alert">{{user.errorMessage}}</div>
 									
 									<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
 										<input type="email" class="error-control" id="userEmail" name="userEmail" placeholder="Email Address" ng-model="user.userEmail" required/>
-									   <div id="userEmailError_1" style="text-align: center;color:red" class="help-block" ng-if="userDetailForm.userEmail.$error.required">Email is required</div>
-										<div id="userEmailError_2" style="text-align: center;color:red"   ng-if="userDetailForm.userEmail.$error.email">Given email address is invalid</div>
+									   <div id="userEmailError_1" style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-if="userDetailForm.userEmail.$error.required">Email is required</div>
+										<div id="userEmailError_2" style="text-align: center;color:red;font-weight: 900;"   ng-if="userDetailForm.userEmail.$error.email">Given email address is invalid</div>
 									</div>
 									<div  class="form-group required" ng-class="{'hasError': user.hasErrorCond}" show-errors>
 										<input type="text" id="countryCode"  name="countryCode"   value="" international-phone-number ng-model="user.countryCode"  required/> <input class="userTelephone error-control"  id="userMobile"  name="userMobile"  placeholder="" value=""  ng-model="user.userMobile" ng-minlength="6" ng-maxlength="14" ng-pattern="/^(0|[1-9][0-9]*)$/"  required />
-										<div id="userMobileError_1" style="text-align: center;color:red" class="userMobSpan help-block" ng-if="!userDetailForm.userMobile.$error.required && (userDetailForm.userMobile.$error.minlength || userDetailForm.userMobile.$error.maxlength || userDetailForm.userMobile.$error.pattern)">Should be a number and must contain minimum 6 and max 14 digits</div>
-										<div id="countryCodeError" style="text-align: center;color:red" class="help-block" ng-if="userDetailForm.countryCode.$error.required">Country code is required</div>
-										<div id="userMobileError_2" style="text-align: center;color:red" class="help-block" ng-if="userDetailForm.userMobile.$error.required">Phone number is required</div>
+										<div id="userMobileError_1" style="text-align: center;color:red;font-weight: 900;" class="userMobSpan help-block" ng-if="!userDetailForm.userMobile.$error.required && (userDetailForm.userMobile.$error.minlength || userDetailForm.userMobile.$error.maxlength || userDetailForm.userMobile.$error.pattern)">Should be a number and must contain minimum 6 and max 14 digits</div>
+										<div id="countryCodeError" style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-if="userDetailForm.countryCode.$error.required">Country code is required</div>
+										<div id="userMobileError_2" style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-if="userDetailForm.userMobile.$error.required">Phone number is required</div>
 									</div>
 									<div  class="form-group required" ng-class="{'hasError': user.hasErrorCond}" showErrors>
-										<input class="error-control" type="password" id="password"  name="password"  placeholder="Password" ng-model="user.password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required  />
-										<div id="passwordError_1" style="text-align: center;color:red" class="help-block" ng-if="userDetailForm.password.$error.required">Password is required</div>
-										<div id="passwordError_2" style="text-align: center;color:red"   ng-if="!userDetailForm.password.$error.required && (userDetailForm.password.$error.minlength || userDetailForm.password.$error.maxlength)">Passwords must be between 8 and 20 characters.</div>
-										<div id="passwordError_3" style="text-align: center;color:red"   ng-if="!userDetailForm.password.$error.required && !userDetailForm.password.$error.minlength && !userDetailForm.password.$error.maxlength && userDetailForm.password.$error.pattern ">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</div>
+										<input class="error-control" type="password" id="password"  name="password"  placeholder="Password" ng-model="user.password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*\d\d)(?=.*[a-zA-Z][a-zA-Z])(?=.*[!@#$%^&*])/" title="Passwords must be 8-20 characters, have at least 2 letters, 2 numbers and at least one special character, e.g. @, #, $" required  />
+										<div id="passwordError_1" style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-if="userDetailForm.password.$error.required">Password is required</div>
+										<div id="passwordError_2" style="text-align: center;color:red;font-weight: 900;"   ng-if="!userDetailForm.password.$error.required && (userDetailForm.password.$error.minlength || userDetailForm.password.$error.maxlength)">Passwords must be between 8 and 20 characters.</div>
+										<div id="passwordError_3" style="text-align: center;color:red;font-weight: 900;"   ng-if="!userDetailForm.password.$error.required && !userDetailForm.password.$error.minlength && !userDetailForm.password.$error.maxlength && userDetailForm.password.$error.pattern ">Must contain 2 letters, 2 numbers and at least one special character, e.g. @, #, $.</div>
 										
 									</div>
 									<div  class="form-group required" ng-class="{'hasError': user.hasErrorCond}"  showErrors>
 										<input class="error-control" type="password" id="password_c"  name="password_c"  ng-model="user.password_c" placeholder="Confirm Password"  required="true"  />
-										<div id="passwordConfError_1" style="text-align: center;color:red"class="help-block" ng-if="userDetailForm.password_c.$error.required">Confirm password is required.</div>
+										<div id="passwordConfError_1" style="text-align: center;color:red;font-weight: 900;"class="help-block" ng-if="userDetailForm.password_c.$error.required">Confirm password is required.</div>
 										<!--div style="text-align: center;color:red" class="help-block"  ng-if="(user.password_c != '') && (user.password != user.password_c) ">Passwords do not match.</-->
 									</div>									
 									
 									
 									<div class="form-group">
-									<input  id="userDetailSubmit" type="submit" value="Submit" class="btn"  ng-click="submitUserInfo(userDetailForm.$valid,'codes/generate')"/>
-									<input  id="userDetailResetuse" type="submit" value="Reset" class="btn" ng-click="reset()"> 
+									<input  id="userDetailSubmit" type="submit" value="Submit" class="btn orange"  ng-click="submitUserInfo(userDetailForm.$valid,'codes/generate')"/>
+									<input  id="userDetailResetuse" type="submit" value="Reset" class="btn purple" ng-click="reset()"> 
 									</div>
 								</div>
 							</form>
@@ -108,18 +109,18 @@ Parents-please register for your own personal ID here & you'll register for your
 									<div class="row">
 										<h4 class="font-white">Verification codes have been sent to your email and phone. Enter both codes in the fields below.</h4>
 									</div>
-									<div style="text-align: center;color:red" ng-show="user.errorMessageContainer" role="alert">{{user.errorMessage}}</div>
+									<div style="text-align: center;color:red;font-weight: 900;" ng-show="user.errorMessageContainer" role="alert">{{user.errorMessage}}</div>
 									
 									<div class="form-group" ng-class="{hasError: user.hasErrorVerify}" show-errors>
 										<input type="text" class="error-control" id="emailCode" name="emailCode" placeholder="email code"  ng-model="user.emailCode" required/>
-										<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.emailCode.$error.required ">Email code is required</div>
+										<div style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="validateUserForm.emailCode.$error.required ">Email code is required</div>
 									</div>	
 									<div class="row">
 										<center><label>Sent to: {{user.userEmail}}</label></center>
 									</div>	
 									<div  class="form-group" ng-class="{hasError: user.hasErrorVerify}" show-errors>
 										<input type="phoneCode" class="error-control"  id="phoneCode" name="phoneCode" placeholder="phone code"  ng-model="user.phoneCode" required>
-										<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.phoneCode.$error.required ">Phone code is required</div>
+										<div style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="validateUserForm.phoneCode.$error.required ">Phone code is required</div>
 									</div>
 									<div class="row">
 										<center><label>Sent to: {{user.userTel}}</label></center>
@@ -132,7 +133,7 @@ Parents-please register for your own personal ID here & you'll register for your
 									<div class="checkbox-one" style="color: #fff; padding-top: 10px;"><p>
 										I agree to <a href="http://openidentityexchange.org/wp-content/uploads/Respect%20Trust%20Framework_0.pdf" target="_blank" style="color:#33c4ff">Respect Trust Framework</a> and the one-person account rule. </p>
 									</div>
-									<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.I_Agree.$error.required ">Please agree on rule.</div>
+									<div style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="validateUserForm.I_Agree.$error.required ">Please agree on rule.</div>
 									</div>
 									<!-- Secound checkbox -->
 									<div  class="form-group"  ng-class="{hasError: user.hasErrorVerify}" show-errors >
@@ -142,7 +143,7 @@ Parents-please register for your own personal ID here & you'll register for your
 									<div  style="color: #fff;width:65%;padding-top: 10px;"><p>
 										I agree to <a ng-click="openTerm('termOfServ')" target="_blank" style="color:#33c4ff">terms of service.</a></p>
 									</div>
-									<div style="text-align: center;color:red;" class="help-block" ng-show="validateUserForm.I_AgreeTerm.$error.required ">Please agree on terms of service.</div>
+									<div style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="validateUserForm.I_AgreeTerm.$error.required ">Please agree on terms of service.</div>
 									</div>	
 									<div class="form-group">
 										<input id="verifyCodes" type="button" value="Verify" ng-click="validatesCodes(validateUserForm.$valid,'codes/validate')" class="grad pull-left checkbox-three"  "/>
@@ -215,6 +216,10 @@ Parents-please register for your own personal ID here & you'll register for your
 								</div>
 								</form>
 				</div>
+				<div class="col-md-12" >
+				<span style="float:left;color:#D6A135;font-weight:900;">Already a cynja<a href="#home" style="color:#33c4ff"> click here </a></span>
+					<a href="#faqs"    style="float:right;color:#D6A135;font-weight:bold;"> FAQ </a>
+				</div>	
 			</div>	
 		</div>
 				<div class="row" id="Congratulation" ng-show="CongratulationContainer"><p id="para1" class="font-white"> 
@@ -223,7 +228,7 @@ Cyberspace will never look the same again!<br>
 Start Your Cynja Adventure By Creating Cynja IDs for Your Kids!<br>
 Each child will need its own ID.
 <br></p>
-	<p id="para2" class="font-white"><a href="#home" style="color:#33c4ff">Click Here</a> for login Page.</p></div>
+	<p id="para2" class="font-white"><a href="#home" style="color:#33c4ff">Click Here</a> to register your kids!</p></div>
 	</div>
 <div class="col-md-4 login-img">
 	<div><img src="images/kids_jo.png" class="img-responsive center-block"></div>

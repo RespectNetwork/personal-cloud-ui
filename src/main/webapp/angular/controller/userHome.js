@@ -84,7 +84,8 @@ $scope.contactUsContainer= false;
 $scope.user.hasErrorContact = false;
 $scope.msgContactUs = false;
 $scope.ermsgContactUs = false;
-	
+ 
+
 	//function is called to allow a request 
 	$scope.allowBlockUrl = function(type,urlHost,requestlist,requestType)
 	{
@@ -548,12 +549,12 @@ $scope.ermsgContactUs = false;
 				if(responseData.message =="true"){
 					$scope.successMessageContainerAddDep = true;
 					$scope.errorMessageContainerAddDep = false;
-					$scope.successMessageAddDep = "This cloud name is available.";
+					$scope.successMessageAddDep = "Cynja ID is available.";
 					$scope.error = false;
 				}else if((responseData.message =="false")){
 					$scope.successMessageContainerAddDep = false;
 					$scope.errorMessageContainerAddDep = true;
-					$scope.errorMessageAddDep = "This cloud name is not available.";
+					$scope.errorMessageAddDep = "Cynja ID is not available.";
 					$scope.error = true;
 				}
 				else{  
@@ -1011,18 +1012,16 @@ $scope.ermsgContactUs = false;
 		if(isvalid){
 				 
 			var dataObject= {
-				email : $scope.user.emailCnt,
 				message : $scope.user.textmsg
 			};
 		 
-			var apiUrl = {postUrl : 'feedback'};
+			var apiUrl = {postUrl : 'feedback?email='+$scope.user.emailCnt};
 			commonServices.saveInfo(dataObject,apiUrl).then(function(result){	
 			if(result.message == 'Success' || result[0].message == 'Success')
 				{
 					$scope.msgContactUs = true;					
 					$scope.successContactmsg="Email sent successfully.";								  
-					$scope.user.textmsg="";
-					$scope.user.emailCnt="";
+					 
 				}
 				else
 				{
@@ -1045,5 +1044,5 @@ $scope.ermsgContactUs = false;
 	$scope.initiateList();
 	$scope.additionalCldList();
 	$scope.dependentCldList();
-
+ 
 	});

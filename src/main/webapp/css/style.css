@@ -408,7 +408,7 @@ footer{
 }
 
 .checkbox-three{
-	width: 42% !important
+	width: 43% !important
 }
 
 .tele{
@@ -506,8 +506,8 @@ footer{
     display:block;
     border-radius:100%;
     color:#000;
-    width: 161px;
-    height: 161px;
+    width: 184px;
+    height: 184px;
     text-align: center;
     padding: 25px 43px;
     margin:20px auto;
@@ -694,9 +694,8 @@ footer{
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
 }
 .hasError .control-label {
-	color: #b94a48;
+	color: red;
     border-color: #a94442;
-     
 }
 .nav-pills li{
 	background-color :#f8f8ff;
@@ -789,7 +788,7 @@ footer{
 		padding: 8px 11px;
 }
 .font-white{
-	font-weight: bold;
+	font-weight: 900;
 	color : #fff;
 }
  
@@ -807,4 +806,14 @@ footer{
 .dropdown-menu > li > a:hover ,.dropdown-menu li > a:focus{
 	 
 	color : #68B8D8;
+}
+.orange{
+	background-color: #f26522;
+	color : white;
+	font-weight: 900 !important;
+}
+.purple{
+	background-color: #9c398c;
+	color : white;
+	font-weight: 900 !important;
 }

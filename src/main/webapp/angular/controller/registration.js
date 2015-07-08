@@ -76,41 +76,41 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 		 blockUI.start();
 		if(cloudAvailUrl){
 		cloudAvailUrl = 'clouds/personalClouds/'+cloudAvailUrl+'/available';
-			 
+					
 			commonServices.getInfo(cloudAvailUrl).then(function(responseData){	
 			 	blockUI.stop();
-				 
+				
 				if(responseData.message =="true"){ 
 					$scope.successMessageContainer = true;
 					$scope.errorMessageContainer = false;
-					$scope.successMessage = "This cloud name is available.";
+					$scope.successMessage = "You Rock! Your Cynja Id is available.";
 					$scope.error = false;
 					 
 				}else if((responseData.message =="false")){ 
 					$scope.successMessageContainer = false;
 					$scope.errorMessageContainer = true;
-					$scope.errorMessage = "This cloud name is not available.";
+					$scope.errorMessage = "Oh No… that name is taken. Try again ";
 					$scope.error = true;
 				 
 				}				
 				else if(responseData.errorMessage || responseData[0].errorMessage){ 
-					
+					 
 					 
 					$scope.successMessageContainer = false;					
 					$scope.errorMessageContainer = true;
 					if(responseData.errorMessage){
 					$scope.errorMessage = responseData.errorMessage;
 					}
-					else if(responseData[0].errorMessage){
+					else if(responseData[0].errorMessage){  
 					$scope.errorMessage = responseData[0].errorMessage;
 					}
 					$scope.error = true;					 
 					 
 					}
-				else{ 
+				else{  
 					$scope.errorMessageContainer = true;
 					$scope.successMessageContainer = false;
-					$scope.errorMessage = responseData.message;
+					$scope.errorMessage = "Invalid cynja Id. please try again.";
 					$scope.error = true;
 					 
 
