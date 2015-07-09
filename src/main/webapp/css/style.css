@@ -423,7 +423,7 @@ footer{
 .para{
 	 margin: -14px 66px 30px 28px;
 	display: block;
-    padding-left: 15px;
+    padding-left: 11px;
     text-indent: -15px;
 }
 
@@ -816,4 +816,12 @@ footer{
 	background-color: #9c398c;
 	color : white;
 	font-weight: 900 !important;
+}
+.verifyCode{
+	width: 37% !important;
+	float: inherit !important;
+}
+.pullCenter{
+	width: 44% !important;
+	float: inherit !important;
 }
