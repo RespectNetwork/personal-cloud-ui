@@ -1012,10 +1012,11 @@ $scope.ermsgContactUs = false;
 		if(isvalid){
 				 
 			var dataObject= {
+				email : $scope.user.emailCnt,
 				message : $scope.user.textmsg
 			};
 		 
-			var apiUrl = {postUrl : 'feedback?email='+$scope.user.emailCnt};
+			var apiUrl = {postUrl : 'feedback'};
 			commonServices.saveInfo(dataObject,apiUrl).then(function(result){	
 			if(result.message == 'Success' || result[0].message == 'Success')
 				{
