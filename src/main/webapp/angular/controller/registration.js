@@ -75,7 +75,8 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 	$scope.cloudCheck = function(cloudAvailUrl) {
 		 blockUI.start();
 		if(cloudAvailUrl){
-		cloudAvailUrl = 'clouds/personalClouds/'+cloudAvailUrl+'/available';
+		
+		cloudAvailUrl = encodeURI('clouds/personalClouds/'+cloudAvailUrl+'/available');
 					
 			commonServices.getInfo(cloudAvailUrl).then(function(responseData){	
 			 	blockUI.stop();

@@ -34,7 +34,7 @@ THE SOFTWARE.
 							<nav class="header-shadow">
 								<ul>
 									<li>&nbsp;</li>
-									<li><a href="#registration">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Registration</a></li>
+									<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#registration">Registration</a></li>
 									<li>&nbsp;</li>
 									
 								</ul>	
@@ -145,9 +145,9 @@ Parents-please register for your own personal ID here & you'll register for your
 									</div>
 									<div style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="validateUserForm.I_AgreeTerm.$error.required ">Please agree on terms of service.</div>
 									</div>	
-									<div class="form-group">
-										<input id="verifyCodes" type="button" value="Verify" ng-click="validatesCodes(validateUserForm.$valid,'codes/validate')" class="grad pull-left checkbox-three"  "/>
-										<input id="sendNewCodes" type="button" value="Send New Codes" ng-click="submitUserInfo(userDetailForm.$valid,'codes/generate')" class="grad pull-right checkbox-three"/>	
+									<div class="form-group row">
+										<input id="verifyCodes" type="button" value="Verify" ng-click="validatesCodes(validateUserForm.$valid,'codes/validate')" class="grad pull-left verifyCode orange"  "/>
+										<input id="sendNewCodes" type="button" value="Send New Codes" ng-click="submitUserInfo(userDetailForm.$valid,'codes/generate')" class="grad pullCenter purple"/>	
 									</div>									
 									</div>
 								</div>
@@ -176,7 +176,7 @@ Parents-please register for your own personal ID here & you'll register for your
 									</div>
 									
 									<div class="form-group">
-									<input type="button" value="Submit" ng-click="getPaymentID(paymentModeForm.$valid,$event,'stripe')" class="grad"  style=" margin: 35px; vertical-align: middle;"/>
+									<input type="button" value="Submit" ng-click="getPaymentID(paymentModeForm.$valid,$event,'stripe')" class="grad orange"  style=" margin: 35px; vertical-align: middle;"/>
 									<!--input type="button" value="Submit" ng-click="callPaymentInfo(paymentModeForm.$valid,$event,'stripe')" class="grad"  style=" margin: 35px; vertical-align: middle;"/--></div>
 							</div>	
 						</div>
