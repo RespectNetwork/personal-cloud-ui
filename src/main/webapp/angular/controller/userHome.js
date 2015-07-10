@@ -538,12 +538,13 @@ $scope.ermsgContactUs = false;
 	}
 	
 	$scope.cloudCheckDep = function(cloudAvailUrl) {
-		blockUI.start();
+		
 		if(cloudAvailUrl){
 			cloudAvailUrl = 'clouds/personalClouds/'+cloudAvailUrl+'/available';
 			$scope.loading_contactsInfo = true;
+			blockUI.start();
 			commonServices.getInfo(cloudAvailUrl).then(function(responseData){	
-				blockUI.stop();
+				
 				$scope.loading_contactsInfo = false;
 			 
 				if(responseData.message =="true"){
@@ -551,6 +552,7 @@ $scope.ermsgContactUs = false;
 					$scope.errorMessageContainerAddDep = false;
 					$scope.successMessageAddDep = "Cynja ID is available.";
 					$scope.error = false;
+					
 				}else if((responseData.message =="false")){
 					$scope.successMessageContainerAddDep = false;
 					$scope.errorMessageContainerAddDep = true;
@@ -575,10 +577,10 @@ $scope.ermsgContactUs = false;
 					$scope.error = true;
 	 
 				}
-			
+			blockUI.stop();
 			});
 		} 
-	
+	blockUI.stop();
 	}
 	
 	
@@ -1023,7 +1025,7 @@ $scope.ermsgContactUs = false;
 					$scope.msgContactUs = true;					
 					$scope.successContactmsg="Email sent successfully.";
 					$scope.user.emailCnt="";
-					$scope.user.textmsg="";
+					$scope.user.textmsg="";								  
 					 
 				}
 				else

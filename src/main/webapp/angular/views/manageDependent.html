@@ -35,7 +35,7 @@ THE SOFTWARE.
 					<td  style="font-size:30px;color:#ffdc70;font-weight:900">Add children to your digital family.</td>
 				</tr>
 				<tr>
-					<td><a href="#userhome" class="btn btn-primary " style="margin-bottom: 10px;">Back</a>&nbsp;&nbsp;					
+					<td><a href="#userhome" class="btn btn-primary purple" style="margin-bottom: 10px;">Back</a>&nbsp;&nbsp;					
 					<input style="margin-bottom: 10px;" ng-click="addRecord('addDependent')" class="btn orange"   name="action" id="'action_'+$index" value="Add Child"  >
 					</td>
 					
@@ -60,12 +60,20 @@ THE SOFTWARE.
 								<td><span >{{ deplist.cloudName}}</span></td>
 								<!--td ><span >{{ deplist.dateOfBirth }}</span></td-->					 
 							</tr>
-							<tr  ng-if="dependentcloudlist.length === 0" class="color0" ><td colspan="1" align="center">No item found.</td></tr>
+							<tr  ng-if="dependentcloudlist.length === 0 || !dependentcloudlist" class="color0" ><td colspan="1" align="center">No item found.</td></tr>
+							
 						</tbody>
 							 
 					</table>
 				</td>
 				</tr>
+				<tr>
+								<td colspan="1" align="center">
+								<div   style="font-size:18px;	width:100%;color:#ffdc70;font-weight: 900;">Once you've finished registering your children—hit the back button to download the CynjaSpace app.<br>
+Or <a href="http://kiwitech-buildkit.herokuapp.com/i?q=CeZsoGrGMw8-xA" target="_blank" style="color:#33c4ff" >click here</a> to download cynjaspace app. 
+</div>
+								</td>
+							</tr>
 			</table>
 		</div>	
 		
@@ -168,7 +176,5 @@ THE SOFTWARE.
 </div>
 </div>
 </div>
-<div   style="float:left;position:fixed;left:0px;bottom:0px; z-index:2;vertical-align:bottom;padding:6px;width:33%;color:#ffdc70;font-weight: 900;">Once you've finished registering your children—hit the back button to download the CynjaSpace app.<br>
-Or <a href="#userhome" style="color:#33c4ff" >click here</a> for dashboard page. 
-</div>
+
 		<div ng-include="'angular/views/userFooter.html'"></div>

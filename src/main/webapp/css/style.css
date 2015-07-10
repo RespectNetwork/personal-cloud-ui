@@ -273,8 +273,8 @@ nav{
 
 
 nav ul li{
-	float:left;
-	padding: 10px 26px 10px 14px;
+	float:none;
+	padding: 0px 41px 5px 5px;
 	
 
 }
@@ -506,10 +506,10 @@ footer{
     display:block;
     border-radius:100%;
     color:#000;
-    width: 184px;
-    height: 184px;
+    width: 160px;
+    height: 160px;
     text-align: center;
-    padding: 25px 43px;
+    padding:17px 31px;
     margin:20px auto;
 }
 
