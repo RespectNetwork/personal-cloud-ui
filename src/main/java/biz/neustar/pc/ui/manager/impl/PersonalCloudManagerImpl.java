@@ -25,12 +25,14 @@ package biz.neustar.pc.ui.manager.impl;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import biz.neustar.pc.ui.constants.UIRestPathConstants;
+import biz.neustar.pc.ui.exception.PCloudErrorsUIException;
 import biz.neustar.pc.ui.exception.PCloudUIException;
 import biz.neustar.pcloud.PCRestClient;
 import biz.neustar.pcloud.ResponseData;
@@ -38,6 +40,7 @@ import biz.neustar.pcloud.rest.constants.ProductNames;
 import biz.neustar.pcloud.rest.dto.CloudInfo;
 import biz.neustar.pcloud.rest.dto.CloudValidation;
 import biz.neustar.pcloud.rest.dto.DependentList;
+import biz.neustar.pcloud.rest.dto.FeedbackInfo;
 import biz.neustar.pcloud.rest.dto.PCloudError;
 import biz.neustar.pcloud.rest.dto.PaymentInfo;
 import biz.neustar.pcloud.rest.dto.PaymentResponse;
@@ -45,6 +48,7 @@ import biz.neustar.pcloud.rest.dto.Synonym;
 import biz.neustar.pcloud.rest.dto.SynonymInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.sun.jersey.api.representation.Form;
 
 /**
@@ -56,9 +60,10 @@ public class PersonalCloudManagerImpl implements PersonalCloudManager {
      * 
      */
     private PCRestClient pcRestClient;
-
-    public PersonalCloudManagerImpl(PCRestClient pcRestClient) {
+    private String feedbackEmail;
+    public PersonalCloudManagerImpl(PCRestClient pcRestClient, String feedbackEmail) {
         this.pcRestClient = pcRestClient;
+        this.feedbackEmail = feedbackEmail;
     }
 
     /*
@@ -212,23 +217,30 @@ public class PersonalCloudManagerImpl implements PersonalCloudManager {
                 error = new ObjectMapper().readValue(responsedata.getBody(), PCloudError.class);
                 throw new PCloudUIException(error.getErrorCode(), error.getErrorMessage(), responsedata.getStatus());
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                LOGGER.error("Might be list of errors :");
+                List<PCloudError> errors;
+                try {
+                    errors = new ObjectMapper().readValue(responsedata.getBody(), TypeFactory.defaultInstance()
+                            .constructCollectionType(List.class, PCloudError.class));
+                    throw new PCloudErrorsUIException(errors, responsedata.getStatus());
+                } catch (IOException e1) {
+                    LOGGER.error("Error while parsing response data for error condition", e1);
+                }
             }
-
         } else {
-
             try {
-
                 entity = entityType.cast(new ObjectMapper().readValue(responsedata.getBody(), entityType));
-
             } catch (Exception e) {
-                LOGGER.info("inside exception");
-                e.printStackTrace();
+                LOGGER.error("Error while parsing response data for success", e);
             }
-
         }
         return entity;
+    }
 
+    @Override
+    public PCloudResponse processFeedback(FeedbackInfo feedbackInfo) {
+        feedbackInfo.setToEmail(feedbackEmail);
+        return handleException(pcRestClient.post(UIRestPathConstants.PERSONAL_CLOUD_PROV_FEEDBACK_URI, feedbackInfo),
+                PCloudResponse.class);
     }
 }

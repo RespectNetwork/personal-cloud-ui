@@ -63,7 +63,6 @@ $scope.addCloudFirstContainer = true;
 $scope.addCloudPayContainer = false;
 $scope.addDepCloudFirstContainer = true;
 $scope.addDepCloudPayContainer = false;
-
 $scope.userlogin.cloudName = $cookies.guardianCloudName; 
 $scope.userlogin.guardianPassword = $cookies.guardianPassword;
 
@@ -81,8 +80,12 @@ $scope.guardianName = $scope.guardianCloudName;
 $scope.changepass = {};
 $scope.changepass.show = false;
 
+$scope.contactUsContainer= false;
+$scope.user.hasErrorContact = false;
+$scope.msgContactUs = false;
+$scope.ermsgContactUs = false;
+ 
 
-	
 	//function is called to allow a request 
 	$scope.allowBlockUrl = function(type,urlHost,requestlist,requestType)
 	{
@@ -288,6 +291,11 @@ $scope.changepass.show = false;
 			$scope.addDependentContainer = true;
 			
 		}
+		else if($location.path() == "/contact")
+		{
+			$scope.contactUsContainer= true;
+			
+		}
 	}
 
 	// function to start dependent service 
@@ -404,8 +412,8 @@ $scope.changepass.show = false;
 			$scope.changePassword.newPassword ="";
 			$scope.changePassword.confNewPassword="";
 			$scope.addDepedent.depCloudName = "";	
-			$scope.addDepedent.depCloudpass = "";	
-			$scope.addDepedent.depCloudconfPass = "";	
+			$scope.addDepedent.depCloudpass = $cookies.guardianPassword;	
+			$scope.addDepedent.depCloudconfPass = $cookies.guardianPassword;	
 			//$scope.addDepedent.datepicker = null;	
 			$scope.addDepedent.depCloudDOB = null;
 			$scope.addDepedent.I_AgreeAddDep = "";
@@ -530,23 +538,25 @@ $scope.changepass.show = false;
 	}
 	
 	$scope.cloudCheckDep = function(cloudAvailUrl) {
-		blockUI.start();
+		
 		if(cloudAvailUrl){
 			cloudAvailUrl = 'clouds/personalClouds/'+cloudAvailUrl+'/available';
 			$scope.loading_contactsInfo = true;
+			blockUI.start();
 			commonServices.getInfo(cloudAvailUrl).then(function(responseData){	
-				blockUI.stop();
+				
 				$scope.loading_contactsInfo = false;
 			 
 				if(responseData.message =="true"){
 					$scope.successMessageContainerAddDep = true;
 					$scope.errorMessageContainerAddDep = false;
-					$scope.successMessageAddDep = "This cloud name is available.";
+					$scope.successMessageAddDep = "Cynja ID is available.";
 					$scope.error = false;
+					
 				}else if((responseData.message =="false")){
 					$scope.successMessageContainerAddDep = false;
 					$scope.errorMessageContainerAddDep = true;
-					$scope.errorMessageAddDep = "This cloud name is not available.";
+					$scope.errorMessageAddDep = "Cynja ID is not available.";
 					$scope.error = true;
 				}
 				else{  
@@ -567,10 +577,10 @@ $scope.changepass.show = false;
 					$scope.error = true;
 	 
 				}
-			
+			blockUI.stop();
 			});
 		} 
-	
+	blockUI.stop();
 	}
 	
 	
@@ -598,6 +608,30 @@ $scope.changepass.show = false;
 						}
 					});
 	}
+	$scope.submitPayCloudCynja = function() {
+	
+					var dataObject= {
+									paymentType : "CREDIT_CARD",
+									paymentReferenceId : "abcde0123456789",
+									paymentResponseCode:"OK",
+									amount:"10",
+									currency:"USD"
+									};
+					var apiUrl = {postUrl : 'products/SCN/payments'};
+					commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	 
+					 
+						if(responseData.paymentId != null){
+											
+							$scope.registerAdtCloudName(responseData.paymentId,'csp/'+globalInfo.cspName+'/clouds/personalClouds/'+$scope.userlogin.cloudName+'/synonyms');
+							$scope.addCloudFirstContainer = false;									
+						}
+						else
+						{
+							$scope.errorMessageContainerAddDep = true;
+							$scope.errorMessageAddDep = "Error: Invalid request";
+						}
+					});
+	}
 	
 	// function to submit additional cloud 
 	$scope.submitAdnCloud = function(isValid,event,serviceName) {
@@ -605,9 +639,9 @@ $scope.changepass.show = false;
 		if(isValid){
 			$scope.errorMessageContainer = false;
 			$scope.successMessageContainer = false;	
-			$scope.addCloudFirstContainer = false;
-			$scope.addCloudPayContainer = true;				 
-			
+			//$scope.addCloudFirstContainer = false;
+			//$scope.addCloudPayContainer = true;				 
+			$scope.submitPayCloudCynja();
 		}else{
 			$scope.errorMessageContainer = true;
 			$scope.errorMessage = "Error: Invalid Request";
@@ -746,6 +780,51 @@ $scope.changepass.show = false;
 			});
 	
 	}
+	$scope.submitDepPayCloudNew = function(isValid,posturl,event,serviceName)
+	{
+		if(isValid){
+				if($scope.addDepedent.depCloudpass!=undefined && !($scope.addDepedent.depCloudpass===$scope.addDepedent.depCloudconfPass)){
+				
+					$scope.errorMessageContainerAddDep = true;
+					$scope.successMessageContainerAddDep = false;				 
+					$scope.errorMessageAddDep = "Password don't match";
+					return false;
+				
+				}
+			
+		//Updating paramters accordingly
+			var dataObject= {
+				paymentType : "CREDIT_CARD",
+				paymentReferenceId : "abcde0123456789",
+				paymentResponseCode:"OK",
+				amount:"15",
+				currency:"USD"
+			};
+			var apiUrl = {postUrl : 'products/DCN/payments'};
+			commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	
+			if(responseData.paymentId != null){
+					$scope.pageLoaded = true;					
+					$scope.loading_contactsInfo=false;								  
+					$scope.userDetailContainer = false;
+					$scope.validUserContainer = false;		
+					$scope.paymentContainer = true;
+					$scope.registerDepCloudName(responseData.paymentId,'csp/'+globalInfo.cspName+'/clouds/personalClouds');
+				}
+				else
+				{
+					$scope.errorPaymentContainer = true;
+					$scope.errorPaymentMessage = "Error: Invalid request";
+				}
+			});
+		}
+		else
+		{
+			$scope.user.hasErrorCond = true;
+			
+		}
+	
+	}
+	
 	$scope.getPaymentID = function(isValid,posturl,event,serviceName)
 	{ 
 		
@@ -807,8 +886,11 @@ $scope.changepass.show = false;
 				{
 							$scope.addDependentContainer = true;
 							$scope.successMessageContainerAddDep=true;
-							$scope.successMessageAddDep="Dependent Cloud Added Successfully";
+							$scope.successMessageAddDep="Child Cynja Id Added Successfully";
 							$('#addDependent').modal('hide');
+							setTimeout(function(){
+							  $scope.dependentCldList();
+							}, 7000); 
 				}
 				else
 				{
@@ -927,9 +1009,45 @@ $scope.changepass.show = false;
 		$('#'+modalName).modal('hide');
 	}
 	
+	$scope.submitContact= function(isvalid,apiurl)
+	{   
+		if(isvalid){
+				 
+			var dataObject= {
+				email : $scope.user.emailCnt,
+				message : $scope.user.textmsg
+			};
+		 
+			var apiUrl = {postUrl : 'feedback'};
+			commonServices.saveInfo(dataObject,apiUrl).then(function(result){	
+			if(result.message == 'Success' || result[0].message == 'Success')
+				{
+					$scope.msgContactUs = true;					
+					$scope.successContactmsg="Email sent successfully.";
+					$scope.user.emailCnt="";
+					$scope.user.textmsg="";								  
+					 
+				}
+				else
+				{
+					$scope.ermsgContactUs = true;
+					if(result[0].errorMessage)
+					$scope.errorContactmsg = result[0].errorMessage;
+					else
+					$scope.errorContactmsg = "Error in sending email.";
+				}
+			});
+		}
+		else
+		{
+			$scope.user.hasErrorCond = true;
+			
+		}
+		 
+	}
 	
 	$scope.initiateList();
 	$scope.additionalCldList();
 	$scope.dependentCldList();
-
+ 
 	});

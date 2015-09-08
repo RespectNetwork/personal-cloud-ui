@@ -32,8 +32,8 @@ THE SOFTWARE.
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    <img src="images/respect-network-logo.png" alt="">
+                <a class="navbar-brand" target="_blank" href="http://www.thecynja.com">
+                    <img src="images/Cynja-logo_300x150.png" alt="">
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -43,7 +43,7 @@ THE SOFTWARE.
                         <a href="#userhome">Home</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">Contact Us</a>
+                        <a href="#contact">Contact Us</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -95,7 +95,7 @@ THE SOFTWARE.
 							</div>								 
 							<div class="form-group">
 								<input ng-if="changepass.show == true" id="changePasswordCloseBtn" type="button" value="Ok" style="margin:14px 237px" ng-click="closeModal('changePassword')"   />
-								<input ng-if="changepass.show == false" id="changePasswordSbmBtn" type="button" value="Submit" ng-click="changePassword(changePasswordForm.$valid,'csp/'+cspName+'/clouds/personalClouds/'+userlogin.cloudName+'/changePassword')" class="modalInput"  />
+								<input ng-if="changepass.show == false" id="changePasswordSbmBtn" type="button" value="Submit" ng-click="changePassword(changePasswordForm.$valid,'csp/'+cspName+'/clouds/personalClouds/'+userlogin.cloudName+'/changePassword')" class="modalInput orange"  />
 							
 							</div>
 						</form>

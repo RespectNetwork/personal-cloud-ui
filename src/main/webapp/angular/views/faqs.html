@@ -34,33 +34,21 @@ THE SOFTWARE.
 			<nav class="header-shadow">
 				<ul>
 					 
-					<li class="font-white" style="font-size:26px;text-align:center;">Login here</li>
+					<li class="font-white" style="font-size:26px;text-align:center;"><a href="#home">Login</a></li>
 					 
 				</ul>	
 			</nav>
 			<!--center class="font-white"><img src="images/new-login.png"><b>Login</b></center-->
-			<form id="logindetail" method="post" name="logindetail"  novalidate>
+			<div  id="faqDetail"  >
 				<div class="col-md-12">
-					<div  id="errorMessage" style="text-align: center;color:red;font-weight: 900;" ng-show="errorMessageContainer" role="alert">{{errorMessage}}</div> 
-					<div  class="form-group required"  ng-class="{hasError: userlogin.hasErrorCond}" show-errors>					
-						<label class="control-label font-white">Cynja ID</label>
-						<input type="text" class="error-control" id="cloudName" name="cloudName"   placeholder="Cynja ID" ng-change="appendSign()" ng-blur="checkColor()" ng-model="userlogin.cloudName" required />
-						<div id="cloudNameError" style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="logindetail.cloudName.$error.required ">Cloud name is required</div>
+					<div style="height:200px;text-align:center">					
+						<span class="font-white" style="align-text:center;width:100%">Work in progress..</span>
+						 
 					</div>
-					<div  class="form-group required"  ng-class="{hasError: userlogin.hasErrorCond}" show-errors>	
-						<label class="control-label font-white">Password</label>
-						<input type="password" id="secretToken" name="secretToken" class="error-control"  placeholder="Your secret token" ng-blur="checkColor()"  ng-model="userlogin.secretToken" required />	
-						<div id="passwordError" style="text-align: center;color:red;font-weight: 900;" class="help-block"  ng-show="logindetail.secretToken.$error.required ">Password is required</div>	
-					</div>
-					
-					
-					<input type="submit" id="submitLogin" value="Login" ng-click="login('csp/'+cspName+'/clouds/personalClouds/'+userlogin.cloudName+'/authenticate')" class="grad"  ng-class ="userlogin.btnClass" />
-					<a href="#forgotPassword" style="float:left;color:#D6A135;font-weight:900;"> Forgot Password </a>
-					<a href="#faqs"  style="float:right;color:#D6A135;font-weight:900;"> FAQ </a>
-					<!--p class="font-white">New user<span><a href="#registration" style="color:#33c4ff"> click here </a></span>for registration.</p-->
-					</div>
-				 
-			</form>
+					 
+				<a href="#forgotPassword" style="float:left;color:#D6A135;font-weight:900;"> Forgot Password </a>
+					<a href="#faqs"  style="float:right;color:#D6A135;font-weight:900;"> FAQ </a> 
+			</div>
 		</div>	
 		
 	</div>
@@ -69,6 +57,7 @@ THE SOFTWARE.
 	<div><article><h1>Why Personal Cloud??</h1>
 	Personal cloud  is the individuals collection of digital content, services and apps which are seamlessly accessible across any device.The personal cloud is not a tangible entity, but rather the realization of four different types of experience in which users store, synchronize,stream and share content on a contextual basis, moving from one platform, screen and location to another.Founded on interconnected services and applications, it both reflects and sets consumers expectations for how next-generation computing services will work.</article></div>
 </div-->
+</div>
 <div class="col-md-4 login-img">
 	<div><img src="images/kids_jo.png" class="img-responsive center-block"></div>
 </div>			 

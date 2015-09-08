@@ -42,6 +42,7 @@ public class UIRestPathConstants {
     public static final String CSP_CLOUD_NAME = "cspCloudName";
     public static final String CLOUD_NAME = "cloudName";
     public static final String PRODUCT_NAME = "productName";
+    public static final String EMAIL = "email";
 
     public static final String BASE_URI_NAME_AVAILABILITY_API = PATH_WITH_CURRENT_API_VERSION
             + "/clouds/personalClouds/{cloudName}/available";
@@ -76,7 +77,8 @@ public class UIRestPathConstants {
 
     public static final String PERSONAL_CLOUD_CHANGE_PASSWORD_URI = REGISTER_PERSONAL_CLOUD_URI
             + "/{cloudName}/changePassword";
-
+    public static final String PERSONAL_CLOUD_PROV_FEEDBACK_URI = PATH_WITH_CURRENT_API_VERSION
+            + "/feedback";
     public static final String GET_DEPENDENTS_URI = REGISTER_PERSONAL_CLOUD_URI + "/{cloudName}/dependents";
 
     public static final String NAME_AVAILABILITY_API = PATH_WITH_CURRENT_API_VERSION
@@ -89,10 +91,10 @@ public class UIRestPathConstants {
     public static final String GET_DEPENDENTS_API = PATH_WITH_CURRENT_API_VERSION
             + "/csp/{0}/clouds/personalClouds/{1}/dependents";
     public static final String PERSONAL_CLOUD_FORGOT_PASSWORD_API = PATH_WITH_CURRENT_API_VERSION
-            + "/csp/{0}/clouds/personalCloud/{1}/forgotPassword";
+            + "/csp/{0}/clouds/personalClouds/{1}/forgotPassword";
 
     public static final String PERSONAL_CLOUD_RESET_PASSWORD_API = PATH_WITH_CURRENT_API_VERSION
-            + "/csp/{0}/clouds/personalCloud/{1}/resetPassword";
+            + "/csp/{0}/clouds/personalClouds/{1}/resetPassword";
     public static final String PERSONAL_CLOUD_AUTH_API = PATH_WITH_CURRENT_API_VERSION
             + "/csp/{0}/clouds/personalClouds/{1}/authenticate";
     public static final String PAYMENT_API = PATH_WITH_CURRENT_API_VERSION + "/products/{0}/payments";

@@ -28,6 +28,7 @@ import biz.neustar.pcloud.rest.constants.ProductNames;
 import biz.neustar.pcloud.rest.dto.CloudInfo;
 import biz.neustar.pcloud.rest.dto.CloudValidation;
 import biz.neustar.pcloud.rest.dto.DependentList;
+import biz.neustar.pcloud.rest.dto.FeedbackInfo;
 import biz.neustar.pcloud.rest.dto.PaymentInfo;
 import biz.neustar.pcloud.rest.dto.PaymentResponse;
 import biz.neustar.pcloud.rest.dto.Synonym;
@@ -58,4 +59,6 @@ public interface PersonalCloudManager {
     public abstract PaymentResponse processPayment(ProductNames productName, PaymentInfo paymentInfo);
 
     public abstract PCloudResponse changePassword(String cspCloudName, String cloudName, CloudValidation cloudValidation);
+
+    public abstract PCloudResponse processFeedback(FeedbackInfo feedbackInfo);
 }

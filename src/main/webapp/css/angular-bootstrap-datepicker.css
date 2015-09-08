@@ -428,10 +428,13 @@
 .datepicker thead tr:first-child th,
 .datepicker tfoot tr th {
   cursor: pointer;
+  background-color: #0050CC;
+  color:white;
 }
 .datepicker thead tr:first-child th:hover,
 .datepicker tfoot tr th:hover {
   background: #eeeeee;
+  color:black;
 }
 .datepicker .cw {
   font-size: 10px;
