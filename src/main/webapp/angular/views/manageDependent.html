@@ -99,16 +99,16 @@ Or <a href="http://kiwitech-buildkit.herokuapp.com/i?q=CeZsoGrGMw8-xA" target="_
 								
 							<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>
 								<label  >Password:</label>
-								<input type="password" class="modalInput"  id="depCloudpass" name="depCloudpass" ng-model="addDepedent.depCloudpass"  placeholder="Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*\d\d)(?=.*[a-zA-Z][a-zA-Z])(?=.*[!@#$%^&*])/" title="Passwords must be 8-20 characters, have at least 2 letters, 2 numbers and at least one special character, e.g. @, #, $" readonly required/>
+								<input type="password" class="modalInput"  id="depCloudpass" name="depCloudpass" ng-model="addDepedent.depCloudpass"  placeholder="Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*?[0-9].*?[0-9])(?=.*[a-zA-Z].*[a-zA-Z])(?=.*[!@#$%^&*])/" title="Passwords must be 8-20 characters, have at least 2 letters, 2 numbers and at least one special character, e.g. @, #, $" readonly required/>
 								<div  id="depCloudpass" style="text-align: center;color:red;font-weight: 900" class="help-block" ng-show="addDependentForm.depCloudpass.$error.required">Password is required.</div>
 								<div style="color:red;font-weight: 900" ng-show="!addDependentForm.depCloudpass.$error.required && (addDependentForm.depCloudpass.$error.minlength || addDependentForm.depCloudpass.$error.maxlength) && addDependentForm.depCloudpass.$dirty">Passwords must be between 8 and 20 characters.</div>
-								<div style="color:red;font-weight: 900" ng-show="!addDependentForm.depCloudpass.$error.required && !addDependentForm.depCloudpass.$error.minlength && !addDependentForm.depCloudpass.$error.maxlength && addDependentForm.depCloudpass.$error.pattern && addDependentForm.depCloudpass.$dirty">Must contain 2 letters, 2 numbers and at least one special character, e.g. @, #, $.</div>
+								<div style="color:red;font-weight: 900" ng-show="!addDependentForm.depCloudpass.$error.required && !addDependentForm.depCloudpass.$error.minlength && !addDependentForm.depCloudpass.$error.maxlength && addDependentForm.depCloudpass.$error.pattern && addDependentForm.depCloudpass.$dirty">Passwords must be 8-20 characters, have at least 2 letters, 2 numbers and at least one special character, e.g. @, #, $</div>
 							</div>		
 								
 							<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>	
-								<input type="password" class="modalInput"  id="depCloudconfPass" name="depCloudconfPass" ng-model="addDepedent.depCloudconfPass"  placeholder="Confirm Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" readonly required/>
+								<input type="password" class="modalInput"  id="depCloudconfPass" name="depCloudconfPass" ng-model="addDepedent.depCloudconfPass"  placeholder="Confirm Password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*?[0-9].*?[0-9])(?=.*[a-zA-Z].*[a-zA-Z])(?=.*[!@#$%^&*])/" readonly required/>
 								<div  id="depCloudconfPass" style="text-align: center;color:red;font-weight: 900" class="help-block" ng-show="addDependentForm.depCloudconfPass.$error.required">Confirm password is required.</div>
-								<div style="color:red;font-weight: 900" ng-show="addDependentForm.depCloudconfPass.$error.pattern && addDependentForm.depCloudconfPass.$dirty">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</div>
+								<div style="color:red;font-weight: 900" ng-show="addDependentForm.depCloudconfPass.$error.pattern && addDependentForm.depCloudconfPass.$dirty">Passwords must be 8-20 characters, have at least 2 letters, 2 numbers and at least one special character, e.g. @, #, $</div>
 							</div>	
 								
 							<div  class=" form-group required" ng-class="{'hasError': user.hasErrorCond}"  show-errors>	
