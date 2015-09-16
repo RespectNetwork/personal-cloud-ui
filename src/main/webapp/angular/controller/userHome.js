@@ -84,7 +84,13 @@ $scope.contactUsContainer= false;
 $scope.user.hasErrorContact = false;
 $scope.msgContactUs = false;
 $scope.ermsgContactUs = false;
- 
+$scope.guardianCloudList = {}; 
+
+$scope.addGuardianCloud = {};
+$scope.addGuardFirstContainer = true;
+$scope.addGuardChildContainer = false;
+$scope.selectedAll = false;
+$scope.addNewGuardinlist = false;
 
 	//function is called to allow a request 
 	$scope.allowBlockUrl = function(type,urlHost,requestlist,requestType)
@@ -406,6 +412,8 @@ $scope.ermsgContactUs = false;
 			$scope.errorPaymentContainer = false;
 			$scope.user.hasErrorCond = false;
 			$scope.changepass.show = false;
+			$scope.addGuardFirstContainer = true;
+			$scope.addGuardChildContainer= false;
 			
 			$scope.additionalCloud.cloudName1 = "";
 			$scope.changePassword.currentPassword = "";
@@ -417,7 +425,10 @@ $scope.ermsgContactUs = false;
 			//$scope.addDepedent.datepicker = null;	
 			$scope.addDepedent.depCloudDOB = null;
 			$scope.addDepedent.I_AgreeAddDep = "";
-			$("#dateActualId").val(''); 
+			$("#dateActualId").val('');
+			
+			$scope.addGuardianCloud.cloudName = "";
+			$scope.addGuardianCloud.email_id = "";
 			if($location.path() == "/guardianProxy")
 			{
 				$scope.dependentDetail.addRecordForm.$setPristine();
@@ -533,7 +544,12 @@ $scope.ermsgContactUs = false;
 		{
 			$scope.addDepedent.depCloudName = '='+$scope.addDepedent.depCloudName;
 			
-		} 
+		}
+		if($scope.addGuardianCloud.cloudName && !($scope.addGuardianCloud.cloudName.charAt(0) == "="))
+		{
+			$scope.addGuardianCloud.cloudName = '='+$scope.addGuardianCloud.cloudName;
+			
+		}
 	
 	}
 	
@@ -1046,8 +1062,112 @@ $scope.ermsgContactUs = false;
 		 
 	}
 	
+	//function is called when page loads
+	$scope.guardianCldList = function()
+	{ 
+		if($location.path() == "/addGuardian")
+		{
+			
+			
+			blockUI.start();
+			commonServices.getInfo('csp/'+globalInfo.cspName+'/clouds/personalClouds/'+$scope.userlogin.cloudName+'/guardianList').then(function(result)
+			{	
+				if(result)
+				{  
+					$scope.guardianCloudList = result.synonymCloudNames;
+				}else{
+					
+					$scope.guardianCloudList.totalrow = 0 ; 	
+					
+				}
+				 
+				
+				blockUI.stop();
+			});
+		}
+		 
+	}
+	
+	// function to submit additional guardian 
+	$scope.submitAdnGuardian = function(isValid,event,serviceName) {
+	  
+	 if($scope.addGuardianCloud.cloudName){
+			var cloudAvailUrl = 'clouds/personalClouds/'+$scope.addGuardianCloud.cloudName+'/available';
+			 
+			blockUI.start();
+			commonServices.getInfo(cloudAvailUrl).then(function(responseData)
+			{	
+				
+				if(responseData.message =="true"){
+						if(isValid){
+							blockUI.start();
+							commonServices.getInfo('csp/'+globalInfo.cspName+'/clouds/personalClouds/'+$scope.userlogin.cloudName+'/dependents').then(function(result)
+							{	
+								if(result)
+								{  
+									$scope.guardianChildList = result.dependents;
+									$scope.errorMsgContainerAddGuard = false;
+									$scope.successMsgContainerAddGuard = false;	
+									$scope.addGuardFirstContainer = false;
+									$scope.addGuardChildContainer = true;
+								}else{
+									
+									$scope.guardianChildList.totalrow = 0 ; 	
+									
+								}
+								 
+								
+								blockUI.stop();
+							});		 
+							
+						}else{
+							$scope.errorMsgContainerAddGuard = true;
+							$scope.errorMsgAddGuard = "Error: Invalid Email";
+							 
+						}
+					}
+					else{
+							
+							
+							$scope.errorMsgContainerAddGuard = true;
+							$scope.successMsgContainerAddGuard = false;	
+							$scope.errorMsgAddGuard = "This cloud name does not exist, invitation is sent on below email to create a personal cloud.";
+							  
+					}
+			});
+		}	
+	}
+	
+	// function to submit additional guardian 
+	$scope.submitGuarChild = function(isValid) {
+		if(confirm("Are you sure you want to add "+$scope.addGuardianCloud.cloudName+" as guardian of selected child?")){
+			$('#addGuardianModal').modal('hide');
+			$scope.addNewGuardinlist = true;
+			$scope.guardianCldList();
+		}  
+	}
+	// function to check all listed children
+	$scope.checkAll = function () {
+        if ($scope.selectedAll) {
+            $scope.selectedAll = true;
+        } else {
+            $scope.selectedAll = false;
+        }
+		 
+        angular.forEach($scope.guardianChildList, function (addList) {
+            addList.Selected = $scope.selectedAll;
+        });
+
+    };
+	$scope.deleteGuardian= function () {
+        if(confirm("Are you sure you want to delete guardian "+$scope.addGuardianCloud.cloudName+" ?")){
+			$scope.addNewGuardinlist = false;			 
+		}  
+
+    };
+	
 	$scope.initiateList();
 	$scope.additionalCldList();
 	$scope.dependentCldList();
- 
+	$scope.guardianCldList();
 	});
