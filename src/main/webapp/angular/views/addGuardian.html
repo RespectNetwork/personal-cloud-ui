@@ -80,30 +80,46 @@ THE SOFTWARE.
 					<h4 class="modal-title"><span>Add Guardian</span></h4>
 				  </div>
 					<div class="modal-body"  >
+						<div ng-show="errorMsgContainerAddGuard" class="alert alert-danger" role="alert">{{errorMsgAddGuard}}</div>
+						<div ng-show="successMsgContainerAddGuard" class="alert alert-danger" role="alert">{{successMsgAddGuard}}</div>
+						<!--Start Step 1 !-->
 						<div id="addGuardFirst" ng-show="addGuardFirstContainer">
 							<form id="addCloudForm" method="post" name="addCloudForm"  novalidate>	
 								<div class="form-group">
-									<div ng-show="errorMsgContainerAddGuard" class="alert alert-danger" role="alert">{{errorMsgAddGuard}}</div>
-									<div ng-show="successMsgContainerAddGuard" class="alert alert-danger" role="alert">{{successMsgAddGuard}}</div>
+									
 									<input id="cloudName" class="modalInput" name="cloudName" ng-model="addGuardianCloud.cloudName" type="text" placeholder="=cloud name" ng-change="appendSign()"   required />
-									<input id="email_id" class="modalInput" name="email_id" ng-model="addGuardianCloud.email_id" type="email" placeholder="email id"   required />		
 													 
 									
 								</div>								 
 								<div class="form-group">
 							 
-									<input id="chkaddCldStatus" type="button" value="Next" ng-click="submitAdnGuardian(addCloudForm.$valid,'personalClouds/+testscp/synonyms',$event,'stripe')" class="modalInput" ng-disabled=""  />
+									<input id="chkaddCldStatus" type="button" value="Next" ng-click="checkGuardian(addCloudForm.$valid,'personalClouds/+testscp/synonyms',$event,'stripe')" class="modalInput" ng-disabled=""  />
 								
 								</div>
 							</form>
 						</div>
-						
+						<!--End Step 1 !-->
+						<!--Start Step 2 !-->
+						<div id="addGuardSec" ng-show="addGuardSecContainer">
+							<form id="addCloudFormSec" method="post" name="addCloudFormSec"  novalidate>	
+								<div class="form-group">
+									<input id="email_id" class="modalInput" name="email_id" ng-model="addGuardianCloud.email_id" type="email" placeholder="email id"   required />
+								</div>								 
+								<div class="form-group">
+							 
+									<input id="chkaddCldStatus" type="button" value="Submit" ng-click="submitAdnGuardian(addCloudFormSec.$valid,'personalClouds/+testscp/synonyms',$event,'stripe')" class="modalInput" ng-disabled=""  />
+								
+								</div>
+							</form>
+						</div>
+						<!--End Step 2 !-->
+						<!--Start Step 3 !-->
 						<div id="addGuardChild" ng-show="addGuardChildContainer">
 						<form id="addGuardChildForm" method="post" name="addGuardChildForm"  novalidate>
 						 
 									<div class="row">
 										<span style="margin-left:16px;font-size: large;"><input type="checkbox" id="selectAll" value="selectAll" ng-model="selectedAll" ng-click="checkAll()"></span >
-										<span >&nbsp;Select all</span>
+										<span style="font-weight: bold;">&nbsp;Select all</span>
 										<span style="margin-left:123px;font-weight:bold;font-size: large;">	 Select Children</span>
 									</div>									 
 									</br> 
@@ -126,6 +142,8 @@ THE SOFTWARE.
 									 
 								</form>
 						</div>
+						<!--End Step 3 !-->
+						 
 					</div>
 				   
 				</div>

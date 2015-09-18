@@ -89,8 +89,10 @@ $scope.guardianCloudList = {};
 $scope.addGuardianCloud = {};
 $scope.addGuardFirstContainer = true;
 $scope.addGuardChildContainer = false;
+$scope.addGuardSecContainer = false;
 $scope.selectedAll = false;
 $scope.addNewGuardinlist = false;
+$scope.cloudNameExist = false;
 
 	//function is called to allow a request 
 	$scope.allowBlockUrl = function(type,urlHost,requestlist,requestType)
@@ -413,7 +415,10 @@ $scope.addNewGuardinlist = false;
 			$scope.user.hasErrorCond = false;
 			$scope.changepass.show = false;
 			$scope.addGuardFirstContainer = true;
-			$scope.addGuardChildContainer= false;
+			$scope.addGuardChildContainer = false;
+			$scope.addGuardSecContainer = false;
+			$scope.errorMsgContainerAddGuard = false;
+			$scope.successMsgContainerAddGuard = false;
 			
 			$scope.additionalCloud.cloudName1 = "";
 			$scope.changePassword.currentPassword = "";
@@ -1088,28 +1093,66 @@ $scope.addNewGuardinlist = false;
 		 
 	}
 	
+	$scope.checkGuardian = function(isValid,event,serviceName) {
+		if(isValid){
+			if($scope.addGuardianCloud.cloudName){
+				var cloudAvailUrl = 'clouds/personalClouds/'+$scope.addGuardianCloud.cloudName+'/available';
+				blockUI.start();
+				commonServices.getInfo(cloudAvailUrl).then(function(responseData)
+				{
+					$scope.addGuardFirstContainer = false;
+					$scope.addGuardSecContainer = true;
+					
+					if(responseData.message =="true"){						 
+						$scope.errorMsgContainerAddGuard = false;
+						$scope.successMsgContainerAddGuard = true;
+						$scope.cloudNameExist = true;
+						$scope.successMsgAddGuard = "Congrats this cloud name exist!";
+						
+					}else if(responseData.message == "false"){
+						$scope.errorMsgContainerAddGuard = true;
+						$scope.successMsgContainerAddGuard = false;	
+						$scope.cloudNameExist = false;
+						$scope.errorMsgAddGuard = "This cloud name does not exist, please provide email-id to send invitation in order to create a personal cloud.";
+					}
+					else{
+					$scope.errorMsgContainerAddGuard = true;
+					$scope.errorMsgAddGuard = "Error: Invalid request";
+					 
+				}
+				});
+				
+				
+				}
+			}else{
+					$scope.errorMsgContainerAddGuard = true;
+					$scope.errorMsgAddGuard = "Error: Invalid email";
+					 
+				}
+	}
 	// function to submit additional guardian 
 	$scope.submitAdnGuardian = function(isValid,event,serviceName) {
-	  
-	 if($scope.addGuardianCloud.cloudName){
-			var cloudAvailUrl = 'clouds/personalClouds/'+$scope.addGuardianCloud.cloudName+'/available';
-			 
-			blockUI.start();
-			commonServices.getInfo(cloudAvailUrl).then(function(responseData)
-			{	
-				
-				if(responseData.message =="true"){
-						if(isValid){
+	   		
+			if(isValid){
+							if(!$scope.cloudNameExist){
+								$('#addGuardianModal').modal('hide');
+								$scope.successMessageContainerAddDep = true;
+								$scope.successMessageAddDep= "Invitation email is sent successfully."
+							}else {		
 							blockUI.start();
 							commonServices.getInfo('csp/'+globalInfo.cspName+'/clouds/personalClouds/'+$scope.userlogin.cloudName+'/dependents').then(function(result)
 							{	
 								if(result)
 								{  
+									
 									$scope.guardianChildList = result.dependents;
 									$scope.errorMsgContainerAddGuard = false;
 									$scope.successMsgContainerAddGuard = false;	
 									$scope.addGuardFirstContainer = false;
+									$scope.addGuardSecContainer = false;
 									$scope.addGuardChildContainer = true;
+									
+									 
 								}else{
 									
 									$scope.guardianChildList.totalrow = 0 ; 	
@@ -1118,24 +1161,18 @@ $scope.addNewGuardinlist = false;
 								 
 								
 								blockUI.stop();
-							});		 
+							});		
+						}	
 							
-						}else{
-							$scope.errorMsgContainerAddGuard = true;
-							$scope.errorMsgAddGuard = "Error: Invalid Email";
-							 
-						}
-					}
-					else{
-							
-							
-							$scope.errorMsgContainerAddGuard = true;
-							$scope.successMsgContainerAddGuard = false;	
-							$scope.errorMsgAddGuard = "This cloud name does not exist, invitation is sent on below email to create a personal cloud.";
-							  
-					}
-			});
-		}	
+			}else{
+					$scope.successMsgContainerAddGuard = false;
+					$scope.errorMsgContainerAddGuard = true;
+					$scope.errorMsgAddGuard = "Error: Invalid email";
+					
+				}
+					 
+			 
+		 
 	}
 	
 	// function to submit additional guardian 
