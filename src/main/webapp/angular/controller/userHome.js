@@ -1107,7 +1107,7 @@ $scope.cloudNameExist = false;
 						$scope.errorMsgContainerAddGuard = false;
 						$scope.successMsgContainerAddGuard = true;
 						$scope.cloudNameExist = true;
-						$scope.successMsgAddGuard = "Congrats this cloud name exist!";
+						$scope.successMsgAddGuard = "Congrats this cloud name exist. Please provide email-id of the person to send invitation to become guardian.";
 						
 					}else if(responseData.message == "false"){
 						$scope.errorMsgContainerAddGuard = true;
