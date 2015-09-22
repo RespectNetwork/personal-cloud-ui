@@ -125,6 +125,11 @@ app.value('globalInfo', {
                 	}
                 }
             })
+			// route for the forgot password 
+            .when('/forgotPassword', {
+                templateUrl : 'angular/views/forgotPassword.html',
+                controller  : 'forgotPassword'
+            })
 			.otherwise({
 				templateUrl : 'angular/views/home.html',
                 controller  : 'homeController'
