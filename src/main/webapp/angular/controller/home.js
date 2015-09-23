@@ -67,7 +67,11 @@ angular.module('myApp').controller("homeController", function ($scope, $filter,$
 			else
 			{
 				$scope.errorMessageContainer = true;
-				$scope.errorMessage = result.errorMessage;
+				if(result.errorMessage){
+					$scope.errorMessage = result.errorMessage;
+				}else if(result[0].errorMessage){
+					$scope.errorMessage = result[0].errorMessage;
+				}
 			
 			}
 		
