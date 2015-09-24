@@ -43,6 +43,12 @@ app.value('globalInfo', {
                 controller  : 'homeController'
             })
 			
+			// route for the faq's page step one page
+            .when('/faqs', {
+                templateUrl : 'angular/views/faqs.html'
+            })
+			
+			 
 			// route for the registration step one page
             .when('/registration', {
                 templateUrl : 'angular/views/registration.html',
@@ -124,6 +130,11 @@ app.value('globalInfo', {
                 		return def.promise;
                 	}
                 }
+            })
+			// route for the forgot password 
+            .when('/forgotPassword', {
+                templateUrl : 'angular/views/forgotPassword.html',
+                controller  : 'forgotPassword'
             })
 			.otherwise({
 				templateUrl : 'angular/views/home.html',

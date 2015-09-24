@@ -37,7 +37,9 @@ THE SOFTWARE.
 <script data-require="angular-block-ui@*" data-semver="0.1.1" src="vendor/angular/1.3.0/angular-block-ui.min.js"></script>
  <script src="vendor/js/angular-modal-service.js"></script>	
 <script src="vendor/js/angular-bootstrap-datepicker.js" charset="utf-8"></script>
-	
+  
+<script type="text/javascript" src="vendor/js/moment.js"></script>
+<script type="text/javascript" src="vendor/js/daterangepicker.js"></script>		
 	 
 	 <link rel="stylesheet" type="text/css" href="css/angular-bootstrap-datepicker.css">
 	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css"> 
@@ -64,6 +66,7 @@ THE SOFTWARE.
 <script src="angular/controller/userHome.js"></script>
 <script src="angular/services/commonServices.js"></script>
 <script src="angular/services/international-phone-number.js"></script>
+<script src="angular/controller/forgotPassword.js"></script>
 <!--script src='https://checkout.stripe.com/checkout.js'></script-->
 <!-- MAIN CONTENT AND INJECTED VIEWS -->
  

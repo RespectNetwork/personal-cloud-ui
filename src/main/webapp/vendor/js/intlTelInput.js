@@ -24,11 +24,11 @@ https://github.com/Bluefieldscom/intl-tel-input.git
         // if there is just a dial code in the input: remove it on blur, and re-add it on focus
         autoHideDialCode: false,
         // default country
-        defaultCountry: "",
+        defaultCountry: "us",
         // token for ipinfo - required for https or over 1000 daily page views support
         ipinfoToken: "",
         // don't insert international dial codes
-        nationalMode: true,
+        nationalMode: false,
         // number type to use for placeholders
         numberType: "MOBILE",
         // display only these countries
@@ -746,6 +746,7 @@ https://github.com/Bluefieldscom/intl-tel-input.git
         _updatePlaceholder: function() {
             if (window.intlTelInputUtils && !this.hadInitialPlaceholder && this.options.autoPlaceholder) {
                 var iso2 = this.selectedCountryData.iso2, numberType = intlTelInputUtils.numberType[this.options.numberType || "FIXED_LINE"], placeholder = iso2 ? intlTelInputUtils.getExampleNumber(iso2, this.options.nationalMode, numberType) : "";
+			
                 this.telInput.attr("placeholder", placeholder);
             }
         },

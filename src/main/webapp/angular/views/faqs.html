@@ -38,36 +38,25 @@ THE SOFTWARE.
 					<li><a href="#faqs">FAQ</a></li>
 				</ul>	
 			</nav>
-			<center><img src="images/new-login.png"><b>Login</b></center>
-			<form id="logindetail" method="post" name="logindetail"  novalidate>
+			<!--center class="font-white"><img src="images/new-login.png"><b>Login</b></center-->
+			<div  id="faqDetail"  >
 				<div class="col-md-12">
-					<div  class="form-group required"  ng-class="{hasError: userlogin.hasErrorCond}" show-errors>					
-						<label class="control-label">CloudName</label>
-						<input type="text" class="error-control" id="cloudName" name="cloudName"   placeholder="Cloud Name" ng-change="appendSign()"  ng-model="userlogin.cloudName" required />
-						<div id="cloudNameError" style="text-align: center;color:red;" class="help-block" ng-show="logindetail.cloudName.$error.required ">Cloud name is required</div>
-					</div>
-					<div  class="form-group required"  ng-class="{hasError: userlogin.hasErrorCond}" show-errors>	
-						<label class="control-label">Password</label>
-						<input type="password" id="secretToken" name="secretToken" class="error-control"  placeholder="Your secret token"  ng-model="userlogin.secretToken" required />	
-						<div id="passwordError" style="text-align: center;color:red;" class="help-block"  ng-show="logindetail.secretToken.$error.required ">Password is required</div>	
-					</div>
-					<div  id="errorMessage" style="text-align: center;color:red" ng-show="errorMessageContainer" role="alert">{{errorMessage}}</div> 
-					
-					<input type="button" id="submitLogin" value="Login" ng-click="login('csp/'+cspName+'/clouds/personalClouds/'+userlogin.cloudName+'/authenticate')" class="grad"  />
-					<a  href="#forgotPassword"><h4>Forgot Password</h4></a>
-					<p>New User<span><a href="#registration"> click here </a></span>for registration.
-					</div>
-				 
-			</form>
-		</div>	
-		
+					<div style="height:200px;text-align:center">					
+						<span class="font-white" style="align-text:center;width:100%">Work in progress..</span>
+						 
+					</div>					 
+				  
+				</div>
+			</div>	
+		</div>
 	</div>
 </div>
-<div class="col-md-4 login-para">
+	<div class="col-md-4 login-para">
 	<div><article><h1>Why Personal Cloud??</h1>
 	Personal cloud  is the individuals collection of digital content, services and apps which are seamlessly accessible across any device.The personal cloud is not a tangible entity, but rather the realization of four different types of experience in which users store, synchronize,stream and share content on a contextual basis, moving from one platform, screen and location to another.Founded on interconnected services and applications, it both reflects and sets consumers expectations for how next-generation computing services will work.</article></div>
-</div>
+	</div>
 			 
 </div>
 </div>
+
  <div ng-include="'angular/views/footer.html'"></div>
