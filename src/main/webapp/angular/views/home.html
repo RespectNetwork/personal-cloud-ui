@@ -25,7 +25,7 @@ THE SOFTWARE.
 <div class="container">
 <div class="row space-home">
 <div class="col-md-4 login-img">
-	<div><img src="images/leftimg.jpg" class="img-responsive center-block"></div>
+	<div><img src="images/kids_cynja.png" class="img-responsive center-block"></div>
 </div>
 <div class="col-md-4">
 	<div class="login-container" style="width:100%;">
@@ -33,29 +33,31 @@ THE SOFTWARE.
 		<div class="row">
 			<nav class="header-shadow">
 				<ul>
-					<li><a href="#home">Login</a></li>
-					<li><a href="#registration">Registration</a></li>
-					<li><a href="#faqs">FAQ</a></li>
+					 
+					<li class="font-white" style="font-size:26px;text-align:center;">Login here</li>
+					 
 				</ul>	
 			</nav>
-			<center><img src="images/new-login.png"><b>Login</b></center>
+			<!--center class="font-white"><img src="images/new-login.png"><b>Login</b></center-->
 			<form id="logindetail" method="post" name="logindetail"  novalidate>
 				<div class="col-md-12">
+					<div  id="errorMessage" style="text-align: center;color:red;font-weight: 900;" ng-show="errorMessageContainer" role="alert">{{errorMessage}}</div> 
 					<div  class="form-group required"  ng-class="{hasError: userlogin.hasErrorCond}" show-errors>					
-						<label class="control-label">CloudName</label>
-						<input type="text" class="error-control" id="cloudName" name="cloudName"   placeholder="Cloud Name" ng-change="appendSign()"  ng-model="userlogin.cloudName" required />
-						<div id="cloudNameError" style="text-align: center;color:red;" class="help-block" ng-show="logindetail.cloudName.$error.required ">Cloud name is required</div>
+						<label class="control-label font-white">Cynja ID</label>
+						<input type="text" class="error-control" id="cloudName" name="cloudName"   placeholder="Cynja ID" ng-change="appendSign()" ng-blur="checkColor()" ng-model="userlogin.cloudName" required />
+						<div id="cloudNameError" style="text-align: center;color:red;font-weight: 900;" class="help-block" ng-show="logindetail.cloudName.$error.required ">Cloud name is required</div>
 					</div>
 					<div  class="form-group required"  ng-class="{hasError: userlogin.hasErrorCond}" show-errors>	
-						<label class="control-label">Password</label>
-						<input type="password" id="secretToken" name="secretToken" class="error-control"  placeholder="Your secret token"  ng-model="userlogin.secretToken" required />	
-						<div id="passwordError" style="text-align: center;color:red;" class="help-block"  ng-show="logindetail.secretToken.$error.required ">Password is required</div>	
+						<label class="control-label font-white">Password</label>
+						<input type="password" id="secretToken" name="secretToken" class="error-control"  placeholder="Your secret token" ng-blur="checkColor()"  ng-model="userlogin.secretToken" required />	
+						<div id="passwordError" style="text-align: center;color:red;font-weight: 900;" class="help-block"  ng-show="logindetail.secretToken.$error.required ">Password is required</div>	
 					</div>
-					<div  id="errorMessage" style="text-align: center;color:red" ng-show="errorMessageContainer" role="alert">{{errorMessage}}</div> 
 					
-					<input type="button" id="submitLogin" value="Login" ng-click="login('csp/'+cspName+'/clouds/personalClouds/'+userlogin.cloudName+'/authenticate')" class="grad"  />
-					<a  href="#forgotPassword"><h4>Forgot Password</h4></a>
-					<p>New User<span><a href="#registration"> click here </a></span>for registration.
+					
+					<input type="submit" id="submitLogin" value="Login" ng-click="login('csp/'+cspName+'/clouds/personalClouds/'+userlogin.cloudName+'/authenticate')" class="grad"  ng-class ="userlogin.btnClass" />
+					<a href="#forgotPassword" style="float:left;color:#D6A135;font-weight:900;"> Forgot Password </a>
+					<a href="#faqs"  style="float:right;color:#D6A135;font-weight:900;"> FAQ </a>
+					<!--p class="font-white">New user<span><a href="#registration" style="color:#33c4ff"> click here </a></span>for registration.</p-->
 					</div>
 				 
 			</form>
@@ -63,11 +65,13 @@ THE SOFTWARE.
 		
 	</div>
 </div>
-<div class="col-md-4 login-para">
+<!--div class="col-md-4 login-para">
 	<div><article><h1>Why Personal Cloud??</h1>
 	Personal cloud  is the individuals collection of digital content, services and apps which are seamlessly accessible across any device.The personal cloud is not a tangible entity, but rather the realization of four different types of experience in which users store, synchronize,stream and share content on a contextual basis, moving from one platform, screen and location to another.Founded on interconnected services and applications, it both reflects and sets consumers expectations for how next-generation computing services will work.</article></div>
-</div>
-			 
+</div-->
+<div class="col-md-4 login-img">
+	<div><img src="images/kids_jo.png" class="img-responsive center-block"></div>
+</div>			 
 </div>
 </div>
  <div ng-include="'angular/views/footer.html'"></div>

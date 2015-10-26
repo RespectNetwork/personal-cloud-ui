@@ -26,17 +26,29 @@ angular.module('myApp').controller("homeController", function ($scope, $filter,$
 	  
 	$scope.pageLoaded = true;
 	$scope.errorMessageContainer = false;
+	$scope.errorMessage = "";
 	$scope.successMessageContainer = false;	
 	$scope.userlogin={};
 	$cookies.test='';
 	$scope.hasErrorCond = false;
 	$scope.cspName = globalInfo.cspName;
-	
+	$scope.userlogin.btnClass = "orange";
+		
 	$scope.resetForm = function(item, event) {
 		$scope.pageLoaded = false;											
 		 
 	}
 	
+	$scope.checkColor = function()
+	{ 
+		if($scope.userlogin.cloudName &&  $scope.userlogin.secretToken )
+		{  
+			$scope.userlogin.btnClass = "purple";
+		}else{
+			$scope.userlogin.btnClass = "orange";
+		}
+	
+	}
 	$scope.appendSign = function()
 	{ 
 		if($scope.userlogin.cloudName && !($scope.userlogin.cloudName.charAt(0) == "="))
@@ -44,7 +56,7 @@ angular.module('myApp').controller("homeController", function ($scope, $filter,$
 			$scope.userlogin.cloudName = '='+$scope.userlogin.cloudName;
 			
 		} 
-		 
+	 
 	
 	}
 	
@@ -52,7 +64,7 @@ angular.module('myApp').controller("homeController", function ($scope, $filter,$
 	{
 		
 		var password = $scope.userlogin.secretToken;
-		if($scope.userlogin.cloudName &&password){
+		if($scope.userlogin.cloudName && password){
 		commonServices.userlogin(password,postUrl).then(function(result)
 		{ 
 			if(result.message == 'Success')
@@ -67,10 +79,16 @@ angular.module('myApp').controller("homeController", function ($scope, $filter,$
 			else
 			{
 				$scope.errorMessageContainer = true;
-				if(result.errorMessage){
-					$scope.errorMessage = result.errorMessage;
-				}else if(result[0].errorMessage){
-					$scope.errorMessage = result[0].errorMessage;
+				if(result[0].errorMessage){
+				$scope.errorMessage = result[0].errorMessage;
+					/*if(result[0].errorCode == '1014'){
+						$scope.errorMessage = "Invalid secret token";
+					  }else if (result[0].errorCode == '7007'){
+						$scope.errorMessage = "The Cynja Id provided does not exist";
+					  }*/
+				}else{
+				//$scope.errorMessage = result.errorMessage;
+				$scope.errorMessage = "The Cynja Id provided does not exist";
 				}
 			
 			}
