@@ -1,0 +1,214 @@
+<!--
+The MIT License (MIT)
+	
+Copyright (c) 2015 Neustar Inc.
+	
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<div ng-include="'angular/views/userHeader.html'" ></div>
+<div class="container">
+	<div class="userhome"  >  
+	  
+		<!-- Div for adding guardian-->
+		<div class="row" id="addAppCloud" >		         
+			<table   style="margin-top:100px;max-width: 100%;width: 100%;">
+				<tr>
+					<td><a href="#userhome" class="btn btn-primary " style="margin-bottom: 10px;">Back</a>&nbsp;&nbsp;
+					<input style="margin-bottom: 10px;" ng-click="addRecord('addAppCloudModal')" class="btn btn-primary"   name="action" id="'action_'+$index" value="Add App Cloud"    >
+					</td>
+					
+				</tr>
+				<tr>
+					<td>		
+					
+					<table class="table table-bordered" >
+						<thead>
+							 <tr class="table-heading" ng-show="successMsgContainerAddApp"  align="center"><th colspan="3" align="center" style="text-align:center;">
+							<span  style="color:white;font-weight:bold;" role="alert">{{successMessageAddApp}}</span></th></tr>
+							<tr class="table-heading">
+								<th>App cloud name</th>
+								<th>Owner name</th>
+								<th>Confirmation status</th>
+							</tr>							 
+						</thead>
+						<tbody>
+							  
+							 
+							<tr  ng-repeat="addList in appCloudNameList" ng-class="'color'+($index % 2)"  class="w2ui-odd " >
+								
+								<td ng-if="addList != userlogin.cloudName"><span >{{ addList }}</span></td>
+								<td></td>
+								<td ><span >Delete</span></td>					 
+							</tr>
+							<tr  class="color0" ng-show="!appCldNameinlist"><td colspan="3" align="center">No item found.</td></tr>
+							<tr class="color1" ng-show="appCldNameinlist" >
+							<td align="left">{{addAppCloud.appCloudName}}</td>
+							<td align="left"> {{addAppCloud.owner_name}}</td>
+							<td align="left">Pending RN Approval</td></tr>
+						</tbody>
+							 
+						</tbody>
+					</table>
+				
+					</td>
+				</tr>
+				</table>
+				 
+			 
+		</div>
+		
+			
+     </div>  
+
+<div class="modal fade" id="addAppCloudModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+			<div class="modal-dialog" style="margin:120px auto;">
+				<div class="modal-content">
+				  <div class="modal-header" style="background-image: linear-gradient(#f9f9f9, #e4e4e4);">
+					<button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><span>Add App Cloud</span></h4>
+				  </div>
+					<div class="modal-body"  >
+						<div ng-show="errorMsgContainerAddAppCld" class="alert alert-danger" role="alert">{{errorMsgAddAppCld}}</div>
+						<div ng-show="successMsgContainerAppCld" class="alert alert-danger" role="alert">{{successMsgAppCld}}</div>
+						<!--Start Step 1 !-->
+						<div id="addAppCldFirst" ng-show="addAppCldFirstContainer">
+							<form id="addAppCldForm" method="post" name="addAppCldForm"  novalidate>	
+								<div class="form-group">
+									
+									<input id="cloudName" class="modalInput" name="appCloudName" ng-model="addAppCloud.appCloudName" type="text" placeholder="*app cloud name" ng-change="appendSign()"   required />
+													 
+									
+								</div>								 
+								<div class="form-group">
+							 
+									<input id="chkaddCldStatus" type="button" value="Next" ng-click="checkAppCloud(addAppCldForm.$valid,'personalClouds/+testscp/synonyms',$event,'stripe')" class="modalInput" ng-disabled=""  />
+								
+								</div>
+							</form>
+						</div>
+						<!--End Step 1 !-->
+						<!--Start Step 2 !-->
+						<div id="addAppCldSec" ng-show="addAppCldSecContainer">
+							<form id="addAppCldFormSec" method="post" name="addAppCldFormSec"  novalidate>	
+								<div class="form-group">
+									<label>App cloud name </label>
+									<input id="appCloudName" class="modalInput" name="appCloudName" ng-model="addAppCloud.appCloudName" type="text" readonly required />
+								</div>
+								<div class="form-group">
+								<label>Password</label>
+									<input id="appcld_pwd" class="modalInput" name="appcld_pwd" ng-model="addAppCloud.appcld_pwd" type="password" placeholder="password"   required />
+								</div>
+								<div class="form-group">
+								<label>Confirm password</label>
+									<input id="appcld_cpwd" class="modalInput" name="appcld_cpwd" ng-model="addAppCloud.appcld_cpwd" type="password" placeholder="confirm password"   required />
+								</div>
+								<div class="form-group">
+								<label>Owner name</label>
+									<input id="owner_name" class="modalInput" name="owner_name" ng-model="addAppCloud.owner_name" type="text" placeholder="owner name"   required />
+								</div>
+								<div class="form-group">
+							 
+									<input id="chkaddCldStatus" type="button" value="Submit" ng-click="submitAppCld(addAppCldFormSec.$valid,'personalClouds/+testscp/synonyms',$event,'stripe')" class="modalInput" ng-disabled=""  />
+								
+								</div>
+							</form>
+						</div>
+						<!--End Step 2 !-->
+						<!--Start Step 3 -->
+						<div id="addGuardChildThree" ng-show="addAppCldThreeContainer">
+						<form id="addAppCldFormThree" method="post" name="addAppCldFormThree"  novalidate>
+						 
+									<div class="form-group">
+									 
+									 <span style="margin-left:0px;">
+										<label for="comment">Email Template:</label>
+										 
+										<select class="form-control  selectpicker show-menu-arrow" id="selectTemplate" ng-change="getTemplate()" ng-model="addAppCloud.select_temp" required>
+											<option value="registration_success">Registration success</option>
+											<option value="registration_fail">Registration failure</option>
+											<option value="other_option">other option</option>
+										</select> 
+										<textarea class="form-control" rows="10" id="templateId" ng-model="addAppCloud.template_desc"></textarea>
+										<input type="button" value="Next" ng-click="submitEmailTemplate(addAppCldFormThree.$valid)" class="modalInput"  style=" vertical-align: middle;"/>
+									</span>
+									</div>									 
+									</br> 
+									 
+									 
+									 
+									<div class="form-group">
+									<input type="button" value="Next" ng-click="nextStep(addAppCldFormThree.$valid)" class="modalInput"  style=" vertical-align: middle;"/>	
+									</div>									
+									 
+								</form>
+						</div>
+						<!--End Step 3 !-->
+						<!--Start Step 4 -->
+						<div id="addGuardChildFour" ng-show="addAppCldFourContainer">
+						<form id="addAppCldFormFour" method="post" name="addAppCldFormFour"  novalidate>
+						 
+									<div class="form-group">
+									 <span style="margin-left:0px;">
+										<label for="comment">System Message:</label>
+										 
+									</div>									 
+									</br> 
+									<table class="table table-bordered" >
+									<thead>
+										<tr class="table-heading">
+										<th>Code</th>
+										<th>Message</th>
+										<th>New Message</th>
+										</tr>							 
+									</thead>
+									<tbody>
+
+
+									<tr  ng-repeat="codeMessage in appCloudCodeMsg" ng-class="'color'+($index % 2)"  class="w2ui-odd " >
+
+									<td ><span ><input id="code" class="modalInput" name="code" ng-model="additionalCloud.codeMessage.code" type="text"   readonly /></span></td>
+									<td ><span >
+									<input id="codeMsg" class="modalInput" name="codeMsg" ng-model="additionalCloud.codeMessage.codeMsg" type="text"   readonly /></span></td>
+									<td ><span ><input id="newCodeMesg" class="modalInput" name="newCodeMesg" ng-model="additionalCloud.codeMessage.newCodeMsg" type="text"     />	</span></td>					 
+									</tr>
+									 
+									</tbody>
+
+									</tbody>
+									</table>
+
+									 
+									 
+									 
+									<div class="form-group">
+									<input type="button" value="Submit" ng-click="submitGuarChild(addGuardChildForm.$valid)" class="modalInput"  style=" vertical-align: middle;"/>	
+									</div>									
+									 
+								</form>
+						</div>
+						 
+					</div>
+				   
+				</div>
+			</div>
+		</div>	 
+</div>
+ 
+<div ng-include="'angular/views/userFooter.html'"></div>
+ 

@@ -131,10 +131,49 @@ app.value('globalInfo', {
                 	}
                 }
             })
+			// route for the add guardian page
+			.when('/addGuardian', {
+                templateUrl : 'angular/views/addGuardian.html',
+                controller  : 'userHome',
+				resolve:{
+                	load:function($location, $q, $cookies){
+                		var def = $q.defer();
+                		if ($cookies.guardianCloudName == undefined) {
+                			$location.path("/home");
+                		}
+                		else{
+                			def.resolve();
+                		}
+                		return def.promise;
+                	}
+                }
+            })
+			// route for the add guardian page
+			.when('/appCloudName', {
+                templateUrl : 'angular/views/appCloudName.html',
+                controller  : 'userHome',
+				resolve:{
+                	load:function($location, $q, $cookies){
+                		var def = $q.defer();
+                		if ($cookies.guardianCloudName == undefined) {
+                			$location.path("/home");
+                		}
+                		else{
+                			def.resolve();
+                		}
+                		return def.promise;
+                	}
+                }
+            })
 			// route for the forgot password 
             .when('/forgotPassword', {
                 templateUrl : 'angular/views/forgotPassword.html',
                 controller  : 'forgotPassword'
+            })
+			// route for the guardian authorization 
+            .when('/guardianAuth', {
+                templateUrl : 'angular/views/guardianAuth.html',
+                controller  : 'homeController'
             })
 			.otherwise({
 				templateUrl : 'angular/views/home.html',

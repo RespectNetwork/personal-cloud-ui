@@ -1,5 +1,5 @@
 'use strict'
-angular.module('myApp').controller("forgotPassword", function ($scope,$location, commonServices,globalInfo) {
+angular.module('myApp').controller("forgotPassword", function ($scope,$location,blockUI, commonServices,$routeParams,globalInfo) {
  
 	
 	$scope.pageLoaded = true;
