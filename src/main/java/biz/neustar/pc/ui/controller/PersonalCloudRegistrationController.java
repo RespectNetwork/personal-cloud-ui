@@ -24,12 +24,12 @@ THE SOFTWARE.
 package biz.neustar.pc.ui.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,13 +43,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import biz.neustar.pc.ui.constants.UIRestPathConstants;
+import biz.neustar.pc.ui.exception.PCloudErrorsUIException;
 import biz.neustar.pc.ui.exception.PCloudUIException;
+import biz.neustar.pc.ui.manager.PersonalCloudManager;
 import biz.neustar.pc.ui.manager.impl.PCloudResponse;
-import biz.neustar.pc.ui.manager.impl.PersonalCloudManager;
 import biz.neustar.pcloud.rest.constants.ProductNames;
 import biz.neustar.pcloud.rest.dto.CloudInfo;
 import biz.neustar.pcloud.rest.dto.CloudValidation;
 import biz.neustar.pcloud.rest.dto.DependentList;
+import biz.neustar.pcloud.rest.dto.FeedbackInfo;
+import biz.neustar.pcloud.rest.dto.PCloudError;
 import biz.neustar.pcloud.rest.dto.PaymentInfo;
 import biz.neustar.pcloud.rest.dto.PaymentResponse;
 import biz.neustar.pcloud.rest.dto.Synonym;
@@ -164,7 +167,7 @@ public class PersonalCloudRegistrationController {
         return personalCloudManagerImpl.changePassword(cspCloudName, cloudName, cloudValidation);
 
     }
-    @SuppressWarnings("unchecked")
+    /*@SuppressWarnings("unchecked")
     @ExceptionHandler(PCloudUIException.class)
     public @ResponseBody String handleUltraException(PCloudUIException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setStatus(exception.getStatusCode());
@@ -174,5 +177,44 @@ public class PersonalCloudRegistrationController {
         error.put("errorMessage", exception.getErrorMessage()); 
         LOGGER.error("Error : {}", exception.getLocalizedMessage(), exception);
         return error.toJSONString();
+    }*/
+    
+    @RequestMapping(value = UIRestPathConstants.PERSONAL_CLOUD_PROV_FEEDBACK_URI, method = RequestMethod.POST)
+    public @ResponseBody
+    PCloudResponse processFeedback(@RequestBody final FeedbackInfo feedbackInfo) {
+        return personalCloudManagerImpl.processFeedback(feedbackInfo);
+
+    }
+    
+    @SuppressWarnings("unchecked")
+    @ExceptionHandler(PCloudUIException.class)
+    public @ResponseBody
+    String handleException(PCloudUIException exception, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        response.setStatus(exception.getStatusCode());
+        JSONArray errors = new JSONArray();
+        JSONObject error = new JSONObject();
+        error.put("errorCode", exception.getErrorCode());
+        error.put("errorMessage", exception.getErrorMessage());
+        errors.add(error);
+        LOGGER.debug("Errors : {}", exception.getLocalizedMessage(), exception);
+        return errors.toJSONString();
+    }
+
+    @SuppressWarnings("unchecked")
+    @ExceptionHandler(PCloudErrorsUIException.class)
+    public @ResponseBody
+    String handleUIException(PCloudErrorsUIException exception, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        response.setStatus(exception.getStatusCode());
+        JSONArray errors = new JSONArray();
+        for (PCloudError pCloudError : exception.getErrors()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("errorCode", pCloudError.getErrorCode());
+            jsonObject.put("errorMessage", pCloudError.getErrorMessage());
+            errors.add(jsonObject);
+        }
+        LOGGER.debug("Errors : {}", errors, exception);
+        return errors.toJSONString();
     }
 }

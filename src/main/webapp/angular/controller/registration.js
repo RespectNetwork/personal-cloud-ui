@@ -82,13 +82,14 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 					$scope.errorMessageContainer = false;
 					$scope.successMessage = "This cloud name is available.";
 					$scope.error = false;
+					chkCldStatus.disabled = false;
 					 
 				}else if((responseData.message =="false")){ 
 					$scope.successMessageContainer = false;
 					$scope.errorMessageContainer = true;
 					$scope.errorMessage = "This cloud name is not available.";
 					$scope.error = true;
-				 
+					chkCldStatus.disabled = true;
 				}				
 				else if(responseData.errorMessage || responseData[0].errorMessage){ 
 					
@@ -102,14 +103,14 @@ angular.module('myApp').controller("registration", function ($scope,$location,bl
 					$scope.errorMessage = responseData[0].errorMessage;
 					}
 					$scope.error = true;					 
-					 
+					chkCldStatus.disabled = true;
 					}
 				else{ 
 					$scope.errorMessageContainer = true;
 					$scope.successMessageContainer = false;
 					$scope.errorMessage = responseData.message;
 					$scope.error = true;
-					 
+					chkCldStatus.disabled = false;
 
 				}
 			

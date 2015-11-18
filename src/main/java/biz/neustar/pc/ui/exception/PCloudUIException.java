@@ -1,5 +1,7 @@
 package biz.neustar.pc.ui.exception;
 
+import biz.neustar.pc.ui.utils.PCloudErrorUtil;
+
 public class PCloudUIException extends RuntimeException{
 
 	/**
@@ -23,7 +25,7 @@ public class PCloudUIException extends RuntimeException{
         this.errorCode = errorCode;
     }
     public String getErrorMessage() {
-		return errorMessage;
+    	return PCloudErrorUtil.getProperty(Integer.toString(errorCode));
 	}
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;

@@ -80,7 +80,8 @@ $scope.numberAllowed = {};
 $scope.guardianName = $scope.guardianCloudName;
 $scope.changepass = {};
 $scope.changepass.show = false;
-
+$scope.contactUsContainer= false;
+$scope.user.hasErrorContact = false;
 
 	
 	//function is called to allow a request 
@@ -288,6 +289,10 @@ $scope.changepass.show = false;
 			$scope.addDependentContainer = true;
 			
 		}
+		else if($location.path() == "/contact")
+		{
+			$scope.contactUsContainer= true;
+		}
 	}
 
 	// function to start dependent service 
@@ -403,9 +408,9 @@ $scope.changepass.show = false;
 			$scope.changePassword.currentPassword = "";
 			$scope.changePassword.newPassword ="";
 			$scope.changePassword.confNewPassword="";
-			$scope.addDepedent.depCloudName = "";	
-			$scope.addDepedent.depCloudpass = "";	
-			$scope.addDepedent.depCloudconfPass = "";	
+			$scope.addDepedent.depCloudName = "";
+			$scope.addDepedent.depCloudpass = $cookies.guardianPassword;
+			$scope.addDepedent.depCloudconfPass = $cookies.guardianPassword;
 			//$scope.addDepedent.datepicker = null;	
 			$scope.addDepedent.depCloudDOB = null;
 			$scope.addDepedent.I_AgreeAddDep = "";
@@ -415,7 +420,8 @@ $scope.changepass.show = false;
 				$scope.dependentDetail.addRecordForm.$setPristine();
 				$scope.dependentDetail.urlAllowBlock = "";
 			}
-			
+			$scope.errorMessageContainerChangePass = false;
+			$scope.errorMessageChangePass = "";
 			
 	};
 	/* //not need now //
@@ -543,15 +549,18 @@ $scope.changepass.show = false;
 					$scope.errorMessageContainerAddDep = false;
 					$scope.successMessageAddDep = "This cloud name is available.";
 					$scope.error = false;
+					$scope.errorMessageContainer = false;
 				}else if((responseData.message =="false")){
 					$scope.successMessageContainerAddDep = false;
 					$scope.errorMessageContainerAddDep = true;
 					$scope.errorMessageAddDep = "This cloud name is not available.";
 					$scope.error = true;
+					$scope.errorMessageContainer = true;
 				}
 				else{  
 					$scope.errorMessageContainerAddDep = true;
 					$scope.successMessageContainerAddDep = false;
+					$scope.errorMessageContainer = true;
 					if(responseData.errorMessage){
 					$scope.errorMessageAddDep = responseData.errorMessage;
 					}
@@ -748,8 +757,14 @@ $scope.changepass.show = false;
 	}
 	$scope.getPaymentID = function(isValid,posturl,event,serviceName)
 	{ 
-		
+
 		if(isValid){
+
+				if($scope.errorMessageContainer == true){
+					$scope.errorMessageContainerAddDep = true;
+					$scope.successMessageContainerAddDep = false;
+					return false;
+				}
 				if($scope.addDepedent.depCloudpass!=undefined && !($scope.addDepedent.depCloudpass===$scope.addDepedent.depCloudconfPass)){
 				
 					$scope.errorMessageContainerAddDep = true;
@@ -809,6 +824,7 @@ $scope.changepass.show = false;
 							$scope.successMessageContainerAddDep=true;
 							$scope.successMessageAddDep="Dependent Cloud Added Successfully";
 							$('#addDependent').modal('hide');
+							$scope.dependentCldList();
 				}
 				else
 				{
@@ -850,7 +866,7 @@ $scope.changepass.show = false;
 								
 			commonServices.saveInfo(dataObject,apiUrl).then(function(responseData){	
 			
-				if(responseData.message == "Success")
+				if(responseData.message == "Success" || responseData[0].message == "Success")
 				{
 							$scope.addDependentContainer = true;
 							$scope.successMessageContainerChangePass=false;
@@ -866,7 +882,9 @@ $scope.changepass.show = false;
 				else
 				{
 					$scope.errorMessageContainerChangePass = true;
-					$scope.errorMessageChangePass = responseData[0].errorMessage;
+					if(responseData.errorMessage || responseData[0].errorMessage){
+						$scope.errorMessageChangePass = "Invalid Current Password";
+					}
 				}
 			});
 		
@@ -926,8 +944,42 @@ $scope.changepass.show = false;
 	{
 		$('#'+modalName).modal('hide');
 	}
-	
-	
+	$scope.submitContact= function(isvalid,apiurl)
+	{
+		$scope.msgContactUs = false;
+		$scope.ermsgContactUs= false;
+		if(isvalid){
+
+			var dataObject= {
+				email : $scope.user.emailCnt,
+				message : $scope.user.textmsg
+			};
+
+			var apiUrl = {postUrl : 'feedback'};
+			commonServices.saveInfo(dataObject,apiUrl).then(function(result){
+			if(result.message == 'Success' || result[0].message == 'Success')
+				{
+					$scope.msgContactUs = true;
+					$scope.successContactmsg="Email sent successfully.";
+					$scope.user.emailCnt="";
+					$scope.user.textmsg="";
+				}
+				else
+				{
+					$scope.ermsgContactUs = true;
+					if(result[0].errorMessage)
+					$scope.errorContactmsg = result[0].errorMessage;
+					else
+					$scope.errorContactmsg = result.errorMessage;
+				}
+			});
+		}
+		else
+		{
+			$scope.user.hasErrorCond = true;
+
+		}
+	}
 	$scope.initiateList();
 	$scope.additionalCldList();
 	$scope.dependentCldList();

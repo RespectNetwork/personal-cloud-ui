@@ -21,13 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-package biz.neustar.pc.ui.manager.impl;
+package biz.neustar.pc.ui.manager;
 
-import biz.neustar.pcloud.ResponseData;
+import biz.neustar.pc.ui.manager.impl.PCloudResponse;
 import biz.neustar.pcloud.rest.constants.ProductNames;
 import biz.neustar.pcloud.rest.dto.CloudInfo;
 import biz.neustar.pcloud.rest.dto.CloudValidation;
 import biz.neustar.pcloud.rest.dto.DependentList;
+import biz.neustar.pcloud.rest.dto.FeedbackInfo;
 import biz.neustar.pcloud.rest.dto.PaymentInfo;
 import biz.neustar.pcloud.rest.dto.PaymentResponse;
 import biz.neustar.pcloud.rest.dto.Synonym;
@@ -58,4 +59,6 @@ public interface PersonalCloudManager {
     public abstract PaymentResponse processPayment(ProductNames productName, PaymentInfo paymentInfo);
 
     public abstract PCloudResponse changePassword(String cspCloudName, String cloudName, CloudValidation cloudValidation);
+    
+    public abstract PCloudResponse processFeedback(FeedbackInfo feedbackInfo);
 }
